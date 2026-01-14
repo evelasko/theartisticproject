@@ -1,250 +1,118 @@
+import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, TextSmallMuted } from "@/components";
+
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-zinc-950 dark:via-black dark:to-zinc-900">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
-        <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h1 className="text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl lg:text-7xl">
-              The Artistic Project
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-              Dirección Artística y Producción Ejecutiva
-            </p>
-            <p className="mt-8 text-xl leading-8 text-zinc-700 dark:text-zinc-300">
-              Transformamos ideas conceptuales en realidades tangibles
-            </p>
+    <main>
+      {/* Hero Section with golden glow */}
+      <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
+        <div id="above-the-fold" className="w-full h-full">
+          <BannerMedium content="The Artistic" ornateLetters="c" />
+          <BannerMedium content="Project" alternateLetters="o" />
+          {/* TODO Image above the fold */}
+          {/* TODO scroll down indicator */}
+        </div>
+        <div id="below-the-fold" className="w-full">
+          <BannerLarge 
+          content="Donde la visión se convierte en experiencia" 
+          alternateLetters="oÓ" 
+          ornateLetters="c" 
+          className="text-center"
+          />
+          {/* TODO Image below the fold */}
+          {/* TODO Diamond animation */}
+          <TextSmall className="text-center">
+          DIRECCIÓN ARTÍSTICA Y PRODUCCIÓN EJECUTIVA PARA MARCAS QUE BUSCAN IMPACTO.
+          TRANSFORMAMOS CONCEPTOS EN EXPERIENCIAS SENSORIALES QUE SE SIENTEN,
+          SE RECUERDAN Y TRASCIENDEN
+          </TextSmall>
+        </div>
+      <div className="w-full aspect-31/30 relative overflow-hidden">
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/assets/animations/blur-animation.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+      </div>
+      </section>
+      <section id="services" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
+        <div className="tag">Servicios</div>
+        <BannerMedium content="CREAMOS LO QUE OTROS IMAGINAN" ornateLetters="oc" alternateLetters="q" />
+        <TextSmall>Capacidades</TextSmall>
+        <TextSmall>DEL CONCEPTO A LA REALIDAD. GESTIONAMOS CADA DETALLE —COREOGRAFÍA, CASTING, VESTUARIO, DIRECCIÓN DE ARTE— PARA QUE TÚ SOLO TENGAS QUE DISFRUTAR DEL RESULTADO.</TextSmall>
+        {/* TODO Implement buttons with animation */}
+        <button className="tag">Solicita una propuesta</button>
+        {/* TODO Implement cards and animation */}
+        <div id="services-cards">
+          <div>
+            <TextSmall>01</TextSmall>
+            <HeadingSmall content="Audiovisual y Contenido Digital" alternateLetters="q" />
+            <TextSmall>Videoclips, spots publicitarios y contenido para redes sociales. Dirección artística integral para pantallas que capturan.</TextSmall>
+          </div>
+          <div>
+            <TextSmall>02</TextSmall>
+            <HeadingSmall content="Espectáculos y Producción Escénica" alternateLetters="q" />
+            <TextSmall>Dinner shows, cabaret, teatro y pasacalles. Experiencias en vivo que rompen la cuarta pared.</TextSmall>
+          </div>
+          <div>
+            <TextSmall>03</TextSmall>
+            <HeadingSmall content="Eventos Corporativos" alternateLetters="q" />
+            <TextSmall>Activaciones de marca, team building artístico y experiencias de fidelización. El arte al servicio del negocio.</TextSmall>
           </div>
         </div>
       </section>
-
-      {/* About Section */}
-      <section className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
-              Nuestra Empresa
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-              Fundada en <span className="font-semibold text-zinc-900 dark:text-zinc-50">2023</span>, The Artistic Project se dedica a la dirección artística y la producción ejecutiva en el sector del entretenimiento en vivo y la producción audiovisual.
-            </p>
-            <p className="mt-4 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-              Consolidamos una oferta integral que fusiona la creatividad artística con la ejecución técnica y logística, operando a nivel <span className="font-semibold text-zinc-900 dark:text-zinc-50">nacional (España)</span> e <span className="font-semibold text-zinc-900 dark:text-zinc-50">internacional</span>, con presencia y proyectos en Marruecos, Francia y Reino Unido.
-            </p>
-          </div>
-        </div>
+      <section id="portfolio" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
+        <BannerMedium content="PROYECTOS QUE HABLAN POR SÍ MISMOS" ornateLetters="oc" alternateLetters="q" />
+        {/* TODO Implement Three 3D Circular Carousel */}
+        {/* TODO Implement Brands Grid */}
+        <TextSmall>Sony Music • Warner Music • Universal Music • Loewe • Diesel • Starlite Marbella • Grupo Kapital • Teatro Eslava</TextSmall>
       </section>
-
-      {/* Leadership Section */}
-      <section className="border-b border-zinc-200 dark:border-zinc-800">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
-              Liderazgo
-            </h2>
-            <div className="mt-8">
-              <h3 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-                Inés Mostalac
-              </h3>
-              <p className="mt-2 text-lg text-zinc-700 dark:text-zinc-300">
-                Fundadora y Directora
-              </p>
-              <div className="mt-6 space-y-4">
-                <div>
-                  <h4 className="font-semibold text-zinc-900 dark:text-zinc-50">Formación Académica</h4>
-                  <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-                    Graduada en Artes Visuales y Danza (URJC), con un Máster en Liderazgo y Gestión de Proyectos Culturales y un posgrado en Marketing Cultural.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-zinc-900 dark:text-zinc-50">Investigación e Innovación</h4>
-                  <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-                    Actualmente cursa el doctorado, investigando el "contenido corto" como nuevo lenguaje de performance, aportando una visión vanguardista sobre tendencias digitales. Experta en danzas urbanas y culturas underground.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-zinc-900 dark:text-zinc-50">Gestión Integral</h4>
-                  <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-                    Su formación abarca el ciclo completo del negocio, desde la visión artística hasta la viabilidad comercial y el marketing.
-                  </p>
-                </div>
-              </div>
-            </div>
+      <section id="benefits" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
+        <TextSmall>POR QUÉ ELEGIRNOS</TextSmall>
+        <TextSmall>Lo que nos diferencia</TextSmall>
+        <BannerMedium content="NO SOLO PRODUCIMOS. CREAMOS MUNDOS." ornateLetters="oc" alternateLetters="q" />
+        {/* TODO Implement Ordered List */}
+        <div id="benefits-list">
+          <div>
+            <TextSmall>01</TextSmall>
+            <HeadingSmall content="INMERSIÓN SENSORIAL" ornateLetters="oóc" alternateLetters="q" />
+            <TextSmallMuted>DISEÑAMOS PARA LOS CINCO SENTIDOS. CADA PROYECTO INTEGRA AL PÚBLICO EN LA EXPERIENCIA, DIFUMINANDO LA LÍNEA ENTRE ESPECTADOR Y PROTAGONISTA</TextSmallMuted>
+          </div>
+          <div>
+            <TextSmall>02</TextSmall>
+            <HeadingSmall content="RESPUESTA Y SOLVENCIA" ornateLetters="oc" alternateLetters="q" />
+            <TextSmallMuted>MATERIAL TÉCNICO PROPIO Y EQUIPO MULTIDISCIPLINAR. DESDE LA CONSULTORÍA CREATIVA HASTA LA EJECUCIÓN LOGÍSTICA, TODO BAJO UN MISMO TECHO</TextSmallMuted>
+          </div>
+          <div>
+            <TextSmall>03</TextSmall>
+            <HeadingSmall content="ÉTICA Y CUIDADO" ornateLetters="oc" alternateLetters="q" />
+            <TextSmallMuted>EL BIENESTAR DE LOS ARTISTAS NO ES NEGOCIABLE. TRABAJAMOS CON TRANSPARENCIA, COMUNICACIÓN FLUIDA Y RESPETO ABSOLUTO POR CADA PERSONA INVOLUCRADA</TextSmallMuted>
           </div>
         </div>
+        {/* TODO Implement Testimonials Carousel */}
       </section>
-
-      {/* Clients Section */}
-      <section className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
-              Clientes Destacados
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-              Una cartera de clientes de primer nivel que avala nuestra excelencia.
-            </p>
-            <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
-              <div>
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">Industria Musical</h3>
-                <ul className="mt-3 space-y-2 text-zinc-600 dark:text-zinc-400">
-                  <li>• Sony Music</li>
-                  <li>• Warner Music</li>
-                  <li>• Universal Music</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">Moda y Lifestyle</h3>
-                <ul className="mt-3 space-y-2 text-zinc-600 dark:text-zinc-400">
-                  <li>• Loewe</li>
-                  <li>• Diesel</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">Festivales y Espectáculos</h3>
-                <ul className="mt-3 space-y-2 text-zinc-600 dark:text-zinc-400">
-                  <li>• Starlite Marbella</li>
-                  <li>• Boombastic Festival</li>
-                  <li>• Perreolab Festival</li>
-                  <li>• Teatro Eslava</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">Grupos de Ocio y Restauración</h3>
-                <ul className="mt-3 space-y-2 text-zinc-600 dark:text-zinc-400">
-                  <li>• Grupo Kapital</li>
-                  <li>• Grupo Rock Star</li>
-                  <li>• Grupo GOA</li>
-                  <li>• Grupo Sounds</li>
-                  <li>• Grupo Resistencia Tortuga</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+      <section id="founder" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
+        {/* TODO Ask if founder section content is needed */}
       </section>
-
-      {/* Services Section */}
-      <section className="border-b border-zinc-200 dark:border-zinc-800">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
-              Nuestros Servicios
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-              Soluciones "llave en mano", gestionando coreografía, casting, vestuario, maquillaje y dirección de arte.
-            </p>
-            <div className="mt-12 space-y-12">
-              <div>
-                <h3 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-                  Audiovisuales y Contenido Digital
-                </h3>
-                <p className="mt-4 text-zinc-600 dark:text-zinc-400">
-                  Producción estética y técnica para formatos de pantalla:
-                </p>
-                <ul className="mt-4 space-y-2 text-zinc-600 dark:text-zinc-400">
-                  <li>• Videoclips y Spots Publicitarios: Gestión integral de imagen para artistas y marcas</li>
-                  <li>• Contenido para RRSS: Adaptación de lenguajes artísticos a plataformas digitales</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-                  Espectáculos (Producción Escénica)
-                </h3>
-                <p className="mt-4 text-zinc-600 dark:text-zinc-400">
-                  Diseño y ejecución de shows en diversos entornos:
-                </p>
-                <ul className="mt-4 space-y-2 text-zinc-600 dark:text-zinc-400">
-                  <li>• Hostelería y Ocio: Dinner Shows y Cabaret, integrando gastronomía y arte</li>
-                  <li>• Teatral y Convencional: Obras de teatro (incluyendo guionización) y espectáculos infantiles</li>
-                  <li>• Exterior e Itinerante: Pasacalles con interacción directa con el público</li>
-                  <li>• Apoyo a Artistas: Diseño coreográfico y acompañamiento escénico para giras y presentaciones</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-                  Eventos Corporativos
-                </h3>
-                <p className="mt-4 text-zinc-600 dark:text-zinc-400">
-                  Experiencias de marca no intrusivas orientadas al team building, fidelización y promoción, bajo un prisma artístico.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-                  Entertainment (Gran Formato y Nocturno)
-                </h3>
-                <ul className="mt-4 space-y-2 text-zinc-600 dark:text-zinc-400">
-                  <li>• Festivales: Diseño de activaciones y experiencias para eventos masivos</li>
-                  <li>• Vida Nocturna: Animación inmersiva para discotecas con artistas multidisciplinares</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+      <section id="testimonials" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
+        <BannerLarge content="LO QUE DICEN NUESTROS CLIENTES" ornateLetters="oc" alternateLetters="q" />
+        {/* TODO Implement testimonials cards */}
       </section>
-
-      {/* Philosophy Section */}
-      <section className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
-              Nuestra Filosofía
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-              Tres pilares que garantizan la calidad y la ética profesional:
-            </p>
-            <div className="mt-10 space-y-8">
-              <div className="relative pl-8 border-l-4 border-zinc-300 dark:border-zinc-700">
-                <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
-                  1. Inmersión Sensorial
-                </h3>
-                <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-                  Proyectos diseñados para estimular los cinco sentidos e integrar al público, rompiendo la "cuarta pared".
-                </p>
-              </div>
-              <div className="relative pl-8 border-l-4 border-zinc-300 dark:border-zinc-700">
-                <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
-                  2. Capacidad de Respuesta
-                </h3>
-                <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-                  Contamos con material técnico propio y ofrecemos consultoría creativa completa (construcción y realce de la visión del cliente).
-                </p>
-              </div>
-              <div className="relative pl-8 border-l-4 border-zinc-300 dark:border-zinc-700">
-                <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
-                  3. Ética y Bienestar
-                </h3>
-                <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-                  Priorizamos la seguridad y bienestar de los artistas como condición indispensable para el éxito, manteniendo siempre una comunicación cercana y fluida con el cliente.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
+        <TextSmall>CONTACTO</TextSmall>
+        <TextSmall>¿TIENES UN VIDEOCLIP, UN EVENTO CORPORATIVO, UN FESTIVAL O UN ESPECTÁCULO EN MENTE? CUÉNTANOS TU VISIÓN. NOSOTROS LA HACEMOS REALIDAD.</TextSmall>
+        <BannerLarge content="HABLEMOS DE TU PRÓXIMO PROYECTO" ornateLetters="oc" alternateLetters="q" />
+        {/* TODO Implement contact form */}
+        <button className="tag">Enviar propuesta</button>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-zinc-900 dark:bg-zinc-950">
-        <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
-          <div className="text-center">
-            <p className="text-lg font-semibold text-zinc-50">
-              The Artistic Project
-            </p>
-            <p className="mt-2 text-sm text-zinc-400">
-              Dirección Artística y Producción Ejecutiva
-            </p>
-            <p className="mt-4 text-sm text-zinc-500">
-              España • Marruecos • Francia • Reino Unido
-            </p>
-            <p className="mt-6 text-xs text-zinc-600">
-              © 2023-2026 The Artistic Project. Todos los derechos reservados.
-            </p>
-          </div>
-        </div>
+      <footer>
+        {/* Implement Footer Section */}
+        <TextSmall>Dirección Artística • Producción Ejecutiva • Experiencias que trascienden</TextSmall>
+        <TextSmall>Madrid • Internacional</TextSmall>
+        <TextSmall>Instagram • LinkedIn • Vimeo</TextSmall>
       </footer>
-    </div>
+    </main>
   );
 }
