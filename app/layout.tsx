@@ -4,7 +4,7 @@ import "./globals.css";
 import ReactLenis from "lenis/react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { NoiseOverlay } from "@/components";
+import { NoiseOverlay, Navbar } from "@/components";
 
 // Carl Brown - Display font for ornate letters
 const carlBrown = localFont({
@@ -33,7 +33,10 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://use.typekit.net/ooe6cmg.css" />
       </head>
       <body className="antialiased">
-        <ReactLenis root>{children}</ReactLenis>
+        <ReactLenis root>
+          <Navbar />
+          {children}
+        </ReactLenis>
         <NoiseOverlay />
         <Analytics />
         <SpeedInsights />
