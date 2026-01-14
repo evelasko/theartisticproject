@@ -1,16 +1,28 @@
 import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, TextSmallMuted } from "@/components";
+import PosterHero from "@/components/heroes/PosterHero";
 
 export default function Home() {
   return (
     <main>
       {/* Hero Section with golden glow */}
-      <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
-        <div id="above-the-fold" className="w-full h-full">
-          <BannerMedium content="The Artistic" ornateLetters="c" />
-          <BannerMedium content="Project" alternateLetters="o" />
+      <section id="hero">
+        <PosterHero imageSrc="/assets/images/poster-hero.jpg" imageAlt="Hero image" />
+        {/* <div id="above-the-fold" className="w-full h-full"> */}
+          {/* <div className="mr-120 mt-[80px] grid grid-cols-2 grid-rows-2 gap-x-8 gap-y-2 justify-center">
+            <div className="flex justify-end w-full">
+              <BannerMedium content="The" ornateLetters="c" />
+            </div>
+            <div className="flex justify-start w-full">
+              <BannerMedium content="Artistic" ornateLetters="c" />
+            </div>
+            <div />
+            <div className="flex justify-start w-full">
+              <BannerMedium content="Project" alternateLetters="o" />
+            </div>
+          </div> */}
           {/* TODO Image above the fold */}
           {/* TODO scroll down indicator */}
-        </div>
+        {/* </div> */}
         <div id="below-the-fold" className="w-full">
           <BannerLarge 
           content="Donde la visión se convierte en experiencia" 

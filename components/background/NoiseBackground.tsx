@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 /**
  * NoiseOverlay Component
  *
@@ -20,7 +18,7 @@ import React from "react";
  * Note: The base page background color should be set separately (warm black).
  * Gradient glows should be added to individual sections/components, not here.
  */
-export const NoiseOverlay: React.FC = () => {
+export default function NoiseOverlay() {
   return (
     <div className="noise-overlay" aria-hidden="true">
       {/* Animated noise texture */}
@@ -28,8 +26,3 @@ export const NoiseOverlay: React.FC = () => {
     </div>
   );
 };
-
-// Keep backwards-compatible export
-export const NoiseBackground = NoiseOverlay;
-
-export default NoiseOverlay;

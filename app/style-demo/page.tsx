@@ -71,7 +71,18 @@ export default function StyleDemoPage() {
           {/* Banner Large */}
           <div className="border-t border-default pt-[2vw]">
             <TextSmallMuted className="mb-4 pb-12">banner-large (h2)</TextSmallMuted>
-            <BannerLarge content="design that blooms into emotion" />
+            <BannerLarge content="design that blooms into emotion" className="text-shadow-[1px_1px_25px_rgb(255_255_255/0.55)]" />
+            <p
+              className="py-12 my-custom-text-shadow"
+              // style={{
+              //   textShadow: "1px 1px 10px rgba(255,255,255,0.95)",
+              // }}
+            >
+              GLOW SAMPLE TEXT
+            </p>
+            <p className="py-12 text-shadow-[1px_1px_15px_rgb(255_255_255/0.95)]">
+              GLOW SAMPLE TEXT WITH TAILWIND
+            </p>
           </div>
 
           {/* Banner Medium */}
