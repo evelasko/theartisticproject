@@ -1,7 +1,9 @@
 import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, TextSmallMuted, CircleIndicator, TestimonialCard } from "@/components";
+import Button from "@/components/elements/Button";
 import PosterHero from "@/components/heroes/PosterHero";
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -54,13 +56,13 @@ export default function Home() {
       </section>
       <section id="services" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
         <div className="tag my-12">Servicios</div>
-        <div className="my-32 flex flex-col items-start justify-center w-full">
+        <div className="my-32 flex flex-col w-full">
         {[
           'creamos',
           'lo que otros',
           'imaginan',
         ].map((item, index) => (
-          <div key={index} className={clsx("w-full", index === 1 && "ml-24")}>
+          <div key={index} className={clsx("w-full", index === 1 && "text-end justify-end items-end")}>
             <BannerMedium content={item} ornateLetters="ocg" alternateLetters="q" />
           </div>
         ))}
@@ -83,7 +85,7 @@ export default function Home() {
           {/* Right column: button */}
           <div className="flex w-full items-center justify-center">
             {/* TODO Implement buttons with animation */}
-            <button className="tag">Solicita una propuesta</button>
+            <Link href="#contact"><Button>Solicita una propuesta</Button></Link>
           </div>
         </div>
         {/* TODO Implement cards and animation */}
@@ -283,8 +285,7 @@ export default function Home() {
                 </div>
               ))}
               <div id="contact-form">
-                {/* TODO Implement contact form */}
-                <button className="tag">Enviar propuesta</button>
+                <Button>Enviar propuesta</Button>
               </div>
             </div>
           </div>
