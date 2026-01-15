@@ -36,7 +36,7 @@ export { Carousel3D } from "./carousel";
 export type { CarouselItem, Carousel3DProps } from "./carousel";
 
 // Background Components
-export { NoiseOverlay, NoiseBackground, SectionGlow } from "./background";
+export { SectionGlow } from "./background";
 export type { GlowPosition, GlowSize, GlowIntensity } from "./background/SectionGlow";
 
 // Navigation Components

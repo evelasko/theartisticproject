@@ -4,7 +4,8 @@ import "./globals.css";
 import ReactLenis from "lenis/react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { NoiseOverlay, Navbar } from "@/components";
+import { Navbar } from "@/components";
+import NoiseOverlay from "@/components/background/NoiseBackground";
 
 // Carl Brown - Display font for ornate letters
 const carlBrown = localFont({

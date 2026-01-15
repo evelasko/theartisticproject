@@ -1,5 +1,6 @@
 import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, TextSmallMuted } from "@/components";
 import PosterHero from "@/components/heroes/PosterHero";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -7,38 +8,39 @@ export default function Home() {
       {/* Hero Section with golden glow */}
       <section id="hero">
         <PosterHero imageSrc="/assets/images/poster-hero.jpg" imageAlt="Hero image" />
-        {/* <div id="above-the-fold" className="w-full h-full"> */}
-          {/* <div className="mr-120 mt-[80px] grid grid-cols-2 grid-rows-2 gap-x-8 gap-y-2 justify-center">
-            <div className="flex justify-end w-full">
-              <BannerMedium content="The" ornateLetters="c" />
-            </div>
-            <div className="flex justify-start w-full">
-              <BannerMedium content="Artistic" ornateLetters="c" />
-            </div>
-            <div />
-            <div className="flex justify-start w-full">
-              <BannerMedium content="Project" alternateLetters="o" />
-            </div>
-          </div> */}
-          {/* TODO Image above the fold */}
           {/* TODO scroll down indicator */}
-        {/* </div> */}
-        <div id="below-the-fold" className="w-full">
-          <BannerLarge 
-          content="Donde la visión se convierte en experiencia" 
-          alternateLetters="oÓ" 
-          ornateLetters="c" 
-          className="text-center"
-          />
+        <div id="below-the-fold" className="mt-32 w-full">
+          {[
+            'convertimos',
+            'visiones',
+            'en','experiencias',
+          ].map((item, index) => (
+            <div key={index} className="flex justify-center w-full">
+              <BannerLarge 
+              content={item} 
+              alternateLetters="oÓ" 
+              ornateLetters="cx" 
+              className="text-center"
+              />
+            </div>
+          ))}
+          <div className="w-full aspect-31/30 relative overflow-hidden">
+            <Image src="/assets/images/feature-a.jpg" alt="Diamond" fill className="w-full h-full object-cover" />
+          </div>
+
           {/* TODO Image below the fold */}
           {/* TODO Diamond animation */}
-          <TextSmall className="text-center">
-          DIRECCIÓN ARTÍSTICA Y PRODUCCIÓN EJECUTIVA PARA MARCAS QUE BUSCAN IMPACTO.
-          TRANSFORMAMOS CONCEPTOS EN EXPERIENCIAS SENSORIALES QUE SE SIENTEN,
-          SE RECUERDAN Y TRASCIENDEN
-          </TextSmall>
+          <div className="w-full flex items-center justify-center">
+            <div className="w-[250px] flex items-center justify-center relative overflow-hidden">
+              <TextSmall className="text-center w-full flex items-center justify-center">
+                DIRECCIÓN ARTÍSTICA Y PRODUCCIÓN EJECUTIVA PARA MARCAS QUE BUSCAN IMPACTO.
+                TRANSFORMAMOS CONCEPTOS EN EXPERIENCIAS SENSORIALES QUE SE SIENTEN,
+                SE RECUERDAN Y TRASCIENDEN
+              </TextSmall>
+            </div>
+          </div>
         </div>
-      <div className="w-full aspect-31/30 relative overflow-hidden">
+      {/* <div className="w-full aspect-31/30 relative overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover"
           src="/assets/animations/blur-animation.mp4"
@@ -47,7 +49,7 @@ export default function Home() {
           muted
           playsInline
         />
-      </div>
+      </div> */}
       </section>
       <section id="services" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
         <div className="tag">Servicios</div>

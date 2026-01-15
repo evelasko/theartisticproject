@@ -31,20 +31,25 @@ export function TopBar({ isAtTop, isScrolled, isHidden, onMenuClick }: TopBarPro
     >
       <div className="flex items-center justify-between px-[3.125vw] py-[1.5vw] max-w-full">
         {/* Left: Brand */}
-        <div className="flex items-center">
+        <div className="gap-x-12 items-center hidden sm:flex">
           <Link 
-            href="/" 
+            href="/trabajos" 
             className="text-(length:--text-small) font-normal tracking-[0.2em] uppercase text-text-primary transition-opacity duration-200 hover:opacity-70"
-            aria-label="The Artistic Project - Ir a inicio"
+            aria-label="The Artistic Project - Galería de proyectos"
           >
-            <span className="inline-block">
-              The Artistic Project
-            </span>
+            <span className="inline-block">Galería</span>
+          </Link>
+          <Link 
+            href="tel:+34666666666" 
+            className="text-(length:--text-small) font-normal tracking-[0.2em] uppercase text-text-primary transition-opacity duration-200 hover:opacity-70"
+            aria-label="The Artistic Project - Contacto"
+          >
+            <span className="inline-block">+34666666666</span>
           </Link>
         </div>
 
         {/* Right: Menu Button */}
-        <div className="flex items-center">
+        <div className="flex items-end sm:items-center">
           <button
             onClick={onMenuClick}
             className="bg-transparent border-none p-0 cursor-pointer text-(length:--text-small) font-normal tracking-[0.25em] uppercase text-text-primary transition-opacity duration-200 hover:opacity-70"

@@ -4,25 +4,24 @@
  * NoiseOverlay Component
  *
  * Creates an animated noise texture overlay that sits ABOVE all page content.
- * Inspired by the Naya Studio Dubai website.
+ * Exact implementation matching Naya Studio Dubai website.
  *
- * Features:
- * - Fixed position overlay covering the entire viewport
- * - Sits above all content with high z-index
- * - Animated noise gif texture with subtle opacity
- * - Pointer-events disabled so it doesn't block interactions
+ * Key properties (extracted from original):
+ * - position: fixed with inset: 0
+ * - z-index: 9999 (above all content)
+ * - background-size: 144px (small tiles for fine grain)
+ * - opacity: 0.14 (14% - very subtle)
+ * - mix-blend-mode: lighten (only brightens darker areas)
+ * - filter: brightness(0.9) (slightly darkens noise before blending)
+ * - pointer-events: none (doesn't block interactions)
  *
- * The noise overlay creates a subtle film grain effect that adds
- * depth and texture to the entire page, affecting all elements.
+ * The animated GIF provides the texture movement - no CSS animation needed.
+ * The lighten blend mode creates a subtle film grain effect that adds
+ * organic texture without overwhelming the content.
  *
  * Note: The base page background color should be set separately (warm black).
  * Gradient glows should be added to individual sections/components, not here.
  */
 export default function NoiseOverlay() {
-  return (
-    <div className="noise-overlay" aria-hidden="true">
-      {/* Animated noise texture */}
-      <div className="noise-overlay__texture" />
-    </div>
-  );
-};
+  return <div className="noise-overlay" aria-hidden="true" />;
+}
