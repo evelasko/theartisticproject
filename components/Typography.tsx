@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import clsx from "clsx";
-import { OrnateText } from "./OrnateText";
+import { OrnateText } from "./elements/OrnateText";
 
 /* ==========================================================================
    SHARED TYPES

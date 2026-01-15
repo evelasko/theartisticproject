@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import clsx from "clsx";
 import { BannerMedium, HeadingSmall, TextSmallMuted } from "@/components";
-import { AnimatedUnderline } from "./AnimatedUnderline";
+import { AnimatedUnderline } from "../elements/AnimatedUnderline";
 import { handleAnchorClick } from "./smoothScroll";
 
 interface FullScreenOverlayProps {

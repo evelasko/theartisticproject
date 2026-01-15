@@ -3,19 +3,22 @@ interface ButtonProps {
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
   className?: string;
+  disabled?: boolean;
 }
 
 export default function Button({ 
   children = "Solicita una propuesta", 
   onClick,
   type = "button",
-  className = ""
+  className = "",
+  disabled = false
 }: ButtonProps) {
   return (
     <button 
       type={type}
       onClick={onClick}
-      className={`button-component ${className}`}
+      disabled={disabled}
+      className={`button-component ${className} ${disabled ? 'is-disabled' : ''}`}
     >
       {/* Content wrapper - ensures content stays above gradient overlay */}
       <span className="button-content">

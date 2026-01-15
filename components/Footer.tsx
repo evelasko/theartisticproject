@@ -7,6 +7,10 @@ import { WhatsAppIcon, InstagramIcon, LinkedInIcon } from "./elements/SocialIcon
 export default function Footer() {
   return (
     <footer className="container-site">
+
+        {/* Divider at the top */}
+        <div className="w-full h-px gradient-divider-centered mb-8" />
+
       {/* Row 1: Three columns that stack on small screens */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         <div>

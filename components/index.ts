@@ -1,5 +1,5 @@
 // Typography Components
-export { OrnateText } from "./OrnateText";
+export { OrnateText } from "./elements/OrnateText";
 export {
   H1,
   BannerLarge,

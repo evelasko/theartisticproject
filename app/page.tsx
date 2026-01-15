@@ -1,4 +1,5 @@
 import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, TextSmallMuted, CircleIndicator, TestimonialCard } from "@/components";
+import ContactForm from "@/components/ContactForm";
 import Button from "@/components/elements/Button";
 import PosterHero from "@/components/heroes/PosterHero";
 import clsx from "clsx";
@@ -284,8 +285,8 @@ export default function Home() {
                   />
                 </div>
               ))}
-              <div id="contact-form">
-                <Button>Enviar propuesta</Button>
+              <div id="contact-form" className="w-full my-24">
+                <ContactForm />
               </div>
             </div>
           </div>

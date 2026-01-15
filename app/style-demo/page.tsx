@@ -1,3 +1,5 @@
+"use client";
+
 import {
   OrnateText,
   H1,
@@ -14,6 +16,7 @@ import {
   CircleIndicator,
 } from "@/components";
 import Button from "@/components/elements/Button";
+import { TextField, TextArea } from "@/components/elements/TextInput";
 
 export default function StyleDemoPage() {
   return (
@@ -802,6 +805,161 @@ export default function StyleDemoPage() {
                   <TextSmallMuted>• Proper semantic button element</TextSmallMuted>
                   <TextSmallMuted>• Customizable type attribute</TextSmallMuted>
                   <TextSmallMuted>• aria-hidden on decorative gradient element</TextSmallMuted>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Form Input Fields Section */}
+      <section className="py-[10vw] container-site">
+        <div className="mb-[5vw]">
+          <TextSmallMuted className="mb-4 pb-12">(09)</TextSmallMuted>
+          <BannerMedium content="form inputs" alternateLetters="o" />
+        </div>
+
+        <div className="space-y-[4vw] mt-[6vw]">
+          {/* Basic TextField */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">text field (default)</TextSmallMuted>
+            <div className="max-w-[40vw]">
+              <TextField placeholder="Name" />
+            </div>
+          </div>
+
+          {/* TextField with Different Placeholders */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">text field variants</TextSmallMuted>
+            <div className="space-y-8 max-w-[40vw]">
+              <TextField placeholder="Email" type="email" />
+              <TextField placeholder="Phone" type="tel" />
+              <TextField placeholder="Company" />
+            </div>
+          </div>
+
+          {/* TextArea */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">text area (multi-line input)</TextSmallMuted>
+            <div className="max-w-[40vw]">
+              <TextArea placeholder="How can we help you" rows={5} />
+            </div>
+          </div>
+
+          {/* Focus Animation Demo */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">focus animation</TextSmallMuted>
+            <div className="glass-subtle p-8 rounded-[1vw] max-w-[50vw]">
+              <div className="space-y-4">
+                <TextSmallMuted className="mb-4">
+                  • Base underline visible by default (subtle)<br />
+                  • Focus: animated line reveals left to right with cubic-bezier easing<br />
+                  • Blur: line fades out smoothly (simple opacity transition)<br />
+                  • Typography matches TopBar style (uppercase, letter-spacing: 0.2em)
+                </TextSmallMuted>
+                <TextField placeholder="Click to see animation" />
+              </div>
+            </div>
+          </div>
+
+          {/* Complete Form Example */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">complete contact form example</TextSmallMuted>
+            <div className="glass-medium p-12 rounded-[2vw] max-w-[50vw]">
+              <HeadingSmall content="get in touch" alternateLetters="o" className="mb-8" />
+              <TextSmall className="mb-8">
+                Planning a wedding, launch, or private event? Have a vision, 
+                a feeling, a moment you want to mark? You imagine it. 
+                We bring it into bloom.
+              </TextSmall>
+              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+                <TextField placeholder="Name" required />
+                <TextField placeholder="Email" type="email" required />
+                <TextField placeholder="Phone" type="tel" />
+                <TextArea placeholder="How can we help you" rows={6} />
+                <div className="pt-4">
+                  <Button type="submit">Send Message</Button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          {/* On Dark Background */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">on dark glass background</TextSmallMuted>
+            <div className="glass-card-dark p-12 rounded-[2vw] max-w-[50vw]">
+              <TextSmall className="mb-8">Quick contact form</TextSmall>
+              <div className="space-y-8">
+                <TextField placeholder="Your name" />
+                <TextField placeholder="Your email" type="email" />
+                <TextArea placeholder="Your message" rows={4} />
+              </div>
+            </div>
+          </div>
+
+          {/* On Golden Glow Background */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">with golden glow background</TextSmallMuted>
+            <div className="gradient-gold-glow-alt p-12 rounded-[2vw] max-w-[50vw]">
+              <BannerMedium content="contact us" alternateLetters="o" className="mb-8" />
+              <div className="space-y-8">
+                <TextField placeholder="Name" />
+                <TextField placeholder="Email" type="email" />
+                <TextArea placeholder="Message" rows={5} />
+                <Button>Submit</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Technical Details */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">technical specifications</TextSmallMuted>
+            <div className="glass-card-dark p-8 rounded-[2vw] space-y-4">
+              <div>
+                <TextSmall className="text-accent-bright-gold">Animation Details:</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• Focus in: Width and opacity animate together (0.6s cubic-bezier)</TextSmallMuted>
+                  <TextSmallMuted>• Focus out: Only opacity fades (0.3s ease) for simple exit</TextSmallMuted>
+                  <TextSmallMuted>• Base underline color change: 0.4s ease</TextSmallMuted>
+                  <TextSmallMuted>• Input field transitions: 0.3s ease</TextSmallMuted>
+                  <TextSmallMuted>• Placeholder opacity fade: 0.3s</TextSmallMuted>
+                </div>
+              </div>
+              <div>
+                <TextSmall className="text-accent-bright-gold">Underline Structure:</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• Base layer: Always visible, subtle (25% opacity white)</TextSmallMuted>
+                  <TextSmallMuted>• Focus layer: Animates from 0% to 100% width, left to right</TextSmallMuted>
+                  <TextSmallMuted>• Full white on focus for emphasis</TextSmallMuted>
+                  <TextSmallMuted>• No hover animation - only responds to focus state</TextSmallMuted>
+                </div>
+              </div>
+              <div>
+                <TextSmall className="text-accent-bright-gold">Typography Style:</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• Matches TopBar component styling</TextSmallMuted>
+                  <TextSmallMuted>• Uppercase with letter-spacing: 0.2em</TextSmallMuted>
+                  <TextSmallMuted>• Font size: var(--text-small)</TextSmallMuted>
+                  <TextSmallMuted>• Both TextField and TextArea use the same style</TextSmallMuted>
+                </div>
+              </div>
+              <div>
+                <TextSmall className="text-accent-bright-gold">Accessibility:</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• Keyboard navigable with visible focus states</TextSmallMuted>
+                  <TextSmallMuted>• Respects prefers-reduced-motion (disables animation)</TextSmallMuted>
+                  <TextSmallMuted>• Proper semantic form elements</TextSmallMuted>
+                  <TextSmallMuted>• Support for all standard HTML input attributes</TextSmallMuted>
+                  <TextSmallMuted>• ForwardRef support for React Hook Form integration</TextSmallMuted>
+                </div>
+              </div>
+              <div>
+                <TextSmall className="text-accent-bright-gold">Responsive Behavior:</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• Desktop: Base sizing with vw units</TextSmallMuted>
+                  <TextSmallMuted>• Tablet (&lt; 991px): Increased padding for better usability</TextSmallMuted>
+                  <TextSmallMuted>• Mobile (&lt; 767px): Larger sizing for mobile interactions</TextSmallMuted>
+                  <TextSmallMuted>• TextArea: Adjustable rows with min-height constraints</TextSmallMuted>
                 </div>
               </div>
             </div>

@@ -1529,6 +1529,177 @@ a {
 }
 
 /* -------------------------------------------------------------------------
+   Contact Form Layout
+   ------------------------------------------------------------------------- */
+
+/* Two-column grid layout */
+.contact-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4vw;
+  margin-bottom: 3vw;
+}
+
+/* Individual column */
+.contact-form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+}
+
+/* Submit button wrapper */
+.contact-form-submit {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Tablet: Reduce gap slightly */
+@media (max-width: 991px) {
+  .contact-form-grid {
+    gap: 5vw;
+    margin-bottom: 5vw;
+  }
+
+  .contact-form-column {
+    gap: 3vw;
+  }
+}
+
+/* Mobile: Single column layout */
+@media (max-width: 767px) {
+  .contact-form-grid {
+    grid-template-columns: 1fr;
+    gap: 6vw;
+    margin-bottom: 6vw;
+  }
+
+  .contact-form-column {
+    gap: 4vw;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Text Input Fields (TextField & TextArea)
+   ------------------------------------------------------------------------- */
+
+.input-field-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0 0 1.8vw;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 400;
+  /* letter-spacing: 0.2em; */
+  text-transform: uppercase;
+  line-height: 1.15;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-field.is-textarea {
+  padding-bottom: 1.8vw;
+  resize: vertical;
+  min-height: 8vw;
+}
+
+.input-field::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 1;
+  text-transform: uppercase;
+  /* letter-spacing: 0.2em; */
+}
+
+
+.input-field:focus::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input-field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Underline structure */
+.input-line-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 1px;
+  overflow: visible;
+}
+
+.input-line-block {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Base underline - always visible */
+.input-line-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-border-medium);
+  opacity: 1;
+  transition: background-color 0.4s ease;
+}
+
+/* Base underline when focused */
+.input-line-base.is-focused {
+  background-color: var(--color-border-emphasis);
+}
+
+/* Animated underline container */
+.input-line-animate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  /* No transition in default state - we control via classes */
+}
+
+/* Animated underline fill */
+.input-line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: var(--color-text-primary);
+  opacity: 1;
+}
+
+/* Focus state - animate in with left-to-right reveal (ease-out, slightly longer) */
+.input-line-animate.is-focused {
+  width: 100%;
+  opacity: 1;
+  transition: width 0.75s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.75s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Blur state - simple fade out (width stays at 100%, only opacity changes) */
+.input-line-animate.is-blurring {
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+/* -------------------------------------------------------------------------
    Navbar Animations
    ------------------------------------------------------------------------- */
 
@@ -1580,6 +1751,15 @@ a {
   .link-line-wrapper {
     margin-top: 0.5vw;
     height: 1px;
+  }
+
+  .input-field {
+    padding-bottom: 3vw;
+  }
+
+  .input-field.is-textarea {
+    padding-bottom: 3vw;
+    min-height: 15vw;
   }
 }
 
@@ -1635,6 +1815,15 @@ a {
     height: 4px;
     right: -3px;
   }
+
+  .input-field {
+    padding-bottom: 4vw;
+  }
+
+  .input-field.is-textarea {
+    padding-bottom: 4vw;
+    min-height: 25vw;
+  }
 }
 
 /* Reduced motion preferences */
@@ -1655,6 +1844,13 @@ a {
   .link-line-block,
   .link-line-inner,
   .link-line-decor {
+    transition-duration: 0.01ms;
+  }
+
+  .input-field,
+  .input-line-base,
+  .input-line-animate,
+  .input-line-fill {
     transition-duration: 0.01ms;
   }
 }
@@ -2460,6 +2656,25 @@ a {
 
 .button-component:focus:not(:focus-visible) {
   outline: none;
+}
+
+/* Disabled State */
+.button-component:disabled,
+.button-component.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.button-component:disabled:hover,
+.button-component.is-disabled:hover {
+  padding: 1.125vw 1.5vw 1.05vw 1.2vw; /* Keep original padding */
+}
+
+.button-component:disabled .button-hover-ring,
+.button-component.is-disabled .button-hover-ring {
+  opacity: 0;
+  animation: none;
 }
 
 /* Mobile Responsive */
