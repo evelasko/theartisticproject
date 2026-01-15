@@ -31,22 +31,20 @@ export interface TestimonialCardProps {
 /**
  * Border image paths
  * 
- * Note: The original Naya Studio website has confusingly named files where
- * the mobile card border uses a file named "author-border_mob" and vice versa.
- * We use the correct mapping based on actual image dimensions and purpose:
- * - Card desktop (2000x1849): review-border-p-2000.webp
- * - Card mobile (1188x1480): author-border_mob.webp (tall rectangle for card)
- * - Avatar desktop (928x948): author-border.webp
- * - Avatar mobile (280x288): review-border_mob.webp (small square for avatar)
+ * Card borders use the same desktop image for both breakpoints since
+ * the CSS border-radius dynamically adjusts for mobile (10.7vw) vs desktop (2vw).
+ * 
+ * Avatar borders use the desktop variant for both breakpoints as well,
+ * since the circular border design works at all sizes.
  */
 const BORDER_IMAGES = {
   card: {
     desktop: "/assets/decorations/review-border-p-2000.webp",
-    mobile: "/assets/decorations/author-border_mob.webp",
+    mobile: "/assets/decorations/review-border-p-2000.webp",
   },
   avatar: {
     desktop: "/assets/decorations/author-border.webp",
-    mobile: "/assets/decorations/review-border_mob.webp",
+    mobile: "/assets/decorations/author-border.webp",
   },
 } as const;
 
