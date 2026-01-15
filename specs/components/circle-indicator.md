@@ -127,6 +127,7 @@ This is useful for toggle states where the circle should smoothly appear/disappe
 When used in the navigation (e.g., the "Menu" button), the circle indicator appears before the button label. The parent container (the button) receives the hover trigger, and both the circle and the text respond to the hover state.
 
 Structure:
+
 - Parent: Interactive link/button with hover listener
 - Child 1: Circle indicator
 - Child 2: Text label
@@ -138,6 +139,7 @@ When used in section headers (e.g., "capabilities", "discover Why cube Studio"),
 ### In Custom Cursor
 
 A variation of this component is used as the default custom cursor icon. In this context:
+
 - The circle follows the mouse position
 - The sizing may differ slightly for cursor visibility
 - Additional cursor states (drag, hover targets) use variations of this base design

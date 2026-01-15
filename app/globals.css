@@ -1658,3 +1658,250 @@ a {
     transition-duration: 0.01ms;
   }
 }
+
+/* ==========================================================================
+   CIRCLE INDICATOR COMPONENT
+   ========================================================================== */
+
+/**
+ * A small circular indicator element with two concentric circles:
+ * - Semi-transparent outer circle with blur (glow effect)
+ * - Solid inner dot
+ * 
+ * Used throughout the interface for:
+ * - Navigation button indicators
+ * - Section header markers
+ * - Custom cursor variations
+ */
+
+/* -------------------------------------------------------------------------
+   Base Circle Indicator (Outer Circle)
+   ------------------------------------------------------------------------- */
+
+.circle-indicator {
+  /* Layout */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Size - Desktop */
+  width: 0.58vw;
+  height: 0.58vw;
+  
+  /* Shape */
+  border-radius: 50%;
+  
+  /* Appearance */
+  background-color: rgba(255, 255, 255, 0.6);
+  
+  /* Blur effect for soft glow */
+  filter: blur(0.05vw);
+  
+  /* 3D transform optimization for performance */
+  transform-style: preserve-3d;
+  
+  /* Smooth transitions */
+  transition: transform 200ms ease;
+  
+  /* Ensure proper layering */
+  position: relative;
+}
+
+/* -------------------------------------------------------------------------
+   Inner Dot (Solid Center)
+   ------------------------------------------------------------------------- */
+
+.circle-indicator__dot {
+  /* Size - Desktop (approximately 38% of outer circle) */
+  width: 0.22vw;
+  height: 0.22vw;
+  
+  /* Shape */
+  border-radius: 50%;
+  
+  /* Appearance */
+  background-color: #ffffff;
+  
+  /* Subtle blur for softness */
+  filter: blur(0.02vw);
+  
+  /* Ensure proper rendering */
+  transform-style: preserve-3d;
+}
+
+/* -------------------------------------------------------------------------
+   Interactive Variant (Hover State)
+   ------------------------------------------------------------------------- */
+
+.circle-indicator--interactive:hover {
+  transform: scale(1.15);
+}
+
+/* -------------------------------------------------------------------------
+   Inactive State (Hidden but Maintains Layout)
+   ------------------------------------------------------------------------- */
+
+.circle-indicator--inactive {
+  transform: scale(0);
+}
+
+/* -------------------------------------------------------------------------
+   Dark Mode Variant (For Light Backgrounds)
+   ------------------------------------------------------------------------- */
+
+.circle-indicator--dark {
+  filter: invert() blur(0.05vw);
+}
+
+.circle-indicator--dark .circle-indicator__dot {
+  filter: invert() blur(0.02vw);
+}
+
+/* -------------------------------------------------------------------------
+   Mobile Responsive Sizing
+   ------------------------------------------------------------------------- */
+
+@media (max-width: 991px) {
+  .circle-indicator {
+    /* Size - Mobile (approximately 4.6x larger) */
+    width: 2.66vw;
+    height: 2.66vw;
+    
+    /* Increased blur for mobile */
+    filter: blur(0.2vw);
+  }
+  
+  .circle-indicator__dot {
+    /* Size - Mobile */
+    width: 1.14vw;
+    height: 1.14vw;
+    
+    /* Proportional blur adjustment */
+    filter: blur(0.08vw);
+  }
+  
+  .circle-indicator--dark {
+    filter: invert() blur(0.2vw);
+  }
+  
+  .circle-indicator--dark .circle-indicator__dot {
+    filter: invert() blur(0.08vw);
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Reduced Motion Accessibility
+   ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .circle-indicator {
+    transition: none;
+  }
+  
+  .circle-indicator--interactive:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   TESTIMONIAL CARD COMPONENT
+   
+   A testimonial/review card design inspired by the Naya Studio website.
+   Features a dark gradient background, circular author avatar with 
+   decorative border, gradient divider, and quote/testimonial sections.
+   ========================================================================== */
+
+/* -------------------------------------------------------------------------
+   Main Card Container
+   ------------------------------------------------------------------------- */
+
+.testimonial-card {
+  /* Base background as fallback */
+  background: linear-gradient(180deg, #101010, rgba(17, 17, 17, 0.5));
+  
+  /* Border styling removed - now using decorative border images */
+  
+  /* Minimum height for consistent card sizing */
+  min-height: 400px;
+  
+  /* Aspect ratio similar to original design */
+  aspect-ratio: 492 / 455;
+}
+
+@media (max-width: 991px) {
+  .testimonial-card {
+    min-height: 360px;
+    aspect-ratio: auto;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Decorative Border Images
+   Border decoration is now handled via Next.js Image components
+   with responsive desktop/mobile variants:
+   - Card border: review-border-p-2000.webp (desktop) / review-border_mob.webp (mobile)
+   - Avatar border: author-border.webp (desktop) / author-border_mob.webp (mobile)
+   ------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------
+   Author Name Typography
+   Large, thin weight heading style matching the original design
+   ------------------------------------------------------------------------- */
+
+.testimonial-author-name {
+  font-family: var(--font-body);
+  font-size: clamp(1.5rem, 2.9vw, 2.5rem);
+  font-weight: 100;
+  line-height: 86%;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+/* -------------------------------------------------------------------------
+   Opacity Utility for Divider
+   ------------------------------------------------------------------------- */
+
+.opacity-21 {
+  opacity: 0.21;
+}
+
+/* -------------------------------------------------------------------------
+   Mobile Responsive Adjustments
+   ------------------------------------------------------------------------- */
+
+@media (max-width: 991px) {
+  .testimonial-author-name {
+    font-size: clamp(1.25rem, 6vw, 2rem);
+  }
+  
+  .testimonial-card {
+    /* Adjust padding for mobile */
+    padding: 5%;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Swiper Integration Styles
+   When used within a Swiper carousel
+   ------------------------------------------------------------------------- */
+
+.swiper-slide .testimonial-card {
+  /* Ensure proper sizing within swiper */
+  height: 100%;
+  width: 100%;
+}
+
+/* Active slide enhancement */
+.swiper-slide-active .testimonial-card {
+  /* Optional: subtle scale or shadow for active state */
+  transform: translateZ(0); /* GPU acceleration hint */
+  /* transform: scale(1.02); */
+  /* box-shadow: 0 0 40px rgba(0, 0, 0, 0.3); */
+}
+
+/* Inactive slides */
+.swiper-slide:not(.swiper-slide-active) .testimonial-card {
+  /* Optional: dim inactive cards slightly */
+  transition: opacity 300ms ease;
+  /* opacity: 0.7; */
+}
