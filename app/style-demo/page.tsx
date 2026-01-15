@@ -13,6 +13,7 @@ import {
   HeadingParagraph,
   CircleIndicator,
 } from "@/components";
+import Button from "@/components/elements/Button";
 
 export default function StyleDemoPage() {
   return (
@@ -622,6 +623,188 @@ export default function StyleDemoPage() {
               alternateLetters="cq"
               className="text-heading-small"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Button Component Section */}
+      <section className="py-[10vw] container-site">
+        <div className="mb-[5vw]">
+          <TextSmallMuted className="mb-4 pb-12">(08)</TextSmallMuted>
+          <BannerMedium content="button component" alternateLetters="o" />
+        </div>
+
+        <div className="space-y-[4vw] mt-[6vw]">
+          {/* Default Button */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">default button (Spanish text)</TextSmallMuted>
+            <div className="flex items-center gap-8 flex-wrap">
+              <Button />
+            </div>
+          </div>
+
+          {/* English Variant */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">English variant (from original site)</TextSmallMuted>
+            <div className="flex items-center gap-8 flex-wrap">
+              <Button>Discuss the project</Button>
+            </div>
+          </div>
+
+          {/* Custom Text Variants */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">custom text variants</TextSmallMuted>
+            <div className="flex items-center gap-8 flex-wrap">
+              <Button>Plan Your Event</Button>
+              <Button>View Gallery</Button>
+              <Button>Contact Us</Button>
+            </div>
+          </div>
+
+          {/* Submit Button Type */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">submit button (type=&quot;submit&quot;)</TextSmallMuted>
+            <div className="flex items-center gap-8 flex-wrap">
+              <Button type="submit">Submit Form</Button>
+              <Button type="submit">Send Message</Button>
+            </div>
+          </div>
+
+          {/* Hover State Demo */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">hover state (hover to see animation)</TextSmallMuted>
+            <div className="p-8 glass-subtle rounded-[1vw] inline-block">
+              <div className="flex flex-col gap-4">
+                <TextSmallMuted className="mb-2">
+                  • Left arrow fades in<br />
+                  • Padding expands on right side<br />
+                  • Both arrows get spacing<br />
+                  • Animated gradient border appears (rotating conic gradient)<br />
+                  • Gold and white shimmer effect
+                </TextSmallMuted>
+                <Button>Hover over me</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* In Dark Context */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">on dark glass background</TextSmallMuted>
+            <div className="glass-card-dark p-12 rounded-[2vw] inline-block">
+              <Button>Plan Your Event</Button>
+            </div>
+          </div>
+
+          {/* In Light Context with Glow */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">with golden glow background</TextSmallMuted>
+            <div className="gradient-gold-glow-alt p-12 rounded-[2vw] inline-block">
+              <Button>Discuss the project</Button>
+            </div>
+          </div>
+
+          {/* Multiple Buttons in Row */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">multiple buttons (horizontal layout)</TextSmallMuted>
+            <div className="flex items-center gap-6 flex-wrap">
+              <Button>Learn More</Button>
+              <Button>Our Services</Button>
+              <Button>Get Started</Button>
+            </div>
+          </div>
+
+          {/* With Typography */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">in context with heading and text</TextSmallMuted>
+            <div className="glass-medium p-12 rounded-[2vw] max-w-[50vw]">
+              <HeadingSmall content="Ready to create something unforgettable?" alternateLetters="o" />
+              <TextSmall className="mt-6 mb-8">
+                Planning a wedding, launch, or private event? Have a vision, 
+                a feeling, a moment you want to mark? You imagine it. 
+                We bring it into bloom.
+              </TextSmall>
+              <Button>Start Your Project</Button>
+            </div>
+          </div>
+
+          {/* CTA Section Style */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">call-to-action section style</TextSmallMuted>
+            <div className="relative overflow-hidden rounded-[2vw]">
+              <div className="gradient-gold-glow p-16 text-center">
+                <BannerMedium content="let's create" alternateLetters="o" className="mb-8" />
+                <HeadingSmall content="something unforgettable" alternateLetters="o" className="mb-12" />
+                <div className="flex justify-center gap-6">
+                  <Button>Contact Us</Button>
+                  <Button>View Our Work</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Responsive Behavior Note */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">responsive behavior</TextSmallMuted>
+            <div className="space-y-4">
+              <TextSmall>The button automatically scales for different screen sizes:</TextSmall>
+              <div className="space-y-2 pl-6">
+                <TextSmallMuted>• Desktop: Base sizing with vw units</TextSmallMuted>
+                <TextSmallMuted>• Tablet (&lt; 991px): Slightly larger for better touch targets</TextSmallMuted>
+                <TextSmallMuted>• Mobile (&lt; 767px): Significantly scaled up for mobile interactions</TextSmallMuted>
+                <TextSmallMuted>• Reduced motion: All animations disabled for accessibility</TextSmallMuted>
+              </div>
+              <div className="mt-6">
+                <Button>Resize your browser to test</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Technical Details */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">technical specifications</TextSmallMuted>
+            <div className="glass-card-dark p-8 rounded-[2vw] space-y-4">
+              <div>
+                <TextSmall className="text-accent-bright-gold">Animation Details:</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• Padding transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1)</TextSmallMuted>
+                  <TextSmallMuted>• Arrow width/height: 0.8s cubic-bezier(0.4, 0, 0.2, 1)</TextSmallMuted>
+                  <TextSmallMuted>• Gradient border fade: 0.3s ease</TextSmallMuted>
+                  <TextSmallMuted>• Gradient rotation: 4.5s linear infinite</TextSmallMuted>
+                  <TextSmallMuted>• Active state scale: 0.1s ease</TextSmallMuted>
+                </div>
+              </div>
+              <div>
+                <TextSmall className="text-accent-bright-gold">Gradient Border Effect:</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• Conic gradient with rotating angle (360deg cycle)</TextSmallMuted>
+                  <TextSmallMuted>• Color sequence: transparent → gold → white → gold → transparent</TextSmallMuted>
+                  <TextSmallMuted>• Uses background-clip trick for border effect</TextSmallMuted>
+                  <TextSmallMuted>• Matches button&apos;s rounded corners (1.5vw radius)</TextSmallMuted>
+                  <TextSmallMuted>• Similar to IconButton but rectangular instead of circular</TextSmallMuted>
+                </div>
+              </div>
+              <div>
+                <TextSmall className="text-accent-bright-gold">Structure (Layered):</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• Content wrapper (z-index: 5):</TextSmallMuted>
+                  <TextSmallMuted>  - Left arrow SVG (hidden by default)</TextSmallMuted>
+                  <TextSmallMuted>  - Text content (customizable)</TextSmallMuted>
+                  <TextSmallMuted>  - Right arrow SVG (visible)</TextSmallMuted>
+                  <TextSmallMuted>• Animated gradient ring overlay (z-index: 4)</TextSmallMuted>
+                  <TextSmallMuted>• Proper z-index ensures text stays above gradient</TextSmallMuted>
+                </div>
+              </div>
+              <div>
+                <TextSmall className="text-accent-bright-gold">Accessibility:</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• Keyboard navigable with visible focus states</TextSmallMuted>
+                  <TextSmallMuted>• Respects prefers-reduced-motion (disables animation)</TextSmallMuted>
+                  <TextSmallMuted>• Proper semantic button element</TextSmallMuted>
+                  <TextSmallMuted>• Customizable type attribute</TextSmallMuted>
+                  <TextSmallMuted>• aria-hidden on decorative gradient element</TextSmallMuted>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

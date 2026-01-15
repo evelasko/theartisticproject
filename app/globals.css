@@ -1905,3 +1905,663 @@ a {
   transition: opacity 300ms ease;
   /* opacity: 0.7; */
 }
+
+/* ==========================================================================
+   ICON BUTTON COMPONENT
+   
+   Circular icon button with animated conic gradient border on hover.
+   Extracted from Naya Studio Dubai website.
+   ========================================================================== */
+
+/* -------------------------------------------------------------------------
+   CSS Custom Properties for Gradient Animation
+   These @property rules enable smooth animation of the gradient angle
+   ------------------------------------------------------------------------- */
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --gradient-angle-offset {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --gradient-percent {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 5%;
+}
+
+@property --gradient-shine {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: white;
+}
+
+/* -------------------------------------------------------------------------
+   Icon Button Wrapper - Container for grouped icon buttons
+   ------------------------------------------------------------------------- */
+
+.icon-button-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  --icon-button-wrapper-padding: 0.3vw; /* Default: md */
+  padding-left: var(--icon-button-wrapper-padding);
+}
+
+/* Wrapper size variants - match padding to button sizes */
+.icon-button-wrapper--xs {
+  --icon-button-wrapper-padding: 0.17vw;
+}
+
+.icon-button-wrapper--sm {
+  --icon-button-wrapper-padding: 0.23vw;
+}
+
+.icon-button-wrapper--md {
+  --icon-button-wrapper-padding: 0.3vw;
+}
+
+.icon-button-wrapper--lg {
+  --icon-button-wrapper-padding: 0.37vw;
+}
+
+.icon-button-wrapper--xl {
+  --icon-button-wrapper-padding: 0.43vw;
+}
+
+/* -------------------------------------------------------------------------
+   Icon Button - Base Styles
+   ------------------------------------------------------------------------- */
+
+.icon-button {
+  /* CSS Custom Properties for sizing (set by size modifiers) */
+  --icon-button-size: 5vw;           /* Default: md (~96px at 1920px) */
+  --icon-button-overlap: -0.8vw;     /* Negative margin for overlap */
+  --icon-button-first-offset: -0.4vw; /* First child margin adjustment */
+  
+  /* Layout */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Size - uses CSS custom property */
+  width: var(--icon-button-size);
+  height: var(--icon-button-size);
+  
+  /* Negative margins for overlapping effect */
+  margin-left: var(--icon-button-overlap);
+  margin-right: 0;
+  
+  /* First child reset */
+  &:first-child {
+    margin-left: var(--icon-button-first-offset);
+  }
+  
+  /* Shape */
+  border-radius: 50%;
+  
+  /* Border - subtle light border */
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  
+  /* Background */
+  background-color: transparent;
+  
+  /* Cursor */
+  cursor: pointer;
+  
+  /* Remove default button styles */
+  text-decoration: none;
+  outline: none;
+  
+  /* Smooth transitions */
+  transition: all 0.3s ease;
+}
+
+/* -------------------------------------------------------------------------
+   Icon Button - Size Variants
+   
+   Size reference (at 1920px viewport):
+   - xs: ~48px  (2.5vw)   - Small inline icons
+   - sm: ~72px  (3.75vw)  - Compact buttons  
+   - md: ~96px  (5vw)     - Default size
+   - lg: ~120px (6.25vw)  - Prominent buttons
+   - xl: ~147px (7.66vw)  - Hero/featured buttons
+   ------------------------------------------------------------------------- */
+
+.icon-button--xs {
+  --icon-button-size: 2.5vw;
+  --icon-button-overlap: -0.4vw;
+  --icon-button-first-offset: -0.2vw;
+}
+
+.icon-button--sm {
+  --icon-button-size: 3.75vw;
+  --icon-button-overlap: -0.6vw;
+  --icon-button-first-offset: -0.3vw;
+}
+
+.icon-button--md {
+  --icon-button-size: 5vw;
+  --icon-button-overlap: -0.8vw;
+  --icon-button-first-offset: -0.4vw;
+}
+
+.icon-button--lg {
+  --icon-button-size: 6.25vw;
+  --icon-button-overlap: -1vw;
+  --icon-button-first-offset: -0.5vw;
+}
+
+.icon-button--xl {
+  --icon-button-size: 7.66vw;
+  --icon-button-overlap: -1.23vw;
+  --icon-button-first-offset: -0.62vw;
+}
+
+/* Remove focus outline, use custom focus styles */
+.icon-button:focus {
+  outline: none;
+}
+
+.icon-button:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* -------------------------------------------------------------------------
+   Icon Button - Icon Styling
+   ------------------------------------------------------------------------- */
+
+.icon-button__icon {
+  /* Positioning */
+  position: relative;
+  z-index: 10;
+  
+  /* Icon size - approximately 16% of button size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Icon dimensions - fixed size relative to button */
+  width: 16%;
+  height: 16%;
+  
+  /* Slight upward offset */
+  margin-top: -0.125vw; /* ~-2.4px at 1920px */
+  
+  /* Transitions for hover effects */
+  transition: margin 0.8s ease, height 0.8s ease, width 0.8s ease;
+}
+
+/* SVG icon styling */
+.icon-button__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: none;
+}
+
+.icon-button__icon svg path {
+  fill: white;
+}
+
+/* -------------------------------------------------------------------------
+   Icon Button - Animated Hover Ring
+   Conic gradient border that rotates and appears on hover
+   ------------------------------------------------------------------------- */
+
+.icon-button__hover-ring {
+  /* Positioning - overlay the button */
+  position: absolute;
+  inset: -0.4px 0 0 0;
+  
+  /* Shape */
+  border-radius: 50%;
+  
+  /* Border with transparent border-color (gradient is applied via background) */
+  border: 0.5px solid transparent;
+  
+  /* Hide by default */
+  opacity: 0;
+  
+  /* Overflow hidden to clip gradient */
+  overflow: hidden;
+  
+  /* Layering */
+  z-index: 4;
+  
+  /* Background with animated conic gradient
+     - First layer: solid fill for the inside to hide gradient (padding-box)
+     - Second layer: conic gradient for the border (border-box)
+  */
+  background: 
+    linear-gradient(var(--color-bg-pure), var(--color-bg-pure)) padding-box,
+    conic-gradient(
+      from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+      transparent,
+      var(--color-accent-gold) var(--gradient-percent),
+      white calc(var(--gradient-percent) * 2),
+      var(--color-accent-gold) calc(var(--gradient-percent) * 3),
+      transparent calc(var(--gradient-percent) * 4)
+    ) border-box;
+  
+  /* Animate the gradient angle */
+  animation: icon-button-gradient-rotate 4.5s linear infinite;
+  
+  /* Transition for opacity on hover */
+  transition: 
+    opacity 0.3s ease,
+    --gradient-angle-offset 0.3s ease,
+    --gradient-percent 0.3s ease,
+    --gradient-shine 0.3s ease;
+}
+
+/* Gradient rotation animation */
+@keyframes icon-button-gradient-rotate {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+/* Show hover ring on button hover */
+.icon-button:hover .icon-button__hover-ring {
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------------------
+   Icon Button - Responsive Sizing
+   ------------------------------------------------------------------------- */
+
+/* Tablet - Scale up sizes approximately 2.5x */
+@media (max-width: 991px) {
+  .icon-button-wrapper--xs { --icon-button-wrapper-padding: 0.5vw; }
+  .icon-button-wrapper--sm { --icon-button-wrapper-padding: 0.75vw; }
+  .icon-button-wrapper--md { --icon-button-wrapper-padding: 1vw; }
+  .icon-button-wrapper--lg { --icon-button-wrapper-padding: 1.25vw; }
+  .icon-button-wrapper--xl { --icon-button-wrapper-padding: 1.55vw; }
+  
+  .icon-button--xs {
+    --icon-button-size: 6.25vw;
+    --icon-button-overlap: -1vw;
+    --icon-button-first-offset: -0.5vw;
+  }
+  
+  .icon-button--sm {
+    --icon-button-size: 9.38vw;
+    --icon-button-overlap: -1.5vw;
+    --icon-button-first-offset: -0.75vw;
+  }
+  
+  .icon-button--md {
+    --icon-button-size: 12.5vw;
+    --icon-button-overlap: -2vw;
+    --icon-button-first-offset: -1vw;
+  }
+  
+  .icon-button--lg {
+    --icon-button-size: 15.63vw;
+    --icon-button-overlap: -2.5vw;
+    --icon-button-first-offset: -1.25vw;
+  }
+  
+  .icon-button--xl {
+    --icon-button-size: 19.15vw;
+    --icon-button-overlap: -3.1vw;
+    --icon-button-first-offset: -1.55vw;
+  }
+  
+  .icon-button__icon {
+    margin-top: -0.4vw;
+  }
+}
+
+/* Mobile - Scale up sizes approximately 3x */
+@media (max-width: 767px) {
+  .icon-button-wrapper--xs { --icon-button-wrapper-padding: 0.6vw; }
+  .icon-button-wrapper--sm { --icon-button-wrapper-padding: 0.9vw; }
+  .icon-button-wrapper--md { --icon-button-wrapper-padding: 1.2vw; }
+  .icon-button-wrapper--lg { --icon-button-wrapper-padding: 1.5vw; }
+  .icon-button-wrapper--xl { --icon-button-wrapper-padding: 1.85vw; }
+  
+  .icon-button--xs {
+    --icon-button-size: 7.5vw;
+    --icon-button-overlap: -1.2vw;
+    --icon-button-first-offset: -0.6vw;
+  }
+  
+  .icon-button--sm {
+    --icon-button-size: 11.25vw;
+    --icon-button-overlap: -1.8vw;
+    --icon-button-first-offset: -0.9vw;
+  }
+  
+  .icon-button--md {
+    --icon-button-size: 15vw;
+    --icon-button-overlap: -2.4vw;
+    --icon-button-first-offset: -1.2vw;
+  }
+  
+  .icon-button--lg {
+    --icon-button-size: 18.75vw;
+    --icon-button-overlap: -3vw;
+    --icon-button-first-offset: -1.5vw;
+  }
+  
+  .icon-button--xl {
+    --icon-button-size: 23vw;
+    --icon-button-overlap: -3.7vw;
+    --icon-button-first-offset: -1.85vw;
+  }
+  
+  .icon-button__icon {
+    margin-top: -0.5vw;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Icon Button - Reduced Motion Accessibility
+   ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-button__hover-ring {
+    animation: none;
+    --gradient-angle: 45deg;
+  }
+  
+  .icon-button__icon {
+    transition: none;
+  }
+}
+
+/* ========================================================================== 
+   BUTTON COMPONENT
+   ========================================================================== */
+
+.button-component {
+  /* Layout */
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  
+  /* Sizing */
+  min-height: 2.88vw; /* 55.3125px at 1920px viewport */
+  padding: 1.125vw 1.5vw 1.05vw 1.24vw; /* 21.6px 28.8px 20.16px 23.76px at 1920px */
+  
+  /* Border & Background */
+  border: 1px solid rgba(255, 255, 255, 0.33);
+  border-radius: 1.5vw; /* 28.8px at 1920px */
+  background-color: transparent;
+  
+  /* Typography */
+  color: rgb(255, 255, 255);
+  font-family: var(--font-body);
+  font-size: 0.547vw; /* 10.512px at 1920px */
+  font-weight: 600;
+  line-height: 0.6vw; /* 11.5632px at 1920px */
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: normal;
+  
+  /* Interaction */
+  cursor: pointer;
+  overflow: visible;
+  
+  /* Animation */
+  transition: padding 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Content Wrapper - ensures content stays above gradient overlay */
+.button-component .button-content {
+  /* Layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.48vw; /* Match button gap */
+  
+  /* Positioning */
+  position: relative;
+  z-index: 5; /* Above the gradient ring (z-index: 4) */
+}
+
+/* Button Text */
+.button-component .button-text {
+  font-size: 0.547vw; /* 10.512px at 1920px */
+  font-weight: 400;
+  line-height: 0.6vw; /* 11.5632px at 1920px */
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+/* Arrow Styles */
+.button-component .link-arrow {
+  display: block;
+  flex-shrink: 1;
+  transition: margin 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              height 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-component .link-arrow.is--left {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.button-component .link-arrow.is--right {
+  width: 0.28vw; /* 5.39844px at 1920px */
+  height: 0.42vw; /* 8.09375px at 1920px */
+}
+
+/* Animated Hover Ring (Gradient Border) */
+.button-component .button-hover-ring {
+  /* Positioning - overlay the button */
+  position: absolute;
+  inset: -0.4px 0 0 0;
+  
+  /* Shape - matches button's rounded corners */
+  border-radius: 1.5vw; /* 28.8px at 1920px */
+  
+  /* Border with transparent border-color (gradient is applied via background) */
+  border: 1px solid transparent;
+  
+  /* Hide by default */
+  opacity: 0;
+  
+  /* Overflow hidden to clip gradient */
+  overflow: hidden;
+  
+  /* Layering */
+  z-index: 4;
+  
+  /* Prevent interaction */
+  pointer-events: none;
+  
+  /* Background with animated conic gradient
+     - First layer: solid background fill for the inside (padding-box)
+     - Second layer: conic gradient for the border (border-box)
+  */
+  background: 
+    linear-gradient(var(--color-bg-pure), var(--color-bg-pure)) padding-box,
+    conic-gradient(
+      from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+      transparent,
+      var(--color-accent-gold) var(--gradient-percent),
+      white calc(var(--gradient-percent) * 2),
+      var(--color-accent-gold) calc(var(--gradient-percent) * 3),
+      transparent calc(var(--gradient-percent) * 4)
+    ) border-box;
+  
+  /* Animate the gradient angle */
+  animation: button-gradient-rotate 4.5s linear infinite;
+  
+  /* Transition for opacity on hover */
+  transition: 
+    opacity 0.3s ease,
+    --gradient-angle-offset 0.3s ease,
+    --gradient-percent 0.3s ease,
+    --gradient-shine 0.3s ease;
+}
+
+/* Gradient rotation animation for button */
+@keyframes button-gradient-rotate {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+/* Hover State */
+.button-component:hover {
+  padding: 1.125vw 1.8vw 1.05vw 1.5vw; /* Increase right padding */
+}
+
+.button-component:hover .link-arrow.is--left {
+  width: 0.28vw;
+  height: 0.42vw;
+  margin-right: 0.2vw;
+}
+
+.button-component:hover .link-arrow.is--right {
+  margin-left: 0.2vw;
+}
+
+/* Show animated gradient ring on hover */
+.button-component:hover .button-hover-ring {
+  opacity: 1;
+}
+
+/* Active State */
+.button-component:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease, padding 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus State */
+.button-component:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.button-component:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 991px) {
+  .button-component {
+    min-height: 4vw;
+    padding: 1.5vw 2vw 1.4vw 1.7vw;
+    border-radius: 2vw;
+    font-size: 0.9vw;
+    line-height: 1vw;
+  }
+  
+  .button-component .button-content {
+    gap: 0.8vw;
+  }
+  
+  .button-component .button-text {
+    font-size: 0.9vw;
+    line-height: 1vw;
+  }
+  
+  .button-component .link-arrow.is--right {
+    width: 0.4vw;
+    height: 0.6vw;
+  }
+  
+  .button-component .button-hover-ring {
+    border-radius: 2vw;
+  }
+  
+  .button-component:hover {
+    padding: 1.5vw 2.5vw 1.4vw 2vw;
+  }
+  
+  .button-component:hover .link-arrow.is--left {
+    width: 0.4vw;
+    height: 0.6vw;
+    margin-right: 0.3vw;
+  }
+  
+  .button-component:hover .link-arrow.is--right {
+    margin-left: 0.3vw;
+  }
+}
+
+@media (max-width: 767px) {
+  .button-component {
+    min-height: 12vw;
+    padding: 4vw 5.5vw 3.8vw 4.5vw;
+    border-radius: 6vw;
+    font-size: 2.5vw;
+    line-height: 2.8vw;
+  }
+  
+  .button-component .button-content {
+    gap: 2vw;
+  }
+  
+  .button-component .button-text {
+    font-size: 2.5vw;
+    line-height: 2.8vw;
+  }
+  
+  .button-component .link-arrow.is--right {
+    width: 1.2vw;
+    height: 1.8vw;
+  }
+  
+  .button-component .button-hover-ring {
+    border-radius: 6vw;
+  }
+  
+  .button-component:hover {
+    padding: 4vw 6.5vw 3.8vw 5.5vw;
+  }
+  
+  .button-component:hover .link-arrow.is--left {
+    width: 1.2vw;
+    height: 1.8vw;
+    margin-right: 0.8vw;
+  }
+  
+  .button-component:hover .link-arrow.is--right {
+    margin-left: 0.8vw;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .button-component,
+  .button-component .link-arrow,
+  .button-component .button-text,
+  .button-component .button-hover-ring {
+    transition: none;
+  }
+  
+  .button-component .button-hover-ring {
+    animation: none;
+    --gradient-angle: 45deg;
+  }
+  
+  .button-component:active {
+    transform: none;
+  }
+}
