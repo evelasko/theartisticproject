@@ -1,5 +1,6 @@
-import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, TextSmallMuted } from "@/components";
+import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, TextSmallMuted, CircleIndicator, TestimonialCard } from "@/components";
 import PosterHero from "@/components/heroes/PosterHero";
+import clsx from "clsx";
 import Image from "next/image";
 
 export default function Home() {
@@ -52,81 +53,243 @@ export default function Home() {
       </div> */}
       </section>
       <section id="services" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
-        <div className="tag">Servicios</div>
-        <BannerMedium content="CREAMOS LO QUE OTROS IMAGINAN" ornateLetters="oc" alternateLetters="q" />
-        <TextSmall>Capacidades</TextSmall>
-        <TextSmall>DEL CONCEPTO A LA REALIDAD. GESTIONAMOS CADA DETALLE —COREOGRAFÍA, CASTING, VESTUARIO, DIRECCIÓN DE ARTE— PARA QUE TÚ SOLO TENGAS QUE DISFRUTAR DEL RESULTADO.</TextSmall>
-        {/* TODO Implement buttons with animation */}
-        <button className="tag">Solicita una propuesta</button>
+        <div className="tag my-12">Servicios</div>
+        <div className="my-32 flex flex-col items-start justify-center w-full">
+        {[
+          'creamos',
+          'lo que otros',
+          'imaginan',
+        ].map((item, index) => (
+          <div key={index} className={clsx("w-full", index === 1 && "ml-24")}>
+            <BannerMedium content={item} ornateLetters="ocg" alternateLetters="q" />
+          </div>
+        ))}
+        </div>
+        <div className="w-full flex flex-col md:flex-row justify-between items-stretch gap-8 my-24">
+          {/* Left columns: CircleIndicator+Capacidades | Text */}
+          <div className="flex flex-col md:flex-row w-full md:w-1/2 gap-6">
+            {/* Column 1: CircleIndicator + Capacidades */}
+            <div className="flex items-start gap-2 w-auto md:w-auto">
+              <CircleIndicator />
+              <TextSmall>Capacidades</TextSmall>
+            </div>
+            {/* Column 2: Description */}
+            <div className="flex items-start md:w-2/5 pl-4 md:pl-0">
+              <TextSmall>
+                DEL CONCEPTO A LA REALIDAD. GESTIONAMOS CADA DETALLE —COREOGRAFÍA, CASTING, VESTUARIO, DIRECCIÓN DE ARTE— PARA QUE TÚ SOLO TENGAS QUE DISFRUTAR DEL RESULTADO.
+              </TextSmall>
+            </div>
+          </div>
+          {/* Right column: button */}
+          <div className="flex w-full items-center justify-center">
+            {/* TODO Implement buttons with animation */}
+            <button className="tag">Solicita una propuesta</button>
+          </div>
+        </div>
         {/* TODO Implement cards and animation */}
-        <div id="services-cards">
-          <div>
-            <TextSmall>01</TextSmall>
+        <div id="services-cards" className="w-full flex flex-col md:flex-row justify-between items-stretch gap-8 my-24">
+          <div className="w-1/3">
+            <TextSmall className="pb-4">01</TextSmall>
             <HeadingSmall content="Audiovisual y Contenido Digital" alternateLetters="q" />
-            <TextSmall>Videoclips, spots publicitarios y contenido para redes sociales. Dirección artística integral para pantallas que capturan.</TextSmall>
+            <TextSmall className="pt-4">Videoclips, spots publicitarios y contenido para redes sociales. Dirección artística integral para pantallas que capturan.</TextSmall>
           </div>
-          <div>
-            <TextSmall>02</TextSmall>
+          <div className="w-1/3">
+            <TextSmall className="pb-4">02</TextSmall>
             <HeadingSmall content="Espectáculos y Producción Escénica" alternateLetters="q" />
-            <TextSmall>Dinner shows, cabaret, teatro y pasacalles. Experiencias en vivo que rompen la cuarta pared.</TextSmall>
+            <TextSmall className="pt-4">Dinner shows, cabaret, teatro y pasacalles. Experiencias en vivo que rompen la cuarta pared.</TextSmall>
           </div>
-          <div>
-            <TextSmall>03</TextSmall>
+          <div className="w-1/3">
+            <TextSmall className="pb-4">03</TextSmall>
             <HeadingSmall content="Eventos Corporativos" alternateLetters="q" />
-            <TextSmall>Activaciones de marca, team building artístico y experiencias de fidelización. El arte al servicio del negocio.</TextSmall>
+            <TextSmall className="pt-4">Activaciones de marca, team building artístico y experiencias de fidelización. El arte al servicio del negocio.</TextSmall>
           </div>
         </div>
       </section>
       <section id="portfolio" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
-        <BannerMedium content="PROYECTOS QUE HABLAN POR SÍ MISMOS" ornateLetters="oc" alternateLetters="q" />
+      <div className="tag my-12">Portfolio</div>
+        {[
+          'proyectos',
+          'que hablan',
+          'por sí mismos',
+        ].map((item, index) => (
+          <div key={index}>
+            <BannerMedium content={item} ornateLetters="oc" alternateLetters="q" />
+          </div>
+        ))}
         {/* TODO Implement Three 3D Circular Carousel */}
         {/* TODO Implement Brands Grid */}
+        <div className="py-24">
         <TextSmall>Sony Music • Warner Music • Universal Music • Loewe • Diesel • Starlite Marbella • Grupo Kapital • Teatro Eslava</TextSmall>
+        </div>
       </section>
       <section id="benefits" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
-        <TextSmall>POR QUÉ ELEGIRNOS</TextSmall>
-        <TextSmall>Lo que nos diferencia</TextSmall>
-        <BannerMedium content="NO SOLO PRODUCIMOS. CREAMOS MUNDOS." ornateLetters="oc" alternateLetters="q" />
-        {/* TODO Implement Ordered List */}
-        <div id="benefits-list">
-          <div>
-            <TextSmall>01</TextSmall>
-            <HeadingSmall content="INMERSIÓN SENSORIAL" ornateLetters="oóc" alternateLetters="q" />
-            <TextSmallMuted>DISEÑAMOS PARA LOS CINCO SENTIDOS. CADA PROYECTO INTEGRA AL PÚBLICO EN LA EXPERIENCIA, DIFUMINANDO LA LÍNEA ENTRE ESPECTADOR Y PROTAGONISTA</TextSmallMuted>
+        <div className="flex flex-col md:flex-row w-full gap-8">
+          {/* Left Column */}
+          <div className="flex flex-col items-start md:w-1/4">
+            <div className="flex items-start gap-2">
+              <CircleIndicator />
+              <TextSmall>POR QUÉ ELEGIRNOS</TextSmall>
+            </div>
           </div>
-          <div>
-            <TextSmall>02</TextSmall>
-            <HeadingSmall content="RESPUESTA Y SOLVENCIA" ornateLetters="oc" alternateLetters="q" />
-            <TextSmallMuted>MATERIAL TÉCNICO PROPIO Y EQUIPO MULTIDISCIPLINAR. DESDE LA CONSULTORÍA CREATIVA HASTA LA EJECUCIÓN LOGÍSTICA, TODO BAJO UN MISMO TECHO</TextSmallMuted>
+          {/* Right Column */}
+          <div className="flex flex-col w-full">
+            {[
+              'no solo','producimos',
+              'creamos',
+              'mundos',
+            ].map((item, index) => (
+              <div key={index} className={clsx(
+                "w-full", 
+                index === 2 && "mt-4",
+                index > 1 && "ml-0 text-end md:hidden"
+                )}>
+                <BannerMedium content={item} ornateLetters="oc" alternateLetters="q" />
+              </div>
+            ))}
           </div>
-          <div>
-            <TextSmall>03</TextSmall>
-            <HeadingSmall content="ÉTICA Y CUIDADO" ornateLetters="oc" alternateLetters="q" />
-            <TextSmallMuted>EL BIENESTAR DE LOS ARTISTAS NO ES NEGOCIABLE. TRABAJAMOS CON TRANSPARENCIA, COMUNICACIÓN FLUIDA Y RESPETO ABSOLUTO POR CADA PERSONA INVOLUCRADA</TextSmallMuted>
+        </div>
+        <div className="flex flex-col md:flex-row gap-8 w-full items-start my-24 md:my-0">
+          <div className="relative w-full md:w-1/2 aspect-9/16 overflow-hidden rounded-lg">
+            <Image
+              src="/assets/images/dev-placeholder-portrait.jpg"
+              alt="Benefits"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+          <div
+            id="benefits-list"
+            className="flex flex-col gap-8 w-full md:w-1/2"
+          >
+            <div>
+              {[
+                'creamos',
+                'mundos',
+              ].map((item, index) => (
+                <div key={index} className={clsx(
+                  "w-full hidden md:block", 
+                  )}>
+                  <BannerMedium content={item} ornateLetters="oc" alternateLetters="q" />
+                </div>
+              ))}
+            </div>
+            {[{
+              title: 'INMERSIÓN SENSORIAL',
+              description: 'DISEÑAMOS PARA LOS CINCO SENTIDOS. CADA PROYECTO INTEGRA AL PÚBLICO EN LA EXPERIENCIA, DIFUMINANDO LA LÍNEA ENTRE ESPECTADOR Y PROTAGONISTA',
+            }, {
+              title: 'RESPUESTA Y SOLVENCIA',
+              description: 'MATERIAL TÉCNICO PROPIO Y EQUIPO MULTIDISCIPLINAR. DESDE LA CONSULTORÍA CREATIVA HASTA LA EJECUCIÓN LOGÍSTICA, TODO BAJO UN MISMO TECHO',
+            }, {
+              title: 'ÉTICA Y CUIDADO',
+              description: 'EL BIENESTAR DE LOS ARTISTAS NO ES NEGOCIABLE. TRABAJAMOS CON TRANSPARENCIA, COMUNICACIÓN FLUIDA Y RESPETO ABSOLUTO POR CADA PERSONA INVOLUCRADA',
+            }].map((item, index) => (
+              <div key={index} className="flex items-start gap-4 mt-24">
+                {/* Number indicator column (hugs content) */}
+                <div className="shrink-0">
+                  <TextSmall>{`0${index + 1}`}</TextSmall>
+                </div>
+                {/* Content column (full width) */}
+                <div className="flex flex-col flex-1 min-w-0">
+                  <HeadingSmall content={item.title} ornateLetters="oócg" alternateLetters="q" />
+                  <div className="mt-8 w-2/3 md:w-1/2">
+                    <TextSmallMuted>{item.description}</TextSmallMuted>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
         {/* TODO Implement Testimonials Carousel */}
       </section>
-      <section id="founder" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
+      {/* <section id="founder" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden"> */}
         {/* TODO Ask if founder section content is needed */}
-      </section>
+      {/* </section> */}
       <section id="testimonials" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
-        <BannerLarge content="LO QUE DICEN NUESTROS CLIENTES" ornateLetters="oc" alternateLetters="q" />
-        {/* TODO Implement testimonials cards */}
+        <div className="w-full my-24">
+          {[
+            'lo que',
+            'dicen',
+            'nuestros',
+            'clientes',
+          ].map((item, index) => (
+            <div key={index}>
+              <div className={clsx("flex", index > 1 ? "justify-end" : "justify-start")}>
+                <BannerLarge
+                  content={item}
+                  ornateLetters="oc"
+                  alternateLetters="q"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Testimonials Cards */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-16">
+          <TestimonialCard
+            name="Omar"
+            role="Hospitality Brand Manager"
+            quote="Everything was delivered on time and with zero stress."
+            testimonial="We needed a clean, elegant setup for a private dinner. The team handled everything quietly and efficiently. The space looked sharp, exactly how we imagined it — no distractions, no noise, just quality."
+            index={1}
+            avatarSrc="/assets/images/dev-placeholder-portrait.jpg"
+          />
+          <TestimonialCard
+            name="Layla"
+            role="Event Producer"
+            quote="They listen — and that shows in the result."
+            testimonial="We had a layered concept and limited time. They didn't overcomplicate anything. Just understood the direction, kept it clean, and delivered something that made sense visually and emotionally."
+            index={2}
+            avatarSrc="/assets/images/dev-placeholder-landscape.jpg"
+          />
+          <TestimonialCard
+            name="Zain"
+            role="Founder, Boutique Fashion Label"
+            quote="They respected the tone of our brand completely."
+            testimonial="It's rare to work with a team that doesn't try to 'make it theirs.' The mood, the materials, the flow — it all felt aligned with what we stand for. Subtle, minimal, but with intention."
+            index={3}
+          />
+        </div>
       </section>
       <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
-        <TextSmall>CONTACTO</TextSmall>
-        <TextSmall>¿TIENES UN VIDEOCLIP, UN EVENTO CORPORATIVO, UN FESTIVAL O UN ESPECTÁCULO EN MENTE? CUÉNTANOS TU VISIÓN. NOSOTROS LA HACEMOS REALIDAD.</TextSmall>
-        <BannerLarge content="HABLEMOS DE TU PRÓXIMO PROYECTO" ornateLetters="oc" alternateLetters="q" />
-        {/* TODO Implement contact form */}
-        <button className="tag">Enviar propuesta</button>
+        <div>
+          <div className="tag my-24">CONTACTO</div>
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div className="flex-col items-center hidden md:flex w-1/3">
+              <TextSmall>
+                ¿TIENES UN VIDEOCLIP, UN EVENTO CORPORATIVO, UN FESTIVAL O UN ESPECTÁCULO EN MENTE? CUÉNTANOS TU VISIÓN. NOSOTROS LA HACEMOS REALIDAD.
+              </TextSmall>
+            </div>
+            <div className="flex flex-col w-full gap-2">
+              {[
+                'creemos',
+                'juntos',
+                'algo',
+                'inolvidable',
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className={clsx(
+                    // Force right alignment for first two, left for the rest
+                    index < 2 ? "flex justify-end" : "flex justify-start",
+                    "w-full"
+                  )}
+                >
+                  <BannerMedium
+                    content={item}
+                    ornateLetters="oc"
+                    alternateLetters="q"
+                  />
+                </div>
+              ))}
+              <div id="contact-form">
+                {/* TODO Implement contact form */}
+                <button className="tag">Enviar propuesta</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
-      <footer>
-        {/* Implement Footer Section */}
-        <TextSmall>Dirección Artística • Producción Ejecutiva • Experiencias que trascienden</TextSmall>
-        <TextSmall>Madrid • Internacional</TextSmall>
-        <TextSmall>Instagram • LinkedIn • Vimeo</TextSmall>
-      </footer>
     </main>
   );
 }

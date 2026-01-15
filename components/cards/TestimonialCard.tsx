@@ -81,7 +81,10 @@ export default function TestimonialCard({
         "relative overflow-hidden",
         "w-full",
         "p-[6.5%]",
-        "rounded-[40px] md:rounded-[30px]",
+        // Border radius matches the decorative border images:
+        // - Mobile (<lg): ~10.7vw to match the more rounded mobile border image
+        // - Desktop (lg+): 2vw to match the desktop border image corners
+        "rounded-[10.7vw] lg:rounded-[2vw]",
         className
       )}
     >
@@ -136,8 +139,8 @@ export default function TestimonialCard({
                 priority={false}
                 aria-hidden="true"
               />
-              {/* Avatar Image */}
-              <div className="absolute inset-[6%] rounded-full overflow-hidden bg-bg-elevated">
+              {/* Avatar Image - inset matches the decorative border ring position */}
+              <div className="absolute inset-[1%] rounded-full overflow-hidden bg-bg-elevated">
                 {avatarSrc ? (
                   <Image
                     src={avatarSrc}
@@ -183,7 +186,7 @@ export default function TestimonialCard({
             ( <span className="tabular-nums">{formattedIndex}</span> )
           </p>
           <div className="flex flex-col gap-6 md:gap-10">
-            <p className="text-medium uppercase leading-snug">
+            <p className="text-medium uppercase">
               {quote}
             </p>
             <p className="text-small text-muted uppercase">
@@ -214,8 +217,8 @@ export default function TestimonialCard({
               priority={false}
               aria-hidden="true"
             />
-            {/* Avatar Image */}
-            <div className="absolute inset-[6%] rounded-full overflow-hidden bg-bg-elevated">
+            {/* Avatar Image - inset matches the decorative border ring position */}
+            <div className="absolute inset-[1%] rounded-full overflow-hidden bg-bg-elevated">
               {avatarSrc ? (
                 <Image
                   src={avatarSrc}
@@ -254,7 +257,7 @@ export default function TestimonialCard({
 
           {/* Group 2: Quote + Testimonial */}
           <div className="flex flex-col gap-10">
-            <p className="text-medium uppercase leading-snug">
+            <p className="text-medium uppercase">
               {quote}
             </p>
             <p className="text-small text-muted uppercase">

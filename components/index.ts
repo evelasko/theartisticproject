@@ -41,3 +41,10 @@ export type { GlowPosition, GlowSize, GlowIntensity } from "./background/Section
 
 // Navigation Components
 export { Navbar } from "./navbar";
+
+// Element Components
+export { default as CircleIndicator } from "./elements/CircleIndicator";
+
+// Card Components
+export { default as TestimonialCard } from "./cards/TestimonialCard";
+export type { TestimonialCardProps } from "./cards/TestimonialCard";

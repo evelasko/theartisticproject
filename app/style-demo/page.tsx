@@ -11,6 +11,7 @@ import {
   TextSmallMuted,
   Subheading,
   HeadingParagraph,
+  CircleIndicator,
 } from "@/components";
 
 export default function StyleDemoPage() {
@@ -346,10 +347,241 @@ export default function StyleDemoPage() {
         </div>
       </section>
 
-      {/* OrnateText Examples Section */}
+      {/* CircleIndicator Section */}
       <section className="py-[10vw] container-site">
         <div className="mb-[5vw]">
           <TextSmallMuted className="mb-4 pb-12">(06)</TextSmallMuted>
+          <BannerMedium content="circle indicator" ornateLetters="o" />
+        </div>
+
+        <div className="space-y-[4vw] mt-[6vw]">
+          {/* Basic Indicator */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">basic indicator</TextSmallMuted>
+            <div className="flex items-center gap-8">
+              <CircleIndicator />
+              <TextSmall>Default appearance with glow effect</TextSmall>
+            </div>
+          </div>
+
+          {/* With Text Label */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">with text label (section header style)</TextSmallMuted>
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <CircleIndicator />
+                <TextSmall>capabilities</TextSmall>
+              </div>
+              <div className="flex items-center gap-3">
+                <CircleIndicator />
+                <TextSmall>discover why</TextSmall>
+              </div>
+              <div className="flex items-center gap-3">
+                <CircleIndicator />
+                <Subheading>style system demo</Subheading>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Variant */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">interactive variant (hover to scale)</TextSmallMuted>
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+                <CircleIndicator interactive />
+                <TextSmall>Menu</TextSmall>
+              </div>
+              <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+                <CircleIndicator interactive />
+                <TextSmall>Close</TextSmall>
+              </div>
+              <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+                <CircleIndicator interactive />
+                <TextLarge>Plan Your Event</TextLarge>
+              </div>
+            </div>
+          </div>
+
+          {/* Active/Inactive States */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">active/inactive states</TextSmallMuted>
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <CircleIndicator active={true} />
+                <TextSmall>Active (visible)</TextSmall>
+              </div>
+              <div className="flex items-center gap-3">
+                <CircleIndicator active={false} />
+                <TextSmall>Inactive (scaled to 0)</TextSmall>
+              </div>
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                  <CircleIndicator active={true} />
+                  <TextSmall>01</TextSmall>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CircleIndicator active={false} />
+                  <TextSmall>02</TextSmall>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CircleIndicator active={true} />
+                  <TextSmall>03</TextSmall>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Dark Mode Variant */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">dark mode variant (inverted for light backgrounds)</TextSmallMuted>
+            <div className="space-y-6">
+              <div className="bg-white p-8 rounded-[1vw] inline-flex items-center gap-3">
+                <CircleIndicator darkMode />
+                <span className="text-black text-sm font-body">Dark mode indicator</span>
+              </div>
+              <div className="bg-accent-bright-gold p-8 rounded-[1vw] inline-flex items-center gap-3">
+                <CircleIndicator darkMode />
+                <span className="text-black text-sm font-body">On gold background</span>
+              </div>
+              <div className="glass-light p-8 rounded-[1vw] inline-flex items-center gap-3">
+                <CircleIndicator darkMode />
+                <span className="text-black text-sm font-body">On glass surface</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Multiple Indicators */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">multiple indicators in sequence</TextSmallMuted>
+            <div className="space-y-6">
+              <div className="flex items-center gap-8 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <CircleIndicator />
+                  <TextSmall>Audiovisual</TextSmall>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CircleIndicator />
+                  <TextSmall>Espectáculos</TextSmall>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CircleIndicator />
+                  <TextSmall>Eventos</TextSmall>
+                </div>
+              </div>
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                  <CircleIndicator />
+                  <TextSmallMuted>01</TextSmallMuted>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CircleIndicator />
+                  <TextSmallMuted>02</TextSmallMuted>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CircleIndicator />
+                  <TextSmallMuted>03</TextSmallMuted>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CircleIndicator />
+                  <TextSmallMuted>04</TextSmallMuted>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Size Comparison */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">size reference across typography</TextSmallMuted>
+            <div className="space-y-8">
+              <div className="flex items-center gap-3">
+                <CircleIndicator />
+                <H3>H3 Heading</H3>
+              </div>
+              <div className="flex items-center gap-3">
+                <CircleIndicator />
+                <TextLarge>Text Large</TextLarge>
+              </div>
+              <div className="flex items-center gap-3">
+                <CircleIndicator />
+                <TextMedium>Text Medium</TextMedium>
+              </div>
+              <div className="flex items-center gap-3">
+                <CircleIndicator />
+                <TextSmall>Text Small</TextSmall>
+              </div>
+              <div className="flex items-center gap-3">
+                <CircleIndicator />
+                <TextSmallMuted>Text Small Muted</TextSmallMuted>
+              </div>
+              <div className="flex items-center gap-3">
+                <CircleIndicator />
+                <Subheading>Subheading</Subheading>
+              </div>
+            </div>
+          </div>
+
+          {/* In Context Examples */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">in context (real-world usage)</TextSmallMuted>
+            <div className="space-y-8">
+              {/* Navigation Button Style */}
+              <div className="glass-subtle p-6 rounded-[1vw] inline-flex">
+                <button className="flex items-center gap-2 cursor-pointer hover:opacity-70 transition-opacity">
+                  <CircleIndicator interactive />
+                  <Subheading>Menu</Subheading>
+                </button>
+              </div>
+
+              {/* Section Header Style */}
+              <div className="glass-card-dark p-8 rounded-[1vw]">
+                <div className="flex items-center gap-3 mb-4">
+                  <CircleIndicator />
+                  <Subheading>capabilities</Subheading>
+                </div>
+                <TextSmall>
+                  Del concepto a la realidad. Gestionamos cada detalle para que tú solo tengas que disfrutar del resultado.
+                </TextSmall>
+              </div>
+
+              {/* List Items */}
+              <div className="glass-medium p-8 rounded-[1vw] space-y-6">
+                <div className="flex items-start gap-3">
+                  <CircleIndicator className="mt-1" />
+                  <div>
+                    <HeadingSmall content="Inmersión Sensorial" />
+                    <TextSmallMuted className="mt-2">
+                      Diseñamos para los cinco sentidos
+                    </TextSmallMuted>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CircleIndicator className="mt-1" />
+                  <div>
+                    <HeadingSmall content="Respuesta y Solvencia" />
+                    <TextSmallMuted className="mt-2">
+                      Material técnico propio y equipo multidisciplinar
+                    </TextSmallMuted>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CircleIndicator className="mt-1" />
+                  <div>
+                    <HeadingSmall content="Ética y Cuidado" />
+                    <TextSmallMuted className="mt-2">
+                      El bienestar de los artistas no es negociable
+                    </TextSmallMuted>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* OrnateText Examples Section */}
+      <section className="py-[10vw] container-site">
+        <div className="mb-[5vw]">
+          <TextSmallMuted className="mb-4 pb-12">(07)</TextSmallMuted>
           <BannerMedium content="ornate text" ornateLetters="o" />
         </div>
 
