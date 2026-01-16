@@ -29,9 +29,9 @@ export function TopBar({ isAtTop, isScrolled, isHidden, onMenuClick }: TopBarPro
       )}
       role="banner"
     >
-      <div className="flex items-center justify-between px-[3.125vw] py-[1.5vw] max-w-full">
+      <div className="flex items-center justify-between px-[3.125vw] py-[5vw] lg:py-[3vw] max-w-full">
         {/* Left: Brand */}
-        <div className="gap-x-12 items-center hidden sm:flex">
+        <div className="gap-x-12 items-center hidden lg:flex">
           <Link 
             href="/trabajos" 
             className="text-(length:--text-small) font-normal tracking-[0.2em] uppercase text-text-primary transition-opacity duration-200 hover:opacity-70"
@@ -49,10 +49,10 @@ export function TopBar({ isAtTop, isScrolled, isHidden, onMenuClick }: TopBarPro
         </div>
 
         {/* Right: Menu Button */}
-        <div className="flex items-end sm:items-center">
+        <div className="flex items-end ml-auto lg:ml-0 pt-[2vw] pr-[2vw] lg:pt-0 lg:pr-0">
           <button
             onClick={onMenuClick}
-            className="bg-transparent border-none p-0 cursor-pointer text-(length:--text-small) font-normal tracking-[0.25em] uppercase text-text-primary transition-opacity duration-200 hover:opacity-70"
+            className="bg-transparent border-none p-0 cursor-pointer text-(length:--text-small) font-normal tracking-normal lg:tracking-[0.25em] uppercase text-text-primary transition-opacity duration-200 hover:opacity-70"
             aria-label="Abrir menú de navegación"
             aria-expanded="false"
           >

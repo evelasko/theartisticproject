@@ -31,23 +31,41 @@ export default function PosterHero({
         />
       </div>
 
-      {/* Content overlay - positioned at top center */}
-      <div className="relative z-10 w-full flex flex-col items-center justify-start pt-[80px]" style={{ height: "100vh" }}>
-        <div
-          className="grid grid-rows-2 gap-x-8 gap-y-2 justify-center"
-          style={{ gridTemplateColumns: "auto 1fr" }}
-        >
-          <div className="flex justify-end">
-            <BannerMedium content="The" ornateLetters="c" />
+      {/* Logo - positioned absolutely on mobile/tablet, centered on desktop */}
+      <div className="poster-hero__logo-wrapper">
+        <div className="poster-hero__logo">
+          {/* Mobile/Tablet: 3 rows, left-aligned */}
+          <div className="poster-hero__logo-mobile">
+            <div className="flex justify-start h-[16vw]">
+              <BannerMedium content="The" ornateLetters="c" className="poster-hero__logo-text-mobile" />
+            </div>
+            <div className="flex justify-start h-[16vw]">
+              <BannerMedium content="Artistic" ornateLetters="c" className="poster-hero__logo-text-mobile" />
+            </div>
+            <div className="flex justify-start h-[16vw]">
+              <BannerMedium content="Project" alternateLetters="o" className="poster-hero__logo-text-mobile" />
+            </div>
           </div>
-          <div className="flex justify-start w-full">
-            <BannerMedium content="Artistic" ornateLetters="c" />
-          </div>
-          <div /> {/* Empty space for 2nd row, 1st column */}
-          <div className="flex justify-start w-full">
-            <BannerMedium content="Project" alternateLetters="o" />
+          
+          {/* Desktop: 2 rows, centered */}
+          <div className="poster-hero__logo-desktop">
+            <div className="flex justify-end">
+              <BannerMedium content="The" ornateLetters="c" />
+            </div>
+            <div className="flex justify-start w-full">
+              <BannerMedium content="Artistic" ornateLetters="c" />
+            </div>
+            <div /> {/* Empty space for 2nd row, 1st column */}
+            <div className="flex justify-start w-full">
+              <BannerMedium content="Project" alternateLetters="o" />
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* Content overlay - positioned at top center */}
+      <div className="relative z-10 w-full flex flex-col items-center justify-start pt-[80px]" style={{ height: "100vh" }}>
+        {/* Content can go here if needed */}
       </div>
     </div>
   );
