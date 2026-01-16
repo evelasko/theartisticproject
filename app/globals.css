@@ -1391,7 +1391,7 @@ a {
   -webkit-backdrop-filter: blur(0px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease-out, backdrop-filter 0.3s ease-out;
+  transition: opacity 2s cubic-bezier(0.2, 0, 0.2, 1), backdrop-filter 2s cubic-bezier(0.2, 0, 0.2, 1);
   overflow-y: auto;
 }
 
@@ -1406,7 +1406,7 @@ a {
 .navbar-overlay__grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   gap: 4vw;
   padding: 8vw 3.125vw 4vw;
   min-height: 100vh;
@@ -1425,12 +1425,32 @@ a {
 
 .navbar-overlay__primary-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 0.5vw;
   color: var(--color-text-primary);
   transition: opacity 0.2s ease;
   opacity: 0;
   transform: translateY(20px);
+}
+
+/* Override BannerMedium font size for overlay */
+.navbar-overlay__primary-item .text-banner-medium {
+  font-size: 10vw !important;
+}
+
+/* Number indicator as superscript - aligned to top */
+.navbar-overlay__number {
+  font-family: var(--font-body);
+  font-size: 2vw;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-text-muted);
+  display: inline-block;
+  align-self: flex-start;
+  margin-right: 0.3em;
+  text-transform: uppercase;
+  flex-shrink: 0;
 }
 
 .navbar-overlay--open .navbar-overlay__primary-item {
@@ -1451,7 +1471,7 @@ a {
   border: none;
   padding: 0;
   cursor: pointer;
-  font-size: var(--text-small);
+  font-size: 0.73vw;
   font-weight: 400;
   letter-spacing: 0.25em;
   text-transform: uppercase;
@@ -1467,10 +1487,19 @@ a {
   display: inline-block;
 }
 
-/* CTA Section - Row 2, Column 1 */
+/* Divider between rows - spans all 3 columns */
+.navbar-overlay__divider {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  height: 1px;
+  background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.33) 50%, transparent);
+  margin: 2vw 0;
+}
+
+/* CTA Section - Row 3, Column 1 */
 .navbar-overlay__cta {
   grid-column: 1;
-  grid-row: 2;
+  grid-row: 3;
   opacity: 0;
   transform: translateY(20px);
 }
@@ -1485,14 +1514,19 @@ a {
   transition: opacity 0.2s ease;
 }
 
+/* Override HeadingSmall font size for overlay CTA */
+.navbar-overlay__cta-link .text-heading-small {
+  font-size: 3.5vw !important;
+}
+
 .navbar-overlay__cta-link:hover {
   opacity: 0.8;
 }
 
-/* Secondary Navigation - Row 2, Column 2 (right-aligned) */
+/* Secondary Navigation - Row 3, Column 2 (right-aligned) */
 .navbar-overlay__secondary {
   grid-column: 2;
-  grid-row: 2;
+  grid-row: 3;
   justify-self: end;
   display: flex;
   flex-direction: column;
@@ -1507,23 +1541,28 @@ a {
 
 .navbar-overlay__secondary-link {
   display: inline-block;
-  font-size: var(--text-small);
+  font-size: 3vw !important;
   font-weight: 400;
-  letter-spacing: 0.2em;
+  letter-spacing: normal;
   text-transform: uppercase;
   color: var(--color-text-primary);
   transition: opacity 0.2s ease;
   cursor: pointer;
 }
 
+/* Override text-small font size for overlay secondary links */
+.navbar-overlay__secondary-link .text-small {
+  font-size: 0.73vw !important;
+}
+
 .navbar-overlay__secondary-link:hover {
   opacity: 0.8;
 }
 
-/* Spacer - Row 2, Column 3 */
+/* Spacer - Row 3, Column 3 */
 .navbar-overlay__spacer {
   grid-column: 3;
-  grid-row: 2;
+  grid-row: 3;
 }
 
 /* Staggered animation items */
@@ -1798,26 +1837,61 @@ a {
 @media (max-width: 991px) {
   .navbar-overlay__grid {
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
     padding: 12vw 4.8vw 6vw;
     gap: 6vw;
   }
 
   .navbar-overlay__primary {
     grid-column: 1 / 3;
+    grid-row: 1;
   }
 
   .navbar-overlay__close {
     grid-column: 2;
     grid-row: 1;
+    font-size: 3.2vw;
   }
 
-  .navbar-overlay__cta,
+  .navbar-overlay__divider {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .navbar-overlay__cta {
+    grid-column: 1 / 3;
+    grid-row: 3;
+  }
+
   .navbar-overlay__secondary {
     grid-column: 1 / 3;
+    grid-row: 4;
+    justify-self: start;
   }
 
   .navbar-overlay__spacer {
     display: none;
+  }
+
+  /* Override font sizes for tablet */
+  .navbar-overlay__primary-item .text-banner-medium {
+    font-size: 10.66vw !important;
+  }
+
+  .navbar-overlay__number {
+    font-size: 3.2vw;
+  }
+
+  .navbar-overlay__cta-link .text-heading-small {
+    font-size: 6.4vw !important;
+  }
+
+  .navbar-overlay__secondary-link {
+    font-size: 3.2vw;
+  }
+
+  .navbar-overlay__secondary-link .text-small {
+    font-size: 3.2vw !important;
   }
 
   .link-line-wrapper {
@@ -1847,30 +1921,66 @@ a {
 
   .navbar-overlay__grid {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto auto;
     padding: 20vw 6vw 8vw;
     gap: 8vw;
   }
 
-  .navbar-overlay__primary,
-  .navbar-overlay__close,
-  .navbar-overlay__cta,
-  .navbar-overlay__secondary {
-    grid-column: 1;
-  }
-
   .navbar-overlay__primary {
+    grid-column: 1;
+    grid-row: 1;
     gap: 5vw;
   }
 
   .navbar-overlay__close {
+    grid-column: 1;
+    grid-row: 1;
     position: absolute;
     top: 4vw;
     right: 6vw;
+    font-size: 3.2vw;
+  }
+
+  .navbar-overlay__divider {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .navbar-overlay__cta {
+    grid-column: 1;
+    grid-row: 3;
   }
 
   .navbar-overlay__secondary {
+    grid-column: 1;
+    grid-row: 4;
     justify-self: start;
     gap: 3vw;
+  }
+
+  .navbar-overlay__spacer {
+    display: none;
+  }
+
+  /* Override font sizes for mobile - same as tablet for consistency */
+  .navbar-overlay__primary-item .text-banner-medium {
+    font-size: 10.66vw !important;
+  }
+
+  .navbar-overlay__number {
+    font-size: 3.2vw;
+  }
+
+  .navbar-overlay__cta-link .text-heading-small {
+    font-size: 6.4vw !important;
+  }
+
+  .navbar-overlay__secondary-link {
+    font-size: 3.2vw;
+  }
+
+  .navbar-overlay__secondary-link .text-small {
+    font-size: 3.2vw !important;
   }
 
   .link-line-wrapper {

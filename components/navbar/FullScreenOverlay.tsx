@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
-import { BannerMedium, HeadingSmall, TextSmallMuted } from "@/components";
+import { BannerMedium, HeadingSmall } from "@/components";
 import { AnimatedUnderline } from "../elements/AnimatedUnderline";
 import { handleAnchorClick } from "./smoothScroll";
 
@@ -19,6 +19,39 @@ interface FullScreenOverlayProps {
  * Features staggered entry animations and elegant typography
  */
 export function FullScreenOverlay({ isOpen, onClose }: FullScreenOverlayProps) {
+  const [shouldRender, setShouldRender] = useState(isOpen);
+  const closingTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  // Handle mounting/unmounting with fade animation
+  useEffect(() => {
+    // Clear any existing timeout
+    if (closingTimeoutRef.current) {
+      clearTimeout(closingTimeoutRef.current);
+      closingTimeoutRef.current = null;
+    }
+
+    if (isOpen) {
+      // Mount immediately when opening
+      if (!shouldRender) {
+        setShouldRender(true);
+      }
+    } else if (shouldRender) {
+      // When closing, wait for fade out animation to complete before unmounting
+      closingTimeoutRef.current = setTimeout(() => {
+        setShouldRender(false);
+        closingTimeoutRef.current = null;
+      }, 2000); // Match the transition duration (2s)
+    }
+
+    return () => {
+      if (closingTimeoutRef.current) {
+        clearTimeout(closingTimeoutRef.current);
+        closingTimeoutRef.current = null;
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
   // Lock body scroll when overlay is open
   useEffect(() => {
     if (isOpen) {
@@ -44,11 +77,13 @@ export function FullScreenOverlay({ isOpen, onClose }: FullScreenOverlayProps) {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!shouldRender) return null;
 
   return (
     <div
-      className={clsx("navbar-overlay", { "navbar-overlay--open": isOpen })}
+      className={clsx("navbar-overlay", { 
+        "navbar-overlay--open": isOpen 
+      })}
       role="dialog"
       aria-modal="true"
       aria-label="Menú de navegación"
@@ -62,7 +97,7 @@ export function FullScreenOverlay({ isOpen, onClose }: FullScreenOverlayProps) {
             className="navbar-overlay__primary-item navbar-overlay__item--1"
             onClick={onClose}
           >
-            <TextSmallMuted>(01)</TextSmallMuted>
+            <span className="navbar-overlay__number">(01)</span>
             <BannerMedium content="HOME" />
           </Link>
 
@@ -71,11 +106,10 @@ export function FullScreenOverlay({ isOpen, onClose }: FullScreenOverlayProps) {
             className="navbar-overlay__primary-item navbar-overlay__item--2"
             onClick={onClose}
           >
-            <TextSmallMuted>(02)</TextSmallMuted>
+            <span className="navbar-overlay__number">(02)</span>
             <BannerMedium content="TRABAJOS" />
           </Link>
         </nav>
-
         {/* Row 1: Close Button (column 3) */}
         <button
           onClick={onClose}
@@ -85,6 +119,9 @@ export function FullScreenOverlay({ isOpen, onClose }: FullScreenOverlayProps) {
           <span className="navbar-overlay__close-text">CERRAR</span>
         </button>
 
+        {/* Divider between rows - spans all 3 columns */}
+        <div className="navbar-overlay__divider"></div>
+
         {/* Row 2: CTA Link (column 1) */}
         <div className="navbar-overlay__cta navbar-overlay__item--3">
           <AnimatedUnderline>
@@ -93,7 +130,8 @@ export function FullScreenOverlay({ isOpen, onClose }: FullScreenOverlayProps) {
               className="navbar-overlay__cta-link"
               onClick={(e) => handleAnchorClick(e, "#contact", onClose)}
             >
-              <HeadingSmall content="HÁBLANOS DE TU PROYECTO" />
+              <HeadingSmall content="HÁBLANOS DE TU" />
+              <HeadingSmall content="PROYECTO" />
             </a>
           </AnimatedUnderline>
         </div>
