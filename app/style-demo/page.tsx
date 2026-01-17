@@ -630,6 +630,276 @@ export default function StyleDemoPage() {
         </div>
       </section>
 
+      {/* OrnateText Stagger Animation Section */}
+      <section className="py-[10vw] container-site">
+        <div className="mb-[5vw]">
+          <TextSmallMuted className="mb-4 pb-12">(07b)</TextSmallMuted>
+          <BannerMedium content="stagger animations" ornateLetters="o" />
+        </div>
+
+        <div className="space-y-[4vw] mt-[6vw]">
+          {/* Reveal Animation Only */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">
+              reveal animation (scroll into view to trigger)
+            </TextSmallMuted>
+            <div className="space-y-12">
+              {/* Fade up reveal */}
+              <div>
+                <TextSmallMuted className="mb-4">fade + slide up</TextSmallMuted>
+                <OrnateText
+                  content="fade into bloom"
+                  alternateLetters="o"
+                  className="text-heading-small"
+                  revealAnimation={{
+                    from: { opacity: 0, y: 30 },
+                    to: { opacity: 1, y: 0 },
+                    duration: 0.5,
+                    stagger: 0.04,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                />
+              </div>
+
+              {/* Scale reveal */}
+              <div>
+                <TextSmallMuted className="mb-4">scale + fade</TextSmallMuted>
+                <OrnateText
+                  content="emergence"
+                  className="text-banner-medium"
+                  revealAnimation={{
+                    from: { opacity: 0, scale: 0.8 },
+                    to: { opacity: 1, scale: 1 },
+                    duration: 0.6,
+                    stagger: 0.05,
+                    ease: "easeOut",
+                  }}
+                />
+              </div>
+
+              {/* Slide from left */}
+              <div>
+                <TextSmallMuted className="mb-4">slide from left</TextSmallMuted>
+                <OrnateText
+                  content="artistic project"
+                  ornateLetters="o"
+                  alternateLetters="c"
+                  className="text-heading-small"
+                  revealAnimation={{
+                    from: { opacity: 0, x: -20 },
+                    to: { opacity: 1, x: 0 },
+                    duration: 0.4,
+                    stagger: 0.03,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Hover Animation Only */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">
+              hover animation (hover to trigger)
+            </TextSmallMuted>
+            <div className="space-y-12">
+              {/* Color change on hover */}
+              <div>
+                <TextSmallMuted className="mb-4">color transition to gold</TextSmallMuted>
+                <OrnateText
+                  content="hover over me"
+                  className="text-heading-small cursor-pointer"
+                  hoverAnimation={{
+                    from: { color: "#ffffff" },
+                    to: { color: "#D4AF37" },
+                    duration: 0.2,
+                    stagger: 0.02,
+                    ease: "easeInOut",
+                  }}
+                />
+              </div>
+
+              {/* Opacity wave on hover */}
+              <div>
+                <TextSmallMuted className="mb-4">opacity wave</TextSmallMuted>
+                <OrnateText
+                  content="luminescence"
+                  alternateLetters="o"
+                  className="text-banner-medium cursor-pointer"
+                  hoverAnimation={{
+                    from: { opacity: 0.5 },
+                    to: { opacity: 1 },
+                    duration: 0.25,
+                    stagger: 0.03,
+                    ease: "easeOut",
+                  }}
+                />
+              </div>
+
+              {/* Jump up on hover */}
+              <div>
+                <TextSmallMuted className="mb-4">jump up effect</TextSmallMuted>
+                <OrnateText
+                  content="elevate"
+                  className="text-heading-small cursor-pointer"
+                  hoverAnimation={{
+                    from: { y: 0 },
+                    to: { y: -8 },
+                    duration: 0.2,
+                    stagger: 0.025,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                />
+              </div>
+
+              {/* Scale on hover */}
+              <div>
+                <TextSmallMuted className="mb-4">scale pulse</TextSmallMuted>
+                <OrnateText
+                  content="grow"
+                  className="text-banner-medium cursor-pointer"
+                  hoverAnimation={{
+                    from: { scale: 1 },
+                    to: { scale: 1.1 },
+                    duration: 0.2,
+                    stagger: 0.04,
+                    ease: "easeOut",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Both Reveal and Hover */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">
+              reveal + hover combined (scroll to reveal, then hover)
+            </TextSmallMuted>
+            <div className="space-y-12">
+              {/* Fade in reveal, color change on hover */}
+              <div>
+                <TextSmallMuted className="mb-4">reveal fade → hover color</TextSmallMuted>
+                <OrnateText
+                  content="interactive experience"
+                  alternateLetters="o"
+                  className="text-heading-small cursor-pointer"
+                  revealAnimation={{
+                    from: { opacity: 0, y: 20 },
+                    to: { opacity: 1, y: 0 },
+                    duration: 0.5,
+                    stagger: 0.03,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  hoverAnimation={{
+                    from: { color: "#ffffff" },
+                    to: { color: "#D4AF37" },
+                    duration: 0.15,
+                    stagger: 0.015,
+                    ease: "easeInOut",
+                  }}
+                />
+              </div>
+
+              {/* Scale reveal, opacity hover */}
+              <div>
+                <TextSmallMuted className="mb-4">reveal scale → hover opacity</TextSmallMuted>
+                <OrnateText
+                  content="dual motion"
+                  className="text-banner-medium cursor-pointer"
+                  revealAnimation={{
+                    from: { opacity: 0, scale: 0.9 },
+                    to: { opacity: 1, scale: 1 },
+                    duration: 0.6,
+                    stagger: 0.05,
+                    ease: "easeOut",
+                  }}
+                  hoverAnimation={{
+                    from: { opacity: 1 },
+                    to: { opacity: 0.7 },
+                    duration: 0.2,
+                    stagger: 0.02,
+                    ease: "easeInOut",
+                  }}
+                />
+              </div>
+
+              {/* Full showcase */}
+              <div className="glass-medium p-12 rounded-[2vw]">
+                <TextSmallMuted className="mb-6">complete showcase</TextSmallMuted>
+                <OrnateText
+                  content="the artistic project"
+                  ornateLetters="o"
+                  alternateLetters="c"
+                  className="text-banner-medium cursor-pointer"
+                  as="h2"
+                  revealAnimation={{
+                    from: { opacity: 0, y: 40, scale: 0.95 },
+                    to: { opacity: 1, y: 0, scale: 1 },
+                    duration: 0.7,
+                    stagger: 0.035,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.1,
+                  }}
+                  hoverAnimation={{
+                    from: { color: "#ffffff", y: 0 },
+                    to: { color: "#D4AF37", y: -4 },
+                    duration: 0.2,
+                    stagger: 0.02,
+                    ease: "easeOut",
+                  }}
+                />
+                <TextSmall className="mt-8">
+                  This example combines reveal animation (fade + slide + scale) with hover
+                  animation (color change + subtle lift). Scroll to see the reveal, then hover
+                  to see the interaction.
+                </TextSmall>
+              </div>
+            </div>
+          </div>
+
+          {/* Animation Options Reference */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">animation configuration reference</TextSmallMuted>
+            <div className="glass-card-dark p-8 rounded-[2vw] space-y-4">
+              <div>
+                <TextSmall className="text-accent-bright-gold">StaggerAnimationConfig Interface:</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• from: Initial state (opacity, y, x, scale, rotate, color, filter)</TextSmallMuted>
+                  <TextSmallMuted>• to: Target state (same properties as from)</TextSmallMuted>
+                  <TextSmallMuted>• duration: Animation duration in seconds (default: 0.3)</TextSmallMuted>
+                  <TextSmallMuted>• stagger: Delay between each character (default: 0.03)</TextSmallMuted>
+                  <TextSmallMuted>• ease: Easing function (string or bezier array)</TextSmallMuted>
+                  <TextSmallMuted>• delay: Initial delay before animation starts</TextSmallMuted>
+                  <TextSmallMuted>• reverse: Animate characters in reverse order</TextSmallMuted>
+                  <TextSmallMuted>• viewportAmount: Visibility threshold for reveal (0-1)</TextSmallMuted>
+                  <TextSmallMuted>• once: Whether reveal animation runs only once</TextSmallMuted>
+                </div>
+              </div>
+              <div>
+                <TextSmall className="text-accent-bright-gold">Animatable Properties:</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• opacity: 0-1 (transparency)</TextSmallMuted>
+                  <TextSmallMuted>• y: Number or string (vertical translation)</TextSmallMuted>
+                  <TextSmallMuted>• x: Number or string (horizontal translation)</TextSmallMuted>
+                  <TextSmallMuted>• scale: Number (size multiplier)</TextSmallMuted>
+                  <TextSmallMuted>• rotate: Number (degrees)</TextSmallMuted>
+                  <TextSmallMuted>• color: CSS color value</TextSmallMuted>
+                  <TextSmallMuted>• filter: CSS filter string (e.g., &quot;blur(4px)&quot;)</TextSmallMuted>
+                </div>
+              </div>
+              <div>
+                <TextSmall className="text-accent-bright-gold">Accessibility:</TextSmall>
+                <div className="mt-2 space-y-1">
+                  <TextSmallMuted>• Respects prefers-reduced-motion setting</TextSmallMuted>
+                  <TextSmallMuted>• Animations are disabled for users who prefer reduced motion</TextSmallMuted>
+                  <TextSmallMuted>• Component falls back to static rendering</TextSmallMuted>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Button Component Section */}
       <section className="py-[10vw] container-site">
         <div className="mb-[5vw]">

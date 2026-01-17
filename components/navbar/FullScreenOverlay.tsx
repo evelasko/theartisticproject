@@ -6,6 +6,8 @@ import clsx from "clsx";
 import { BannerMedium, HeadingSmall } from "@/components";
 import { AnimatedUnderline } from "../elements/AnimatedUnderline";
 import { handleAnchorClick } from "./smoothScroll";
+import { Icon } from "../elements/Icon";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
 
 interface FullScreenOverlayProps {
   isOpen: boolean;
@@ -110,14 +112,28 @@ export function FullScreenOverlay({ isOpen, onClose }: FullScreenOverlayProps) {
             <BannerMedium content="TRABAJOS" />
           </Link>
         </nav>
-        {/* Row 1: Close Button (column 3) */}
-        <button
-          onClick={onClose}
-          className="navbar-overlay__close"
-          aria-label="Cerrar menú"
-        >
-          <span className="navbar-overlay__close-text">CERRAR</span>
-        </button>
+        {/* Row 1: Close Button (column 3) - Clipped circular button with continuous animation */}
+        {/* TODO: The button's background is solid and it should be stransparent while masking the underlying border animation */}
+        <div className={clsx(
+          "absolute top-0 right-0",
+          "w-[23vw] h-[23vw]",
+          "mt-[-3vw] mr-[-1vw]",
+          )}>
+          <button
+            onClick={onClose}
+            className={clsx(
+              "icon-button",
+              "navbar-overlay__close icon-button--lg",
+              // "w-[23vw] h-[23vw]"
+            )}
+            aria-label="Cerrar menú"
+          >
+            <span className="icon-button__icon">
+              <Icon icon={Cancel01Icon} size="1em" strokeWidth={1} />
+            </span>
+            <span className="icon-button__hover-ring navbar-overlay__close-ring" aria-hidden="true" />
+          </button>
+        </div>
 
         {/* Divider between rows - spans all 3 columns */}
         <div className="navbar-overlay__divider"></div>
@@ -144,7 +160,7 @@ export function FullScreenOverlay({ isOpen, onClose }: FullScreenOverlayProps) {
               className="navbar-overlay__secondary-link"
               onClick={(e) => handleAnchorClick(e, "#services", onClose)}
             >
-              <span className="text-small">SERVICIOS</span>
+              <span className="text-medium lg:text-large">SERVICIOS</span>
             </a>
           </AnimatedUnderline>
 
@@ -154,7 +170,7 @@ export function FullScreenOverlay({ isOpen, onClose }: FullScreenOverlayProps) {
               className="navbar-overlay__secondary-link"
               onClick={(e) => handleAnchorClick(e, "#portfolio", onClose)}
             >
-              <span className="text-small">PORTAFOLIO</span>
+              <span className="text-medium lg:text-large">PORTAFOLIO</span>
             </a>
           </AnimatedUnderline>
 
@@ -164,7 +180,7 @@ export function FullScreenOverlay({ isOpen, onClose }: FullScreenOverlayProps) {
               className="navbar-overlay__secondary-link"
               onClick={(e) => handleAnchorClick(e, "#testimonials", onClose)}
             >
-              <span className="text-small">TESTIMONIOS</span>
+              <span className="text-medium lg:text-large">TESTIMONIOS</span>
             </a>
           </AnimatedUnderline>
         </nav>

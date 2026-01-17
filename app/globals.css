@@ -1461,30 +1461,68 @@ a {
   opacity: 0.7;
 }
 
-/* Close button - Row 1, Column 3 */
-.navbar-overlay__close {
+/* Close button container - Row 1, Column 3 */
+.navbar-overlay__close-container {
   grid-column: 3;
   grid-row: 1;
   justify-self: end;
   align-self: start;
+  
+  /* Button size */
+  position: relative;
+  width: 16vw;
+  height: 16vw;
+  
+  /* Center the button within container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Offset to clip partially off-screen - keeps icon visible */
+  margin-right: -3.5vw;
+  margin-top: -3.4vw;
+  
+  /* Ensure the button is visible above other content */
+  z-index: 100;
+}
+
+/* The actual close button */
+.navbar-overlay__close {
+  /* Reset icon-button margins for this context */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  
+  /* Override the default icon-button sizing to match container */
+  --icon-button-size: 27vw !important;
+  
+  /* Full size within container - button uses var(--icon-button-size) */
+  width: var(--icon-button-size) !important;
+  height: var(--icon-button-size) !important;
+  
+  /* Override default background for the overlay context */
   background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font-size: 0.73vw;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--color-text-primary);
-  transition: opacity 0.2s ease;
+  border: 0.5px solid var(--color-border-default);
 }
 
+/* More specific selector to ensure icon-button--lg doesn't override */
+.navbar-overlay__close.icon-button--lg {
+  --icon-button-size: 27vw !important;
+  width: var(--icon-button-size) !important;
+  height: var(--icon-button-size) !important;
+}
+
+/* Make the hover ring always visible (continuous animation) */
+.navbar-overlay__close-ring {
+  opacity: 1 !important;
+}
+
+/* Hover effect - slight scale and brightness */
 .navbar-overlay__close:hover {
-  opacity: 0.7;
+  transform: scale(1.02);
 }
 
-.navbar-overlay__close-text {
-  display: inline-block;
+.navbar-overlay__close:hover .icon-button__icon {
+  opacity: 0.8;
 }
 
 /* Divider between rows - spans all 3 columns */
@@ -1551,9 +1589,9 @@ a {
 }
 
 /* Override text-small font size for overlay secondary links */
-.navbar-overlay__secondary-link .text-small {
-  font-size: 0.73vw !important;
-}
+/* .navbar-overlay__secondary-link .text-small {
+  font-size: 2vw !important;
+} */
 
 .navbar-overlay__secondary-link:hover {
   opacity: 0.8;
@@ -1580,6 +1618,40 @@ a {
 
 .navbar-overlay__item--4 {
   animation-delay: 0.15s;
+}
+
+/* Tablet responsive for close button */
+@media (max-width: 991px) {
+  /* .navbar-overlay__close-container {
+    width: 26vw;
+    height: 26vw;
+    margin-right: -4.8vw;
+    margin-top: -4.7vw;
+  } */
+  
+  .navbar-overlay__close,
+  .navbar-overlay__close.icon-button--lg {
+    --icon-button-size: 28vw !important;
+    width: var(--icon-button-size) !important;
+    height: var(--icon-button-size) !important;
+  }
+}
+
+/* Mobile responsive for close button */
+@media (max-width: 767px) {
+  /* .navbar-overlay__close-container {
+    width: 28vw;
+    height: 28vw;
+    margin-right: -6.1vw;
+    margin-top: -5.9vw;
+  } */
+  
+  .navbar-overlay__close,
+  .navbar-overlay__close.icon-button--lg {
+    --icon-button-size: 28vw !important;
+    width: var(--icon-button-size) !important;
+    height: var(--icon-button-size) !important;
+  }
 }
 
 /* -------------------------------------------------------------------------
@@ -1847,11 +1919,7 @@ a {
     grid-row: 1;
   }
 
-  .navbar-overlay__close {
-    grid-column: 2;
-    grid-row: 1;
-    font-size: 3.2vw;
-  }
+  /* Close button container styles are handled above in responsive section */
 
   .navbar-overlay__divider {
     grid-column: 1 / -1;
@@ -1932,14 +2000,7 @@ a {
     gap: 5vw;
   }
 
-  .navbar-overlay__close {
-    grid-column: 1;
-    grid-row: 1;
-    position: absolute;
-    top: 4vw;
-    right: 6vw;
-    font-size: 3.2vw;
-  }
+  /* Close button container styles are handled above in responsive section */
 
   .navbar-overlay__divider {
     grid-column: 1;
