@@ -107,15 +107,16 @@ export default function Home() {
           </div>
           
           {/* Services Background Image 
-              - Mobile/Tablet: Full-width block element below content (aspect 1.26)
+              - Mobile/Tablet: Full-width block element below content (aspect 0.63)
               - Desktop (lg+): Absolute background layer pinned to right viewport edge
+              - Image always shows full height, positioned from right, left side may overflow/clip
           */}
           <div 
             className="
               relative lg:absolute lg:inset-0
               w-screen lg:w-[calc(100%+3.125vw)]
               -ml-[4.8vw] lg:ml-0
-              aspect-[1.26] lg:aspect-auto
+              aspect-[0.63] lg:aspect-auto
               mt-8 lg:mt-0
               overflow-hidden
             "
@@ -123,9 +124,11 @@ export default function Home() {
             <Image
               src="/assets/images/services-banner.jpg"
               alt="Services background"
-              fill
-              className="object-cover object-right"
+              width={2000}
+              height={1260}
+              className="absolute right-0 top-0 h-full w-auto max-w-none"
               sizes="100vw"
+              priority
             />
           </div>
         </div>
