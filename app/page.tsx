@@ -35,7 +35,7 @@ export default function Home() {
           {/* TODO Image below the fold */}
           {/* TODO Diamond animation */}
           <div className="w-full flex items-center justify-center">
-            <div className="w-[250px] flex items-center justify-center relative overflow-hidden">
+            <div className="w-[70vw] lg:w-[20vw] flex items-center justify-center relative overflow-hidden">
               <TextSmall className="text-center w-full flex items-center justify-center">
                 DIRECCIÓN ARTÍSTICA Y PRODUCCIÓN EJECUTIVA PARA MARCAS QUE BUSCAN IMPACTO.
                 TRANSFORMAMOS CONCEPTOS EN EXPERIENCIAS SENSORIALES QUE SE SIENTEN,
@@ -56,37 +56,77 @@ export default function Home() {
       </div> */}
       </section>
       <section id="services" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
+        {/* TODO: Implement an appropriate heading component */}
         <div className="tag my-12">Servicios</div>
-        <div className="my-32 flex flex-col w-full">
-        {[
-          'creamos',
-          'lo que otros',
-          'imaginan',
-        ].map((item, index) => (
-          <div key={index} className={clsx("w-full", index === 1 && "text-end justify-end items-end")}>
-            <BannerMedium content={item} ornateLetters="ocg" alternateLetters="q" />
-          </div>
-        ))}
-        </div>
-        <div className="w-full flex flex-col md:flex-row justify-between items-stretch gap-8 my-24">
-          {/* Left columns: CircleIndicator+Capacidades | Text */}
-          <div className="flex flex-col md:flex-row w-full md:w-1/2 gap-6">
-            {/* Column 1: CircleIndicator + Capacidades */}
-            <div className="flex items-start gap-2 w-auto md:w-auto">
-              <CircleIndicator />
-              <TextSmall>Capacidades</TextSmall>
+        {/* Services Content Wrapper - relative for background image positioning */}
+        <div className="relative w-full">
+          <div id="services-content" className="relative lg:z-10">
+            <div className="mt-32 flex flex-col w-full">
+            {[
+              'creamos',
+              'lo que otros',
+              'imaginan',
+            ].map((item, index) => (
+              <div key={index} className={clsx(
+                "w-full",
+                index === 1 && "pl-8 md:pl-24"
+              )}>
+                <BannerMedium content={item} ornateLetters="ocg" alternateLetters="q" />
+              </div>
+            ))}
             </div>
-            {/* Column 2: Description */}
-            <div className="flex items-start md:w-2/5 pl-4 md:pl-0">
-              <TextSmall>
-                DEL CONCEPTO A LA REALIDAD. GESTIONAMOS CADA DETALLE —COREOGRAFÍA, CASTING, VESTUARIO, DIRECCIÓN DE ARTE— PARA QUE TÚ SOLO TENGAS QUE DISFRUTAR DEL RESULTADO.
-              </TextSmall>
+            <div className="w-full flex flex-col lg:flex-row justify-between items-stretch gap-8 my-32">
+              {/* Left columns: CircleIndicator+Capacidades | Text */}
+              <div className="flex flex-row w-full lg:w-1/2 gap-6">
+                {/* Column 1: CircleIndicator + Capacidades */}
+                <div className="flex items-start gap-2 w-auto lg:w-auto">
+                  <CircleIndicator />
+                  <TextSmall>Capacidades</TextSmall>
+                </div>
+                {/* Column 2: Description */}
+                <div className="flex flex-col items-start md:w-2/5 pl-4 md:pl-0">
+                  <TextSmall>
+                    DEL CONCEPTO A LA REALIDAD.
+                  </TextSmall>
+                  <br />
+                  <TextSmall>
+                    GESTIONAMOS CADA DETALLE
+                    —COREOGRAFÍA, CASTING, VESTUARIO, DIRECCIÓN DE ARTE—
+                    PARA QUE TÚ SOLO TENGAS QUE DISFRUTAR DEL RESULTADO.
+                  </TextSmall>
+                  <div className="mt-24">
+                    <Link href="#contact"><Button>Solicita una propuesta</Button></Link>
+                  </div>
+                </div>
+              </div>
+              {/* Right column: empty space */}
+              <div className="flex w-full items-center justify-center">
+                <div />
+              </div>
             </div>
           </div>
-          {/* Right column: button */}
-          <div className="flex w-full items-center justify-center">
-            {/* TODO Implement buttons with animation */}
-            <Link href="#contact"><Button>Solicita una propuesta</Button></Link>
+          
+          {/* Services Background Image 
+              - Mobile/Tablet: Full-width block element below content (aspect 1.26)
+              - Desktop (lg+): Absolute background layer pinned to right viewport edge
+          */}
+          <div 
+            className="
+              relative lg:absolute lg:inset-0
+              w-screen lg:w-[calc(100%+3.125vw)]
+              -ml-[4.8vw] lg:ml-0
+              aspect-[1.26] lg:aspect-auto
+              mt-8 lg:mt-0
+              overflow-hidden
+            "
+          >
+            <Image
+              src="/assets/images/services-banner.jpg"
+              alt="Services background"
+              fill
+              className="object-cover object-right"
+              sizes="100vw"
+            />
           </div>
         </div>
         {/* TODO Implement cards and animation */}
