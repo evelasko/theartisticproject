@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
 interface AnimatedSectionHeaderProps {
-  /** The text to display inside the capsule tag */
-  title: string;
+  /** The text to display inside the capsule tag. When omitted, the capsule and bottom line are hidden. */
+  title?: string;
   /** Height from the top to the star center (in CSS units, e.g., "8vw", "120px") */
   topHeight?: string;
-  /** Height from the star center to the capsule top edge (in CSS units) */
+  /** Height from the star center to the capsule top edge (in CSS units). Only used when title is provided. */
   bottomHeight?: string;
   /** Additional CSS classes */
   className?: string;
@@ -26,23 +26,28 @@ interface AnimatedSectionHeaderProps {
  * AnimatedSectionHeader Component
  * 
  * A sophisticated section divider with a cross shape and centered four-point star.
- * The vertical line terminates in a capsule containing the section title.
+ * When a title is provided, the vertical line terminates in a capsule containing the section title.
+ * When no title is provided, it renders as a simple decorative cross with star.
  * 
  * Animation sequence:
  * 1. Vertical line draws from top to star location
  * 2. Star scales up from 0 to full size
  * 3. Simultaneously:
  *    - Horizontal line draws from center outward
- *    - Vertical line continues from star to capsule
- *    - Capsule fades in
+ *    - (If title provided) Vertical line continues from star to capsule
+ *    - (If title provided) Capsule fades in
  * 
  * @example
  * ```tsx
+ * // As a section header with title
  * <AnimatedSectionHeader 
  *   title="Benefits" 
  *   topHeight="8vw" 
  *   bottomHeight="6vw" 
  * />
+ * 
+ * // As a simple decorative element (no capsule)
+ * <AnimatedSectionHeader topHeight="5vw" />
  * ```
  */
 export default function AnimatedSectionHeader({
@@ -167,25 +172,29 @@ export default function AnimatedSectionHeader({
           />
         </div>
 
-        {/* Bottom vertical line segment */}
-        <div className="section-header__line-bottom">
+        {/* Bottom vertical line segment - only shown when title is provided */}
+        {title && (
+          <div className="section-header__line-bottom">
+            <div 
+              className={clsx(
+                "section-header__line-bottom-inner",
+                animationPhase >= 3 && "is-animating"
+              )}
+            />
+          </div>
+        )}
+
+        {/* Capsule tag with title - only shown when title is provided */}
+        {title && (
           <div 
             className={clsx(
-              "section-header__line-bottom-inner",
-              animationPhase >= 3 && "is-animating"
+              "section-header__capsule",
+              (showAll || animationPhase >= 3) && "is-visible"
             )}
-          />
-        </div>
-
-        {/* Capsule tag with title */}
-        <div 
-          className={clsx(
-            "section-header__capsule",
-            (showAll || animationPhase >= 3) && "is-visible"
-          )}
-        >
-          <span className="tag">{title}</span>
-        </div>
+          >
+            <span className="tag">{title}</span>
+          </div>
+        )}
       </div>
     </div>
   );

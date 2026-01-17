@@ -372,6 +372,12 @@ export default function StyleDemoPage() {
                 animationDuration={800}
               />
             </div>
+            <div className="mt-[16vw]">
+              <TextSmallMuted className="mb-4">Decorative only (no title/capsule)</TextSmallMuted>
+              <AnimatedSectionHeader 
+                topHeight="5vw"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -454,6 +460,35 @@ export default function StyleDemoPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <CircleIndicator active={true} />
+                  <TextSmall>03</TextSmall>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Animated Variant (Blink/Pulse) */}
+          <div className="border-t border-default pt-[2vw]">
+            <TextSmallMuted className="mb-4 pb-8">animated variant (blink/pulse effect)</TextSmallMuted>
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <CircleIndicator animated />
+                <TextSmall>Blinking indicator (2s ease-in-out infinite)</TextSmall>
+              </div>
+              <div className="flex items-center gap-3">
+                <CircleIndicator animated />
+                <TextSmall>capabilities</TextSmall>
+              </div>
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                  <CircleIndicator animated />
+                  <TextSmall>01</TextSmall>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CircleIndicator animated />
+                  <TextSmall>02</TextSmall>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CircleIndicator animated />
                   <TextSmall>03</TextSmall>
                 </div>
               </div>

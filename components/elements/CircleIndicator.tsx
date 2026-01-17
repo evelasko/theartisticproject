@@ -7,6 +7,8 @@ interface CircleIndicatorProps {
   interactive?: boolean;
   /** Whether the circle is currently active (visible). When false, scales to 0 */
   active?: boolean;
+  /** Whether to apply the blink/pulse animation (2s ease-in-out infinite) */
+  animated?: boolean;
   /** Dark mode variant - inverts colors for use on light backgrounds */
   darkMode?: boolean;
   /** Additional CSS classes for the outer container */
@@ -22,10 +24,14 @@ interface CircleIndicatorProps {
  * - Navigation button indicators
  * - Section header markers
  * - Custom cursor variations
+ * 
+ * The animated variant adds a subtle blink/pulse effect that fades
+ * the opacity from 1 → 0 → 1 over 2 seconds, running infinitely.
  */
 export default function CircleIndicator({
   interactive = false,
   active = true,
+  animated = false,
   darkMode = false,
   className = '',
 }: CircleIndicatorProps) {
@@ -35,6 +41,7 @@ export default function CircleIndicator({
         circle-indicator
         ${interactive ? 'circle-indicator--interactive' : ''}
         ${!active ? 'circle-indicator--inactive' : ''}
+        ${animated ? 'circle-indicator--animated' : ''}
         ${darkMode ? 'circle-indicator--dark' : ''}
         ${className}
       `}

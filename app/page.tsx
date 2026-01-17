@@ -1,5 +1,6 @@
 import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, TextSmallMuted, CircleIndicator, TestimonialCard } from "@/components";
 import ContactForm from "@/components/ContactForm";
+import AnimatedSectionHeader from "@/components/elements/AnimatedSectionHeader";
 import Button from "@/components/elements/Button";
 import PosterHero from "@/components/heroes/PosterHero";
 import clsx from "clsx";
@@ -11,7 +12,7 @@ export default function Home() {
     <main>
       {/* Hero Section with golden glow */}
       <section id="hero">
-        <PosterHero imageSrc="/assets/images/poster-hero.jpg" imageAlt="Hero image" />
+        <PosterHero imageSrc="/assets/images/poster-hero-2.jpg" imageAlt="Hero image" />
           {/* TODO scroll down indicator */}
         <div id="below-the-fold" className="mt-32 w-full">
           {[
@@ -31,18 +32,6 @@ export default function Home() {
           <div className="w-full aspect-31/30 relative overflow-hidden">
             <Image src="/assets/images/feature-a.jpg" alt="Diamond" fill className="w-full h-full object-cover" />
           </div>
-
-          {/* TODO Image below the fold */}
-          {/* TODO Diamond animation */}
-          <div className="w-full flex items-center justify-center">
-            <div className="w-[70vw] lg:w-[20vw] flex items-center justify-center relative overflow-hidden">
-              <TextSmall className="text-center w-full flex items-center justify-center">
-                DIRECCIÓN ARTÍSTICA Y PRODUCCIÓN EJECUTIVA PARA MARCAS QUE BUSCAN IMPACTO.
-                TRANSFORMAMOS CONCEPTOS EN EXPERIENCIAS SENSORIALES QUE SE SIENTEN,
-                SE RECUERDAN Y TRASCIENDEN
-              </TextSmall>
-            </div>
-          </div>
         </div>
       {/* <div className="w-full aspect-31/30 relative overflow-hidden">
         <video
@@ -56,8 +45,23 @@ export default function Home() {
       </div> */}
       </section>
       <section id="services" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
-        {/* TODO: Implement an appropriate heading component */}
-        <div className="tag my-12">Servicios</div>
+        <div className="w-full flex items-center justify-center my-12">
+          <AnimatedSectionHeader title="Servicios" topHeight="200px" bottomHeight="350px" />
+          <div
+            className="absolute mt-[150px] md:mt-[90] lg:mt-[200px] py-18 w-full flex items-center justify-center"
+            style={{
+              background: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 45%, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%)"
+            }}
+          >
+            <div className="w-[70vw] md:w-[90vw] lg:w-[20vw] flex items-center justify-center relative overflow-hidden">
+              <TextSmall className="text-center w-full flex items-center justify-center">
+                DIRECCIÓN ARTÍSTICA Y PRODUCCIÓN EJECUTIVA PARA MARCAS QUE BUSCAN IMPACTO.
+                TRANSFORMAMOS CONCEPTOS EN EXPERIENCIAS SENSORIALES QUE SE SIENTEN,
+                SE RECUERDAN Y TRASCIENDEN
+              </TextSmall>
+            </div>
+          </div>
+        </div>
         {/* Services Content Wrapper - relative for background image positioning */}
         <div className="relative w-full">
           <div id="services-content" className="relative lg:z-10">
@@ -104,6 +108,7 @@ export default function Home() {
                 <div />
               </div>
             </div>
+       
           </div>
           
           {/* Services Background Image 
@@ -150,9 +155,17 @@ export default function Home() {
             <TextSmall className="pt-4">Activaciones de marca, team building artístico y experiencias de fidelización. El arte al servicio del negocio.</TextSmall>
           </div>
         </div>
+        {/* TODO Implement Brands Grid */}
+        <div className="py-24">
+          <TextSmall className="text-center">Sony Music • Warner Music • Universal Music • Loewe • Diesel • Starlite Marbella • Grupo Kapital • Teatro Eslava</TextSmall>
+        </div>
       </section>
+      {/* DIVIDER IMAGE */}
+      <div className="w-full aspect-20/39 relative overflow-hidden">
+        <Image src="/assets/images/divider-banner-1.jpg" alt="Divider image" fill className="w-full h-full object-cover" />
+      </div>
       <section id="portfolio" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
-      <div className="tag my-12">Portfolio</div>
+      <AnimatedSectionHeader title="Portfolio" topHeight="200px" bottomHeight="150px" className="mb-32" />
         {[
           'proyectos',
           'que hablan',
@@ -163,10 +176,7 @@ export default function Home() {
           </div>
         ))}
         {/* TODO Implement Three 3D Circular Carousel */}
-        {/* TODO Implement Brands Grid */}
-        <div className="py-24">
-        <TextSmall>Sony Music • Warner Music • Universal Music • Loewe • Diesel • Starlite Marbella • Grupo Kapital • Teatro Eslava</TextSmall>
-        </div>
+       
       </section>
       <section id="benefits" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
         <div className="flex flex-col md:flex-row w-full gap-8">
@@ -197,7 +207,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row gap-8 w-full items-start my-24 md:my-0">
           <div className="relative w-full md:w-1/2 aspect-9/16 overflow-hidden rounded-lg">
             <Image
-              src="/assets/images/dev-placeholder-portrait.jpg"
+              src="/assets/images/feature-b.jpg"
               alt="Benefits"
               fill
               className="object-cover"
@@ -299,7 +309,7 @@ export default function Home() {
       </section>
       <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
         <div>
-          <div className="tag my-24">CONTACTO</div>
+          <AnimatedSectionHeader title="Contacto" topHeight="200px" bottomHeight="150px" className="mb-32" />
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div className="flex-col items-center hidden md:flex w-1/3">
               <TextSmall>

@@ -2110,6 +2110,19 @@ a {
  */
 
 /* -------------------------------------------------------------------------
+   Blink Animation Keyframes
+   ------------------------------------------------------------------------- */
+
+@keyframes circle-indicator-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* -------------------------------------------------------------------------
    Base Circle Indicator (Outer Circle)
    ------------------------------------------------------------------------- */
 
@@ -2181,6 +2194,14 @@ a {
 }
 
 /* -------------------------------------------------------------------------
+   Animated Variant (Blink/Pulse Effect)
+   ------------------------------------------------------------------------- */
+
+.circle-indicator--animated {
+  animation: circle-indicator-blink 2s ease-in-out infinite;
+}
+
+/* -------------------------------------------------------------------------
    Dark Mode Variant (For Light Backgrounds)
    ------------------------------------------------------------------------- */
 
@@ -2235,6 +2256,10 @@ a {
   
   .circle-indicator--interactive:hover {
     transform: none;
+  }
+  
+  .circle-indicator--animated {
+    animation: none;
   }
 }
 
@@ -3042,7 +3067,7 @@ a {
   --section-header-line-color: var(--color-border-medium);
   
   /* Star sizing */
-  --section-header-star-size: 0.8vw;
+  --section-header-star-size: 3vw;
   
   /* Layout */
   position: relative;
@@ -3122,7 +3147,7 @@ a {
 .section-header__star-svg {
   width: 100%;
   height: 100%;
-  color: var(--color-text-primary);
+  color: color-mix(in srgb, var(--color-text-primary) 50%, transparent);
 }
 
 /* -------------------------------------------------------------------------
@@ -3214,8 +3239,8 @@ a {
 
 @media (max-width: 991px) {
   .section-header {
-    --section-header-star-size: 2vw;
-    --section-header-line-width: 1px;
+    --section-header-star-size: 5vw;
+    --section-header-line-width: 3px;
   }
 }
 
@@ -3225,8 +3250,8 @@ a {
 
 @media (max-width: 767px) {
   .section-header {
-    --section-header-star-size: 3vw;
-    --section-header-line-width: 1px;
+    --section-header-star-size: 5vw;
+    --section-header-line-width: 1.5px;
   }
 }
 
