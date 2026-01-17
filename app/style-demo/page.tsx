@@ -17,6 +17,7 @@ import {
 } from "@/components";
 import Button from "@/components/elements/Button";
 import { TextField, TextArea } from "@/components/elements/TextInput";
+import AnimatedSectionHeader from "@/components/elements/AnimatedSectionHeader";
 
 export default function StyleDemoPage() {
   return (
@@ -346,6 +347,30 @@ export default function StyleDemoPage() {
             <div>
               <TextSmallMuted className="mb-2">gradient-divider-gold-centered</TextSmallMuted>
               <div className="h-px gradient-divider-gold-centered" />
+            </div>
+          </div>
+        </div>
+
+        {/* Animated Section Header */}
+        <div className="mt-[8vw]">
+          <TextSmall className="mb-[2vw]">Animated Section Header</TextSmall>
+          <div className="space-y-8">
+            <div>
+              <TextSmallMuted className="mb-4">Cross with star and capsule tag - scroll-triggered animation</TextSmallMuted>
+              <AnimatedSectionHeader 
+                title="Benefits"
+                topHeight="10vw"
+                bottomHeight="8vw"
+              />
+            </div>
+            <div className="mt-[16vw]">
+              <TextSmallMuted className="mb-4">Custom heights example</TextSmallMuted>
+              <AnimatedSectionHeader 
+                title="Portfolio"
+                topHeight="6vw"
+                bottomHeight="5vw"
+                animationDuration={800}
+              />
             </div>
           </div>
         </div>

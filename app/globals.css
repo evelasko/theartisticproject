@@ -3019,3 +3019,247 @@ a {
     transform: none;
   }
 }
+
+/* ==========================================================================
+   ANIMATED SECTION HEADER COMPONENT
+   
+   A cross-shaped section divider with a four-point star at center
+   and a capsule tag at the bottom. Features a sequenced scroll-reveal animation.
+   ========================================================================== */
+
+/* -------------------------------------------------------------------------
+   CSS Custom Properties for Animation Control
+   ------------------------------------------------------------------------- */
+
+.section-header {
+  /* Default heights - can be overridden via inline styles */
+  --section-header-top-height: 8vw;
+  --section-header-bottom-height: 6vw;
+  --section-header-duration: 600ms;
+  
+  /* Line styling */
+  --section-header-line-width: 1px;
+  --section-header-line-color: var(--color-border-medium);
+  
+  /* Star sizing */
+  --section-header-star-size: 0.8vw;
+  
+  /* Layout */
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* -------------------------------------------------------------------------
+   Main Container - Centers all elements
+   ------------------------------------------------------------------------- */
+
+.section-header__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* -------------------------------------------------------------------------
+   Top Vertical Line Segment
+   ------------------------------------------------------------------------- */
+
+.section-header__line-top {
+  position: relative;
+  width: var(--section-header-line-width);
+  height: var(--section-header-top-height);
+  overflow: hidden;
+}
+
+.section-header__line-top-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background-color: var(--section-header-line-color);
+  transition: height var(--section-header-duration) cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Fade effect at the top of the line */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 25%);
+}
+
+.section-header__line-top-inner.is-animating {
+  height: 100%;
+}
+
+/* -------------------------------------------------------------------------
+   Four-Point Star Element
+   ------------------------------------------------------------------------- */
+
+.section-header__star {
+  position: relative;
+  width: var(--section-header-star-size);
+  height: var(--section-header-star-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  
+  /* Initial state - scaled to 0 */
+  transform: scale(0);
+  opacity: 0;
+  transition: 
+    transform calc(var(--section-header-duration) * 0.5) cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity calc(var(--section-header-duration) * 0.3) ease-out;
+}
+
+.section-header__star.is-visible {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.section-header__star-svg {
+  width: 100%;
+  height: 100%;
+  color: var(--color-text-primary);
+}
+
+/* -------------------------------------------------------------------------
+   Horizontal Line - Draws from center outward
+   ------------------------------------------------------------------------- */
+
+.section-header__line-horizontal {
+  position: absolute;
+  top: calc(var(--section-header-top-height) + (var(--section-header-star-size) / 2));
+  left: 0;
+  right: 0;
+  height: var(--section-header-line-width);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.section-header__line-horizontal-inner {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 100%;
+  background-color: var(--section-header-line-color);
+  transition: width var(--section-header-duration) cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Fade effect at both ends of the horizontal line */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.section-header__line-horizontal-inner.is-animating {
+  width: 100%;
+}
+
+/* -------------------------------------------------------------------------
+   Bottom Vertical Line Segment
+   ------------------------------------------------------------------------- */
+
+.section-header__line-bottom {
+  position: relative;
+  width: var(--section-header-line-width);
+  height: var(--section-header-bottom-height);
+  overflow: hidden;
+}
+
+.section-header__line-bottom-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background-color: var(--section-header-line-color);
+  transition: height var(--section-header-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-header__line-bottom-inner.is-animating {
+  height: 100%;
+}
+
+/* -------------------------------------------------------------------------
+   Capsule Tag Container
+   ------------------------------------------------------------------------- */
+
+.section-header__capsule {
+  position: relative;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 
+    opacity calc(var(--section-header-duration) * 0.8) ease-out,
+    transform calc(var(--section-header-duration) * 0.8) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-header__capsule.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure the tag inside uses proper styling */
+.section-header__capsule .tag {
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------------
+   Tablet Responsive Adjustments
+   ------------------------------------------------------------------------- */
+
+@media (max-width: 991px) {
+  .section-header {
+    --section-header-star-size: 2vw;
+    --section-header-line-width: 1px;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Mobile Responsive Adjustments
+   ------------------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .section-header {
+    --section-header-star-size: 3vw;
+    --section-header-line-width: 1px;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Reduced Motion Accessibility
+   ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .section-header__line-top-inner,
+  .section-header__line-bottom-inner,
+  .section-header__line-horizontal-inner,
+  .section-header__star,
+  .section-header__capsule {
+    transition: none;
+  }
+  
+  /* Show all elements immediately */
+  .section-header__line-top-inner,
+  .section-header__line-bottom-inner {
+    height: 100%;
+  }
+  
+  .section-header__line-horizontal-inner {
+    width: 100%;
+  }
+  
+  .section-header__star {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .section-header__capsule {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
