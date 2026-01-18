@@ -47,7 +47,6 @@ const LABEL_SEGMENTS_X = 8;
 const LABEL_SEGMENTS_Y = 3;
 const FIXED_ASPECT = 1000 / 600;
 const CAMERA_FOV = 37;
-const GROUP_Z_OFFSET = -3;
 
 /* ==========================================================================
    UTILITY FUNCTIONS
@@ -204,6 +203,11 @@ function SlideCard({ item, index, totalSlides, radius }: SlideCardProps) {
   const angle = (index / totalSlides) * Math.PI * 2;
   const x = radius * Math.sin(angle);
   const z = radius * Math.cos(angle);
+  
+  // Calculate rotation to face INWARD toward the camera at the cylinder center.
+  // Adding Math.PI flips the card so its front face (+Z) points toward the origin,
+  // allowing the camera inside the cylinder to see the card faces.
+  const rotationY = angle + Math.PI;
 
   // Apply curvature to geometries on mount
   useEffect(() => {
@@ -222,8 +226,7 @@ function SlideCard({ item, index, totalSlides, radius }: SlideCardProps) {
     <group
       ref={groupRef}
       position={[x, 0, z]}
-      // Look at center (0, 0, 0) - card faces inward
-      onUpdate={(self) => self.lookAt(0, 0, 0)}
+      rotation={[0, rotationY, 0]}
     >
       {/* Main image card */}
       <mesh>
@@ -267,6 +270,7 @@ function SlideCard({ item, index, totalSlides, radius }: SlideCardProps) {
 interface CarouselGroupProps {
   items: NayaCarouselItem[];
   radius: number;
+  groupZOffset: number;
   targetRotationYRef: React.MutableRefObject<number>;
   isDraggingRef: React.MutableRefObject<boolean>;
   autoRotate: boolean;
@@ -277,6 +281,7 @@ interface CarouselGroupProps {
 function CarouselGroup({
   items,
   radius,
+  groupZOffset,
   targetRotationYRef,
   isDraggingRef,
   autoRotate,
@@ -310,7 +315,7 @@ function CarouselGroup({
   });
 
   return (
-    <group ref={groupRef} position={[0, 0, GROUP_Z_OFFSET]}>
+    <group ref={groupRef} position={[0, 0, groupZOffset]}>
       {items.map((item, index) => (
         <Suspense key={item.id} fallback={null}>
           <SlideCard
@@ -420,6 +425,7 @@ function applyWaveEffect(
 interface CarouselSceneProps {
   items: NayaCarouselItem[];
   radius: number;
+  groupZOffset: number;
   autoRotate: boolean;
   autoRotateSpeed: number;
   enableDrag: boolean;
@@ -434,6 +440,7 @@ interface CarouselSceneProps {
 function CarouselScene({
   items,
   radius,
+  groupZOffset,
   autoRotate,
   autoRotateSpeed,
   enableDrag,
@@ -493,6 +500,7 @@ function CarouselScene({
     <CarouselGroup
       items={items}
       radius={radius}
+      groupZOffset={groupZOffset}
       targetRotationYRef={targetRotationYRef}
       isDraggingRef={isDraggingRef}
       autoRotate={autoRotate}
@@ -549,6 +557,11 @@ export function NayaCarousel({
   // Calculate radius based on slide count
   const radius = useMemo(() => calculateRadius(normalizedItems.length), [normalizedItems.length]);
 
+  // Place the camera at the center of the cylinder (groupZOffset = 0)
+  // This way, cards wrap around the camera and only those in front are visible.
+  // Cards "behind" the camera are naturally outside the view frustum.
+  const groupZOffset = 0;
+
   // Refs for animation state (using refs to avoid re-renders)
   const targetRotationYRef = useRef(0);
   const isDraggingRef = useRef(false);
@@ -599,6 +612,7 @@ export function NayaCarousel({
           <CarouselScene
             items={normalizedItems}
             radius={radius}
+            groupZOffset={groupZOffset}
             autoRotate={autoRotate}
             autoRotateSpeed={autoRotateSpeedForScene}
             enableDrag={enableDrag}
