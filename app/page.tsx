@@ -1,4 +1,5 @@
 import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, CircleIndicator, TestimonialCard } from "@/components";
+import { NayaCarousel } from "@/components/carousel/NayaCarousel";
 import ContactForm from "@/components/ContactForm";
 import AnimatedSectionHeader from "@/components/elements/AnimatedSectionHeader";
 import Button from "@/components/elements/Button";
@@ -182,11 +183,40 @@ export default function Home() {
           <div key={index}>
             <BannerMedium content={item} ornateLetters="oc" alternateLetters="q" />
           </div>
-        ))}
-        {/* TODO Implement Three 3D Circular Carousel */}
-        <div className="w-full h-[90vh] bg-red-700 my-24 -mx-8 px-0" />
-       
+        ))}     
       </section>
+      <div>
+        <NayaCarousel items={[
+          {
+            id: '1',
+            image: '/assets/images/pcards/pcard-audiovisual.jpg',
+            title: 'Audiovisual y Contenido Digital',
+            year: '2024',
+            href: '/portfolio/audiovisual-y-contenido-digital',
+          },
+          {
+            id: '2',
+            image: '/assets/images/pcards/pcard-escenicos.jpg',
+            title: 'Espectáculos y Producción Escénica',
+            year: '2024',
+            href: '/portfolio/espectaculos-y-produccion-escenica',
+          },
+          {
+            id: '3',
+            image: '/assets/images/pcards/pcard-corporativos.jpg',
+            title: 'Eventos Corporativos',
+            year: '2024',
+            href: '/portfolio/eventos-corporativos',
+          },
+          {
+            id: '4',
+            image: '/assets/images/pcards/pcard-entertainment.jpg',
+            title: 'Entertainment y Gran Formato',
+            year: '2024',
+            href: '/portfolio/entertainment-y-gran-formato',
+          },
+        ]} />
+      </div>
       {
         //> Section - Benefits
       }

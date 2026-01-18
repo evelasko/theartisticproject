@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState, useCallback, useMemo, Suspense } from "react";
+import { useRef, useState, useCallback, useMemo, useEffect, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Image, useTexture } from "@react-three/drei";
+import { useTexture } from "@react-three/drei";
 import { easing } from "maath";
 import * as THREE from "three";
 import clsx from "clsx";
@@ -46,7 +46,7 @@ interface CarouselCardProps {
   index: number;
   total: number;
   radius: number;
-  rotation: number;
+  targetRotation: number;
   activeIndex: number;
   onSelect: (index: number) => void;
 }
@@ -54,7 +54,6 @@ interface CarouselCardProps {
 interface CarouselGroupProps {
   items: CarouselItem[];
   radius: number;
-  rotation: number;
   targetRotation: number;
   activeIndex: number;
   onSelect: (index: number) => void;
@@ -110,12 +109,12 @@ function CarouselCard({
   index,
   total,
   radius,
-  rotation,
+  targetRotation,
   activeIndex,
   onSelect,
 }: CarouselCardProps) {
   const meshRef = useRef<THREE.Mesh>(null);
-  const { position, rotationY } = getCardTransform(index, total, radius, rotation);
+  const currentRotation = useRef(targetRotation);
   
   // Calculate distance from front for scaling/opacity
   const isActive = index === activeIndex;
@@ -130,7 +129,15 @@ function CarouselCard({
   const targetOpacity = isActive ? 1 : Math.max(0.4, 1 - distanceFromActive * 0.2);
 
   useFrame((_, delta) => {
+    // Animate rotation
+    easing.damp(currentRotation, "current", targetRotation, 0.25, delta);
+    
     if (meshRef.current) {
+      // Update position and rotation based on animated value
+      const { position, rotationY } = getCardTransform(index, total, radius, currentRotation.current);
+      meshRef.current.position.set(...position);
+      meshRef.current.rotation.y = rotationY;
+      
       // Smooth scale interpolation
       easing.damp3(
         meshRef.current.scale,
@@ -140,6 +147,9 @@ function CarouselCard({
       );
     }
   });
+
+  // Initial position (immediately updated by useFrame)
+  const { position, rotationY } = getCardTransform(index, total, radius, targetRotation);
 
   return (
     <mesh
@@ -179,23 +189,12 @@ function ImageMaterial({ url, opacity }: { url: string; opacity: number }) {
 function CarouselGroup({
   items,
   radius,
-  rotation,
   targetRotation,
   activeIndex,
   onSelect,
 }: CarouselGroupProps) {
-  const groupRef = useRef<THREE.Group>(null);
-  const currentRotation = useRef(rotation);
-
-  useFrame((_, delta) => {
-    if (groupRef.current) {
-      // Smooth rotation interpolation
-      easing.damp(currentRotation, "current", targetRotation, 0.25, delta);
-    }
-  });
-
   return (
-    <group ref={groupRef}>
+    <group>
       {items.map((item, index) => (
         <CarouselCard
           key={item.id}
@@ -203,7 +202,7 @@ function CarouselGroup({
           index={index}
           total={items.length}
           radius={radius}
-          rotation={currentRotation.current}
+          targetRotation={targetRotation}
           activeIndex={activeIndex}
           onSelect={onSelect}
         />
@@ -219,7 +218,6 @@ function CarouselGroup({
 interface CarouselSceneProps {
   items: CarouselItem[];
   radius: number;
-  rotation: number;
   targetRotation: number;
   activeIndex: number;
   onSelect: (index: number) => void;
@@ -230,7 +228,6 @@ interface CarouselSceneProps {
 function CarouselScene({
   items,
   radius,
-  rotation,
   targetRotation,
   activeIndex,
   onSelect,
@@ -281,7 +278,6 @@ function CarouselScene({
       <CarouselGroup
         items={items}
         radius={radius}
-        rotation={rotation}
         targetRotation={targetRotation}
         activeIndex={activeIndex}
         onSelect={onSelect}
@@ -363,14 +359,12 @@ export function Carousel3D({
   radius: radiusProp = "auto",
   enableDrag = true,
   enableWheel = true,
-  friction = 0.9,
+  // friction = 0.9,
   onSlideChange,
   className,
 }: Carousel3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [rotation, setRotation] = useState(0);
   const [targetRotation, setTargetRotation] = useState(0);
-  const velocityRef = useRef(0);
   const lastActiveIndexRef = useRef(0);
 
   // Calculate radius
@@ -384,7 +378,7 @@ export function Carousel3D({
   }, [targetRotation, items.length]);
 
   // Notify on slide change
-  useMemo(() => {
+  useEffect(() => {
     if (activeIndex !== lastActiveIndexRef.current) {
       lastActiveIndexRef.current = activeIndex;
       onSlideChange?.(activeIndex);
@@ -393,7 +387,6 @@ export function Carousel3D({
 
   // Handle drag
   const handleDrag = useCallback((deltaX: number) => {
-    velocityRef.current = deltaX;
     setTargetRotation((prev) => prev + deltaX);
   }, []);
 
@@ -453,7 +446,7 @@ export function Carousel3D({
       onWheel={handleWheel}
     >
       {/* 3D Canvas */}
-      <div className="aspect-[16/10] w-full">
+      <div className="aspect-16/10 w-full">
         <Canvas
           camera={{
             position: [0, 0, 6],
@@ -468,7 +461,6 @@ export function Carousel3D({
             <CarouselScene
               items={items}
               radius={radius}
-              rotation={rotation}
               targetRotation={targetRotation}
               activeIndex={activeIndex}
               onSelect={handleSelect}
