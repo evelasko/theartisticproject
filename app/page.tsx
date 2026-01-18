@@ -8,6 +8,37 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 
+const carouselItems = [
+  {
+    id: '1',
+    image: '/assets/images/pcards/pcard-audiovisual.jpg',
+    title: 'Audiovisual y Contenido Digital',
+    year: '2024',
+    href: '/portfolio/audiovisual-y-contenido-digital',
+  },
+  {
+    id: '2',
+    image: '/assets/images/pcards/pcard-escenicos.jpg',
+    title: 'Espectáculos y Producción Escénica',
+    year: '2024',
+    href: '/portfolio/espectaculos-y-produccion-escenica',
+  },
+  {
+    id: '3',
+    image: '/assets/images/pcards/pcard-corporativos.jpg',
+    title: 'Eventos Corporativos',
+    year: '2024',
+    href: '/portfolio/eventos-corporativos',
+  },
+  {
+    id: '4',
+    image: '/assets/images/pcards/pcard-entertainment.jpg',
+    title: 'Entertainment y Gran Formato',
+    year: '2024',
+    href: '/portfolio/entertainment-y-gran-formato',
+  },
+];
+
 export default function Home() {
   return (
     <main>
@@ -185,37 +216,31 @@ export default function Home() {
           </div>
         ))}     
       </section>
-      <div className="mb-32 mt-24 md:mt-0">
-        <NayaCarousel items={[
-          {
-            id: '1',
-            image: '/assets/images/pcards/pcard-audiovisual.jpg',
-            title: 'Audiovisual y Contenido Digital',
-            year: '2024',
-            href: '/portfolio/audiovisual-y-contenido-digital',
-          },
-          {
-            id: '2',
-            image: '/assets/images/pcards/pcard-escenicos.jpg',
-            title: 'Espectáculos y Producción Escénica',
-            year: '2024',
-            href: '/portfolio/espectaculos-y-produccion-escenica',
-          },
-          {
-            id: '3',
-            image: '/assets/images/pcards/pcard-corporativos.jpg',
-            title: 'Eventos Corporativos',
-            year: '2024',
-            href: '/portfolio/eventos-corporativos',
-          },
-          {
-            id: '4',
-            image: '/assets/images/pcards/pcard-entertainment.jpg',
-            title: 'Entertainment y Gran Formato',
-            year: '2024',
-            href: '/portfolio/entertainment-y-gran-formato',
-          },
-        ]} />
+      {/* Desktop Carousel */}
+      <div className="mb-32 mt-24 md:mt-24 lg:mt-0 hidden md:block">
+        <NayaCarousel 
+          items={carouselItems}
+          // Desktop: wider view, more cards visible
+          aspectRatio={16 / 11}
+          minCards={14}
+          gapFactor={0.04}
+          cardDistance={4.5}
+          cardWidth={2.0}
+          cameraFov={45}
+        />
+      </div>
+      {/* Mobile Carousel */}
+      <div className="mb-16 mt-12 block md:hidden">
+        <NayaCarousel 
+          items={carouselItems}
+          // Mobile: taller canvas, bigger cards, fewer visible
+          aspectRatio={9 / 14}
+          minCards={10}
+          gapFactor={0.04}
+          cardDistance={3.5}
+          cardWidth={2.5}
+          cameraFov={55}
+        />
       </div>
       {
         //> Section - Benefits

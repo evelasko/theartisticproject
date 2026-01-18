@@ -31,6 +31,20 @@ export interface NayaCarouselProps {
   onSlideChange?: (index: number) => void;
   /** Additional CSS classes */
   className?: string;
+  
+  // Layout configuration props
+  /** Canvas aspect ratio - lower = taller (default: 16/11) */
+  aspectRatio?: number;
+  /** Minimum number of cards in the carousel (default: 8) */
+  minCards?: number;
+  /** Gap between cards as fraction of card width (default: 0.25) */
+  gapFactor?: number;
+  /** Distance of cards from camera (default: 4.5) */
+  cardDistance?: number;
+  /** Card width in 3D units (default: 2.0) */
+  cardWidth?: number;
+  /** Camera field of view in degrees (default: 45) */
+  cameraFov?: number;
 }
 
 /* ==========================================================================
@@ -39,11 +53,8 @@ export interface NayaCarouselProps {
 
 /** Actual image dimensions: 1022x1277 → aspect ratio ~0.8:1 (portrait) */
 const IMAGE_ASPECT_RATIO = 1022 / 1277; // ≈ 0.8
+/** Default card width in 3D units */
 const SLIDE_WIDTH = 2.0;
-const SLIDE_HEIGHT = SLIDE_WIDTH / IMAGE_ASPECT_RATIO; // ≈ 2.5
-const LABEL_HEIGHT = SLIDE_WIDTH * 0.15;
-const CURVATURE_FACTOR = 0.15;
-const LABEL_CURVATURE_FACTOR = SLIDE_WIDTH * 0.05;
 const GEOMETRY_SEGMENTS = 15;
 const LABEL_SEGMENTS_X = 8;
 const LABEL_SEGMENTS_Y = 3;
@@ -150,19 +161,6 @@ function createTextTexture(
   return texture;
 }
 
-/**
- * Calculate cylinder radius based on number of slides
- * Formula: circumference = slideWidth * totalSlides, radius = circumference / (2π)
- */
-function calculateRadius(slideCount: number): number {
-  // Each card takes up (width + gap) of arc length on the cylinder
-  const cardSpacing = SLIDE_WIDTH * (1 + GAP_FACTOR);
-  const circumference = cardSpacing * slideCount;
-  const calculatedRadius = circumference / (2 * Math.PI);
-  // Ensure minimum distance for comfortable viewing
-  return Math.max(calculatedRadius, TARGET_CARD_DISTANCE);
-}
-
 /* ==========================================================================
    SHARED TEXTURES - Lazy initialization for SSR compatibility
    ========================================================================== */
@@ -185,9 +183,25 @@ interface SlideCardProps {
   index: number;
   totalSlides: number;
   radius: number;
+  // Card dimensions
+  cardWidth: number;
+  cardHeight: number;
+  labelHeight: number;
+  curvatureFactor: number;
+  labelCurvatureFactor: number;
 }
 
-function SlideCard({ item, index, totalSlides, radius }: SlideCardProps) {
+function SlideCard({ 
+  item, 
+  index, 
+  totalSlides, 
+  radius,
+  cardWidth,
+  cardHeight,
+  labelHeight,
+  curvatureFactor,
+  labelCurvatureFactor,
+}: SlideCardProps) {
   const groupRef = useRef<THREE.Group>(null);
   const imageGeometryRef = useRef<THREE.PlaneGeometry>(null);
   const titleGeometryRef = useRef<THREE.PlaneGeometry>(null);
@@ -226,15 +240,15 @@ function SlideCard({ item, index, totalSlides, radius }: SlideCardProps) {
   // Apply curvature to geometries on mount
   useEffect(() => {
     if (imageGeometryRef.current) {
-      applyCurvatureToGeometry(imageGeometryRef.current, SLIDE_WIDTH, CURVATURE_FACTOR);
+      applyCurvatureToGeometry(imageGeometryRef.current, cardWidth, curvatureFactor);
     }
     if (titleGeometryRef.current) {
-      applyCurvatureToGeometry(titleGeometryRef.current, SLIDE_WIDTH, LABEL_CURVATURE_FACTOR);
+      applyCurvatureToGeometry(titleGeometryRef.current, cardWidth, labelCurvatureFactor);
     }
     if (yearGeometryRef.current) {
-      applyCurvatureToGeometry(yearGeometryRef.current, SLIDE_WIDTH, LABEL_CURVATURE_FACTOR);
+      applyCurvatureToGeometry(yearGeometryRef.current, cardWidth, labelCurvatureFactor);
     }
-  }, []);
+  }, [cardWidth, curvatureFactor, labelCurvatureFactor]);
 
   return (
     <group
@@ -246,7 +260,7 @@ function SlideCard({ item, index, totalSlides, radius }: SlideCardProps) {
       <mesh>
         <planeGeometry 
           ref={imageGeometryRef} 
-          args={[SLIDE_WIDTH, SLIDE_HEIGHT, GEOMETRY_SEGMENTS, GEOMETRY_SEGMENTS]} 
+          args={[cardWidth, cardHeight, GEOMETRY_SEGMENTS, GEOMETRY_SEGMENTS]} 
         />
         <meshBasicMaterial
           map={imageTexture}
@@ -257,19 +271,19 @@ function SlideCard({ item, index, totalSlides, radius }: SlideCardProps) {
       </mesh>
 
       {/* Title label (left-aligned, positioned below card) */}
-      <mesh position={[0.01, -SLIDE_HEIGHT / 2 - LABEL_HEIGHT / 4, -0.05]}>
+      <mesh position={[0.01, -cardHeight / 2 - labelHeight / 4, -0.05]}>
         <planeGeometry 
           ref={titleGeometryRef}
-          args={[SLIDE_WIDTH, LABEL_HEIGHT, LABEL_SEGMENTS_X, LABEL_SEGMENTS_Y]} 
+          args={[cardWidth, labelHeight, LABEL_SEGMENTS_X, LABEL_SEGMENTS_Y]} 
         />
         <meshBasicMaterial map={titleTexture} transparent />
       </mesh>
 
       {/* Year label (right-aligned, positioned below card) */}
-      <mesh position={[-0.01, -SLIDE_HEIGHT / 2 - LABEL_HEIGHT / 4, -0.05]}>
+      <mesh position={[-0.01, -cardHeight / 2 - labelHeight / 4, -0.05]}>
         <planeGeometry 
           ref={yearGeometryRef}
-          args={[SLIDE_WIDTH, LABEL_HEIGHT, LABEL_SEGMENTS_X, LABEL_SEGMENTS_Y]} 
+          args={[cardWidth, labelHeight, LABEL_SEGMENTS_X, LABEL_SEGMENTS_Y]} 
         />
         <meshBasicMaterial map={yearTexture} transparent />
       </mesh>
@@ -290,6 +304,12 @@ interface CarouselGroupProps {
   autoRotate: boolean;
   autoRotateSpeed: number;
   dragVelocityRef: React.MutableRefObject<number>;
+  // Card dimensions
+  cardWidth: number;
+  cardHeight: number;
+  labelHeight: number;
+  curvatureFactor: number;
+  labelCurvatureFactor: number;
 }
 
 function CarouselGroup({
@@ -301,6 +321,11 @@ function CarouselGroup({
   autoRotate,
   autoRotateSpeed,
   dragVelocityRef,
+  cardWidth,
+  cardHeight,
+  labelHeight,
+  curvatureFactor,
+  labelCurvatureFactor,
 }: CarouselGroupProps) {
   const groupRef = useRef<THREE.Group>(null);
   const waveTimeRef = useRef(0);
@@ -337,6 +362,11 @@ function CarouselGroup({
             index={index}
             totalSlides={items.length}
             radius={radius}
+            cardWidth={cardWidth}
+            cardHeight={cardHeight}
+            labelHeight={labelHeight}
+            curvatureFactor={curvatureFactor}
+            labelCurvatureFactor={labelCurvatureFactor}
           />
         </Suspense>
       ))}
@@ -449,6 +479,12 @@ interface CarouselSceneProps {
   previousXRef: React.MutableRefObject<number>;
   onDragStart: () => void;
   onDragEnd: () => void;
+  // Card dimensions
+  cardWidth: number;
+  cardHeight: number;
+  labelHeight: number;
+  curvatureFactor: number;
+  labelCurvatureFactor: number;
 }
 
 function CarouselScene({
@@ -464,6 +500,11 @@ function CarouselScene({
   previousXRef,
   onDragStart,
   onDragEnd,
+  cardWidth,
+  cardHeight,
+  labelHeight,
+  curvatureFactor,
+  labelCurvatureFactor,
 }: CarouselSceneProps) {
   const { gl } = useThree();
 
@@ -520,6 +561,11 @@ function CarouselScene({
       autoRotate={autoRotate}
       autoRotateSpeed={autoRotateSpeed}
       dragVelocityRef={dragVelocityRef}
+      cardWidth={cardWidth}
+      cardHeight={cardHeight}
+      labelHeight={labelHeight}
+      curvatureFactor={curvatureFactor}
+      labelCurvatureFactor={labelCurvatureFactor}
     />
   );
 }
@@ -551,12 +597,25 @@ export function NayaCarousel({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onSlideChange,
   className,
+  // Layout configuration with defaults
+  aspectRatio = FIXED_ASPECT,
+  minCards = MIN_CARDS,
+  gapFactor = GAP_FACTOR,
+  cardDistance = TARGET_CARD_DISTANCE,
+  cardWidth = SLIDE_WIDTH,
+  cameraFov = CAMERA_FOV,
 }: NayaCarouselProps) {
+  // Calculate derived dimensions based on cardWidth
+  const cardHeight = cardWidth / IMAGE_ASPECT_RATIO;
+  const labelHeight = cardWidth * 0.15;
+  const curvatureFactor = cardWidth * 0.075;
+  const labelCurvatureFactor = cardWidth * 0.05;
+
   // Ensure minimum cards for smooth carousel by duplicating if needed
   const normalizedItems = useMemo(() => {
     let slideItems = [...items];
-    // Keep duplicating until we have at least MIN_CARDS
-    while (slideItems.length < MIN_CARDS) {
+    // Keep duplicating until we have at least minCards
+    while (slideItems.length < minCards) {
       slideItems = [...slideItems, ...items];
     }
     // Ensure unique IDs
@@ -564,10 +623,15 @@ export function NayaCarousel({
       ...item,
       id: `${item.id}-${index}`,
     }));
-  }, [items]);
+  }, [items, minCards]);
 
-  // Calculate radius based on slide count
-  const radius = useMemo(() => calculateRadius(normalizedItems.length), [normalizedItems.length]);
+  // Calculate radius based on slide count and configuration
+  const radius = useMemo(() => {
+    const cardSpacing = cardWidth * (1 + gapFactor);
+    const circumference = cardSpacing * normalizedItems.length;
+    const calculatedRadius = circumference / (2 * Math.PI);
+    return Math.max(calculatedRadius, cardDistance);
+  }, [normalizedItems.length, cardWidth, gapFactor, cardDistance]);
 
   // Place the camera at the center of the cylinder (groupZOffset = 0)
   // This way, cards wrap around the camera and only those in front are visible.
@@ -599,15 +663,15 @@ export function NayaCarousel({
         "relative w-full carousel-3d-container",
         className
       )}
-      style={{ aspectRatio: `${FIXED_ASPECT}` }}
+      style={{ aspectRatio: `${aspectRatio}` }}
     >
       <Canvas
         camera={{
           position: [0, 0, 0],
-          fov: CAMERA_FOV,
+          fov: cameraFov,
           near: 0.1,
           far: 1000,
-          aspect: FIXED_ASPECT,
+          aspect: aspectRatio,
         }}
         gl={{
           antialias: true,
@@ -634,6 +698,11 @@ export function NayaCarousel({
             previousXRef={previousXRef}
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
+            cardWidth={cardWidth}
+            cardHeight={cardHeight}
+            labelHeight={labelHeight}
+            curvatureFactor={curvatureFactor}
+            labelCurvatureFactor={labelCurvatureFactor}
           />
         </Suspense>
       </Canvas>
