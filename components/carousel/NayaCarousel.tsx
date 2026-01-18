@@ -34,19 +34,30 @@ export interface NayaCarouselProps {
 }
 
 /* ==========================================================================
-   CONSTANTS - Matching original naya-carousel.js
+   CONSTANTS
    ========================================================================== */
 
-const SLIDE_WIDTH = 2.31;
-const SLIDE_HEIGHT = SLIDE_WIDTH * 1.22;
-const LABEL_HEIGHT = SLIDE_WIDTH * 0.17;
-const CURVATURE_FACTOR = 0.2;
-const LABEL_CURVATURE_FACTOR = SLIDE_WIDTH * 0.066;
+/** Actual image dimensions: 1022x1277 → aspect ratio ~0.8:1 (portrait) */
+const IMAGE_ASPECT_RATIO = 1022 / 1277; // ≈ 0.8
+const SLIDE_WIDTH = 2.0;
+const SLIDE_HEIGHT = SLIDE_WIDTH / IMAGE_ASPECT_RATIO; // ≈ 2.5
+const LABEL_HEIGHT = SLIDE_WIDTH * 0.15;
+const CURVATURE_FACTOR = 0.15;
+const LABEL_CURVATURE_FACTOR = SLIDE_WIDTH * 0.05;
 const GEOMETRY_SEGMENTS = 15;
 const LABEL_SEGMENTS_X = 8;
 const LABEL_SEGMENTS_Y = 3;
-const FIXED_ASPECT = 1000 / 600;
-const CAMERA_FOV = 37;
+
+/** Canvas aspect ratio - taller to accommodate portrait cards */
+const FIXED_ASPECT = 16 / 11;
+const CAMERA_FOV = 45;
+
+/** Gap between cards (as fraction of slide width) */
+const GAP_FACTOR = 0.04;
+/** Minimum number of cards for smooth carousel */
+const MIN_CARDS = 14;
+/** Target: cards should be at this distance from camera for comfortable viewing */
+const TARGET_CARD_DISTANCE = 4.5;
 
 /* ==========================================================================
    UTILITY FUNCTIONS
@@ -144,9 +155,12 @@ function createTextTexture(
  * Formula: circumference = slideWidth * totalSlides, radius = circumference / (2π)
  */
 function calculateRadius(slideCount: number): number {
-  const slideWidthWithGap = SLIDE_WIDTH * 1; // desiredGapFactor = 1
-  const circumference = slideWidthWithGap * slideCount;
-  return circumference / (2 * Math.PI);
+  // Each card takes up (width + gap) of arc length on the cylinder
+  const cardSpacing = SLIDE_WIDTH * (1 + GAP_FACTOR);
+  const circumference = cardSpacing * slideCount;
+  const calculatedRadius = circumference / (2 * Math.PI);
+  // Ensure minimum distance for comfortable viewing
+  return Math.max(calculatedRadius, TARGET_CARD_DISTANCE);
 }
 
 /* ==========================================================================
@@ -538,14 +552,12 @@ export function NayaCarousel({
   onSlideChange,
   className,
 }: NayaCarouselProps) {
-  // Ensure minimum 6 slides by duplicating if needed (matches original behavior)
+  // Ensure minimum cards for smooth carousel by duplicating if needed
   const normalizedItems = useMemo(() => {
     let slideItems = [...items];
-    if (slideItems.length < 6) {
-      slideItems = [...slideItems, ...slideItems];
-      if (slideItems.length < 6) {
-        slideItems = [...slideItems, ...slideItems.slice(0, 6 - slideItems.length)];
-      }
+    // Keep duplicating until we have at least MIN_CARDS
+    while (slideItems.length < MIN_CARDS) {
+      slideItems = [...slideItems, ...items];
     }
     // Ensure unique IDs
     return slideItems.map((item, index) => ({

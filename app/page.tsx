@@ -185,7 +185,7 @@ export default function Home() {
           </div>
         ))}     
       </section>
-      <div>
+      <div className="mb-32 mt-24 md:mt-0">
         <NayaCarousel items={[
           {
             id: '1',
