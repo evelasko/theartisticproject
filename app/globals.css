@@ -1719,19 +1719,19 @@ a {
    Contact Form Layout
    ------------------------------------------------------------------------- */
 
-/* Two-column grid layout */
+/* Mobile-first: Single column layout by default */
 .contact-form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4vw;
-  margin-bottom: 3vw;
+  grid-template-columns: 1fr;
+  gap: 5vw;
+  margin-bottom: 5vw;
 }
 
 /* Individual column */
 .contact-form-column {
   display: flex;
   flex-direction: column;
-  gap: 2vw;
+  gap: 3vw;
 }
 
 /* Submit button wrapper */
@@ -1740,9 +1740,22 @@ a {
   justify-content: flex-start;
 }
 
-/* Tablet: Reduce gap slightly */
-@media (max-width: 991px) {
+/* Mobile: Adjust spacing for smaller screens */
+@media (max-width: 767px) {
   .contact-form-grid {
+    gap: 6vw;
+    margin-bottom: 6vw;
+  }
+
+  .contact-form-column {
+    gap: 4vw;
+  }
+}
+
+/* Medium screens (tablet: 768px - 991px): Ensure single column */
+@media (min-width: 768px) and (max-width: 991px) {
+  .contact-form-grid {
+    grid-template-columns: 1fr;
     gap: 5vw;
     margin-bottom: 5vw;
   }
@@ -1752,16 +1765,39 @@ a {
   }
 }
 
-/* Mobile: Single column layout */
-@media (max-width: 767px) {
+/* Large screens only (≥992px): Two-column layout */
+@media (min-width: 992px) {
   .contact-form-grid {
-    grid-template-columns: 1fr;
-    gap: 6vw;
-    margin-bottom: 6vw;
+    grid-template-columns: 1fr 1fr;
+    gap: 4vw;
+    margin-bottom: 3vw;
+    align-items: stretch; /* Ensure columns stretch to fill height */
   }
 
   .contact-form-column {
-    gap: 4vw;
+    gap: 2vw;
+  }
+
+  /* Right column: Make TextArea wrapper fill available height */
+  .contact-form-column:last-child {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* TextArea wrapper fills remaining space in right column */
+  .contact-form-column:last-child .input-field-wrapper.is-textarea {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Allow flex shrinking */
+  }
+
+  /* TextArea fills its wrapper and respects container height */
+  .contact-form-column:last-child .input-field.is-textarea {
+    height: 100%;
+    min-height: 0; /* Override default min-height to allow flex shrinking */
+    resize: vertical; /* Allow vertical resize */
+    overflow-y: auto; /* Allow scrolling if content exceeds height */
   }
 }
 
@@ -2945,19 +2981,19 @@ a {
 @media (max-width: 991px) {
   .button-component {
     min-height: 4vw;
-    padding: 1.5vw 2vw 1.4vw 1.7vw;
-    border-radius: 2vw;
+    padding: 2.5vw 3vw 2.5vw 3vw;
+    border-radius: 4vw;
     font-size: 0.9vw;
     line-height: 1vw;
   }
   
   .button-component .button-content {
-    gap: 0.8vw;
+    gap: 1.2vw;
   }
   
   .button-component .button-text {
-    font-size: 0.9vw;
-    line-height: 1vw;
+    font-size: 1.4vw;
+    line-height: 1.4vw;
   }
   
   .button-component .link-arrow.is--right {

@@ -34,7 +34,7 @@ export default function PosterHero({
       {/* Logo - positioned absolutely on mobile/tablet, centered on desktop */}
       <div className="poster-hero__logo-wrapper">
         <div className="poster-hero__logo">
-          {/* Mobile/Tablet: 3 rows, left-aligned */}
+          {/* Logo - Mobile/Tablet: 3 rows, left-aligned */}
           <div className="poster-hero__logo-mobile">
             <div className="flex justify-start h-[16vw]">
               <BannerMedium content="The" ornateLetters="c" className="poster-hero__logo-text-mobile" />
@@ -47,7 +47,7 @@ export default function PosterHero({
             </div>
           </div>
           
-          {/* Desktop: 2 rows, centered */}
+          {/* Logo - Desktop: 2 rows, centered */}
           <div className="poster-hero__logo-desktop">
             <div className="flex justify-end">
               <BannerMedium content="The" ornateLetters="c" />

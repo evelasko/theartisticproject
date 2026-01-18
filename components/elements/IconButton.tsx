@@ -30,6 +30,8 @@ export interface IconButtonProps {
   /** Whether to open link in new tab */
   openInNewTab?: boolean;
 }
+// TODO: Review the background of this component and make it transparent while masking the underlying border animation
+// TODO: Review the border to make it slightly thicker in small and medium screens
 
 /**
  * IconButton component - A circular button with animated border effect on hover.

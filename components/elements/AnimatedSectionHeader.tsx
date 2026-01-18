@@ -22,6 +22,8 @@ interface AnimatedSectionHeaderProps {
   once?: boolean;
 }
 
+// TODO: Make lines closer to the star to avoid having the empty in between, making the star more integrated to the lines
+
 /**
  * AnimatedSectionHeader Component
  * 

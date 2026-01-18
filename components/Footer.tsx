@@ -9,13 +9,12 @@ export default function Footer() {
     <footer className="container-site">
 
         {/* Divider at the top */}
-        <div className="w-full h-px gradient-divider-centered mb-8" />
+        <div className="w-full h-px gradient-divider-centered mb-24" />
 
       {/* Row 1: Three columns that stack on small screens */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
         <div>
-          <TextSmall>The Artistic</TextSmall>
-          <TextSmall>Project</TextSmall>
+          <TextSmall>The<br />Artistic<br />Project</TextSmall>
         </div>
         <div>
           <TextLarge>+34 666666666</TextLarge>
@@ -26,7 +25,7 @@ export default function Footer() {
         </div>
       </div>
       {/* Row 2: Three columns that stack on small screens */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-24 items-end">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 my-24 items-end">
         <div>
           {/* Social Media Icon Buttons - using lg size for footer */}
           <IconButtonWrapper size="xl">
@@ -53,8 +52,8 @@ export default function Footer() {
             </IconButton>
           </IconButtonWrapper>
         </div>
-        <div className="flex items-center gap-2">
-          <TextSmall>© {new Date().getFullYear()} The Artistic Project. Todos los derechos reservados.</TextSmall>
+        <div className="flex items-center gap-2 mt-12 lg:mt-0">
+          <TextSmall className="text-[--color-text-secondary]">© {new Date().getFullYear()} The Artistic Project. Todos los derechos reservados.</TextSmall>
         </div>
         <div className="flex items-end justify-end gap-2">
           <TextSmallMuted>website by</TextSmallMuted>

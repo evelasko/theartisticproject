@@ -19,12 +19,12 @@ interface ContactFormData {
 /**
  * ContactForm Component
  * 
- * A contact form with a two-column grid layout that becomes single column on mobile.
+ * A contact form with a responsive grid layout that adapts to screen size.
  * Features TextField and TextArea components with animated underlines.
  * 
  * Layout:
- * - Desktop: 2 columns (name/email/phone on left, message on right)
- * - Mobile: 1 column (stacked vertically)
+ * - Large screens (≥992px): 2 columns (name/email/phone on left, message on right)
+ * - Small/Medium screens (<992px): 1 column (stacked vertically)
  * 
  * @example
  * ```tsx
@@ -76,9 +76,9 @@ export default function ContactForm({ onSubmit, className }: ContactFormProps) {
       onSubmit={handleSubmit} 
       className={className}
     >
-      {/* Two column grid: left column for name/email/phone, right column for message */}
+      {/* Responsive grid: 2 columns on large screens, 1 column on small/medium screens */}
       <div className="contact-form-grid">
-        {/* Left column: Personal info fields */}
+        {/* Personal info fields column */}
         <div className="contact-form-column">
           <TextField
             name="name"
@@ -107,7 +107,7 @@ export default function ContactForm({ onSubmit, className }: ContactFormProps) {
           />
         </div>
 
-        {/* Right column: Message field */}
+        {/* Message field column */}
         <div className="contact-form-column">
           <TextArea
             name="message"
@@ -122,7 +122,7 @@ export default function ContactForm({ onSubmit, className }: ContactFormProps) {
       </div>
 
       {/* Submit button */}
-      <div className="contact-form-submit">
+      <div className="contact-form-submit mt-24">
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Enviando..." : "Enviar propuesta"}
         </Button>

@@ -1,4 +1,4 @@
-import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, TextSmallMuted, CircleIndicator, TestimonialCard } from "@/components";
+import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, CircleIndicator, TestimonialCard } from "@/components";
 import ContactForm from "@/components/ContactForm";
 import AnimatedSectionHeader from "@/components/elements/AnimatedSectionHeader";
 import Button from "@/components/elements/Button";
@@ -10,7 +10,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main>
-      {/* Hero Section with golden glow */}
+      {
+        //> Section - Hero
+      }
       <section id="hero">
         <PosterHero imageSrc="/assets/images/poster-hero-2.jpg" imageAlt="Hero image" />
           {/* TODO scroll down indicator */}
@@ -44,6 +46,9 @@ export default function Home() {
         />
       </div> */}
       </section>
+      {
+        //> Section - Services
+      }
       <section id="services" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
         <div className="w-full flex items-center justify-center my-12">
           <AnimatedSectionHeader title="Servicios" topHeight="200px" bottomHeight="350px" />
@@ -84,7 +89,7 @@ export default function Home() {
               <div className="flex flex-row w-full lg:w-1/2 gap-6">
                 {/* Column 1: CircleIndicator + Capacidades */}
                 <div className="flex items-start gap-2 w-auto lg:w-auto">
-                  <CircleIndicator />
+                  <CircleIndicator animated className="mt-0.5 mr-2"/>
                   <TextSmall>Capacidades</TextSmall>
                 </div>
                 {/* Column 2: Description */}
@@ -111,7 +116,7 @@ export default function Home() {
        
           </div>
           
-          {/* Services Background Image 
+          {/* TODO Services Background Image 
               - Mobile/Tablet: Full-width block element below content (aspect 0.63)
               - Desktop (lg+): Absolute background layer pinned to right viewport edge
               - Image always shows full height, positioned from right, left side may overflow/clip
@@ -164,8 +169,11 @@ export default function Home() {
       <div className="w-full aspect-20/39 relative overflow-hidden">
         <Image src="/assets/images/divider-banner-1.jpg" alt="Divider image" fill className="w-full h-full object-cover" />
       </div>
+      {
+        //> Section - Portfolio
+      }
       <section id="portfolio" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
-      <AnimatedSectionHeader title="Portfolio" topHeight="200px" bottomHeight="150px" className="mb-32" />
+      <AnimatedSectionHeader title="Portfolio" topHeight="200px" bottomHeight="350px" className="mb-32" />
         {[
           'proyectos',
           'que hablan',
@@ -176,14 +184,20 @@ export default function Home() {
           </div>
         ))}
         {/* TODO Implement Three 3D Circular Carousel */}
+        <div className="w-full h-[90vh] bg-red-700 my-24 -mx-8 px-0" />
        
       </section>
+      {
+        //> Section - Benefits
+      }
       <section id="benefits" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
-        <div className="flex flex-col md:flex-row w-full gap-8">
+        <div className="flex flex-col ld:flex-row w-full gap-8">
           {/* Left Column */}
-          <div className="flex flex-col items-start md:w-1/4">
-            <div className="flex items-start gap-2">
-              <CircleIndicator />
+          <div className="flex flex-col items-start lg:w-1/4">
+            <div className="flex items-start gap-0">
+              <div className="aspect-square">
+                <CircleIndicator animated className="mt-0.5 mr-2" />
+              </div>
               <TextSmall>POR QUÉ ELEGIRNOS</TextSmall>
             </div>
           </div>
@@ -197,7 +211,8 @@ export default function Home() {
               <div key={index} className={clsx(
                 "w-full", 
                 index === 2 && "mt-4",
-                index > 1 && "ml-0 text-end md:hidden"
+                index > 1 && "ml-0 text-end lg:hidden",
+                index < 2 && "lg:ml-48"
                 )}>
                 <BannerMedium content={item} ornateLetters="oc" alternateLetters="q" />
               </div>
@@ -224,7 +239,7 @@ export default function Home() {
                 'mundos',
               ].map((item, index) => (
                 <div key={index} className={clsx(
-                  "w-full hidden md:block", 
+                  "w-full hidden lg:block", 
                   )}>
                   <BannerMedium content={item} ornateLetters="oc" alternateLetters="q" />
                 </div>
@@ -240,7 +255,7 @@ export default function Home() {
               title: 'ÉTICA Y CUIDADO',
               description: 'EL BIENESTAR DE LOS ARTISTAS NO ES NEGOCIABLE. TRABAJAMOS CON TRANSPARENCIA, COMUNICACIÓN FLUIDA Y RESPETO ABSOLUTO POR CADA PERSONA INVOLUCRADA',
             }].map((item, index) => (
-              <div key={index} className="flex items-start gap-4 mt-24">
+              <div key={index} className="flex items-start gap-4 mt-12">
                 {/* Number indicator column (hugs content) */}
                 <div className="shrink-0">
                   <TextSmall>{`0${index + 1}`}</TextSmall>
@@ -248,8 +263,24 @@ export default function Home() {
                 {/* Content column (full width) */}
                 <div className="flex flex-col flex-1 min-w-0">
                   <HeadingSmall content={item.title} ornateLetters="oócg" alternateLetters="q" />
-                  <div className="mt-8 w-2/3 md:w-1/2">
-                    <TextSmallMuted>{item.description}</TextSmallMuted>
+                  <div className="mt-4 w-2/3 md:w-full lg:w-1/2">
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-body)',
+                        color: 'var(--color-text-muted)',
+                        textTransform: 'uppercase',
+                        fontWeight: 400,
+                        lineHeight: '110.6%',
+                        fontSize: '14px',
+                      }}
+                      className="
+                        sm:text-[14px]
+                        md:text-[10px]
+                        lg:text-[16px]
+                      "
+                    >
+                      {item.description}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -258,9 +289,10 @@ export default function Home() {
         </div>
         {/* TODO Implement Testimonials Carousel */}
       </section>
-      {/* <section id="founder" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden"> */}
-        {/* TODO Ask if founder section content is needed */}
-      {/* </section> */}
+      <div className="w-full h-px gradient-divider-centered my-32" />
+      {
+      //> Section - Testimonials
+      }
       <section id="testimonials" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
         <div className="w-full my-24">
           {[
@@ -281,7 +313,7 @@ export default function Home() {
           ))}
         </div>
         {/* Testimonials Cards */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-16">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-6 my-16">
           <TestimonialCard
             name="Omar"
             role="Hospitality Brand Manager"
@@ -309,9 +341,11 @@ export default function Home() {
       </section>
       <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
         <div>
-          <AnimatedSectionHeader title="Contacto" topHeight="200px" bottomHeight="150px" className="mb-32" />
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-            <div className="flex-col items-center hidden md:flex w-1/3">
+          <div className="w-full flex items-center justify-center">
+            <AnimatedSectionHeader title="Contacto" topHeight="300px" bottomHeight="150px" className="mb-32" />
+          </div>
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div className="flex-col items-center hidden lg:flex w-1/3">
               <TextSmall>
                 ¿TIENES UN VIDEOCLIP, UN EVENTO CORPORATIVO, UN FESTIVAL O UN ESPECTÁCULO EN MENTE? CUÉNTANOS TU VISIÓN. NOSOTROS LA HACEMOS REALIDAD.
               </TextSmall>
