@@ -16,6 +16,13 @@ interface ContactFormData {
   message: string;
 }
 
+type FormStatus = "idle" | "submitting" | "success" | "error";
+
+interface FormState {
+  status: FormStatus;
+  message: string;
+}
+
 /**
  * ContactForm Component
  * 
@@ -26,15 +33,22 @@ interface ContactFormData {
  * - Large screens (≥992px): 2 columns (name/email/phone on left, message on right)
  * - Small/Medium screens (<992px): 1 column (stacked vertically)
  * 
+ * Features:
+ * - Validates form data client-side
+ * - Sends email via /api/contact endpoint using Resend
+ * - Shows success/error messages
+ * - Resets form after successful submission
+ * 
  * @example
  * ```tsx
- * <ContactForm onSubmit={async (data) => {
- *   await sendEmail(data);
- * }} />
+ * <ContactForm />
  * ```
  */
 export default function ContactForm({ onSubmit, className }: ContactFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formState, setFormState] = useState<FormState>({
+    status: "idle",
+    message: "",
+  });
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
@@ -45,31 +59,72 @@ export default function ContactForm({ onSubmit, className }: ContactFormProps) {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    if (isSubmitting) return;
+    if (formState.status === "submitting") return;
     
-    setIsSubmitting(true);
+    setFormState({ status: "submitting", message: "" });
     
     try {
       if (onSubmit) {
+        // If custom onSubmit handler is provided, use it
         await onSubmit(formData);
+        setFormState({
+          status: "success",
+          message: "¡Mensaje enviado con éxito! Te responderemos pronto.",
+        });
       } else {
-        // Default behavior: log to console
-        console.log("Form submitted:", formData);
+        // Default behavior: Send email via API
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || "Failed to send message");
+        }
+
+        // Success!
+        setFormState({
+          status: "success",
+          message: "¡Mensaje enviado con éxito! Te responderemos pronto.",
+        });
+        
+        // Reset form after successful submission
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setFormState({ status: "idle", message: "" });
+        }, 5000);
       }
-      
-      // Reset form after successful submission
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
-      });
     } catch (error) {
       console.error("Form submission error:", error);
-    } finally {
-      setIsSubmitting(false);
+      setFormState({
+        status: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Error al enviar el mensaje. Por favor, inténtalo de nuevo.",
+      });
+
+      // Clear error message after 5 seconds
+      setTimeout(() => {
+        setFormState({ status: "idle", message: "" });
+      }, 5000);
     }
   };
+
+  const isSubmitting = formState.status === "submitting";
+  const showMessage = formState.status === "success" || formState.status === "error";
 
   return (
     <form 
@@ -120,6 +175,20 @@ export default function ContactForm({ onSubmit, className }: ContactFormProps) {
           />
         </div>
       </div>
+
+      {/* Status message */}
+      {showMessage && (
+        <div
+          className={`mt-16 p-16 rounded-sm text-center transition-all duration-300 ${
+            formState.status === "success"
+              ? "bg-green-50 text-green-800 border border-green-200"
+              : "bg-red-50 text-red-800 border border-red-200"
+          }`}
+          role="alert"
+        >
+          {formState.message}
+        </div>
+      )}
 
       {/* Submit button */}
       <div className="contact-form-submit mt-24">
