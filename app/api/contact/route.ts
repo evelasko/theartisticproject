@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-// Initialize Resend with API key from environment variables
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Email configuration
 const EMAIL_CONFIG = {
   from: process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev", // Sender email
@@ -240,11 +237,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Initialize Resend with API key (done here to avoid build-time errors)
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     // Parse and validate request body
     let body;
     try {
       body = await request.json();
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         {
           success: false,
