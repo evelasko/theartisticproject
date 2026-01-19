@@ -7,6 +7,7 @@ import PosterHero from "@/components/heroes/PosterHero";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
+import ArrowRightUp from "@/components/icons/ArrowRightUp";
 
 const carouselItems = [
   {
@@ -49,6 +50,7 @@ export default function Home() {
         <PosterHero imageSrc="/assets/images/poster-hero-2.jpg" imageAlt="Hero image" />
           {/* TODO scroll down indicator */}
         <div id="below-the-fold" className="mt-32 w-full">
+          <div className="z-10 relative">
           {[
             'convertimos',
             'visiones',
@@ -63,20 +65,11 @@ export default function Home() {
               />
             </div>
           ))}
-          <div className="w-full aspect-31/30 relative overflow-hidden">
-            <Image src="/assets/images/feature-a.jpg" alt="Diamond" fill className="w-full h-full object-cover" />
+          </div>
+          <div className="w-full aspect-960/1531 relative overflow-hidden -mt-[32vw] lg:-mt-[35vw] z-2">
+            <Image src="/assets/images/feature-c.jpg" alt="Diamond" fill className="w-full h-full object-cover" />
           </div>
         </div>
-      {/* <div className="w-full aspect-31/30 relative overflow-hidden">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/assets/animations/blur-animation.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-      </div> */}
       </section>
       {
         //> Section - Services
@@ -174,28 +167,68 @@ export default function Home() {
             />
           </div>
         </div>
-        {/* TODO Implement cards and animation */}
-        <div id="services-cards" className="w-full flex flex-col md:flex-row justify-between items-stretch gap-8 my-24">
-          <div className="w-1/3">
-            <TextSmall className="pb-4">01</TextSmall>
-            <HeadingSmall content="Audiovisual y Contenido Digital" alternateLetters="q" />
-            <TextSmall className="pt-4">Videoclips, spots publicitarios y contenido para redes sociales. Dirección artística integral para pantallas que capturan.</TextSmall>
+        <div
+          id="services-cards"
+          className="relative w-full my-24"
+        >
+          <div 
+            className="absolute inset-0 w-screen lg:w-[calc(100%+3.125vw)] h-full -ml-[4.8vw] lg:ml-0 lg:hidden"
+            style={{ zIndex: 0 }}
+          >
+            <video
+              className="w-full h-full object-cover pointer-events-none"
+              src="/assets/animations/blur-animation.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+            />
           </div>
-          <div className="w-1/3">
-            <TextSmall className="pb-4">02</TextSmall>
-            <HeadingSmall content="Espectáculos y Producción Escénica" alternateLetters="q" />
-            <TextSmall className="pt-4">Dinner shows, cabaret, teatro y pasacalles. Experiencias en vivo que rompen la cuarta pared.</TextSmall>
-          </div>
-          <div className="w-1/3">
-            <TextSmall className="pb-4">03</TextSmall>
-            <HeadingSmall content="Eventos Corporativos" alternateLetters="q" />
-            <TextSmall className="pt-4">Activaciones de marca, team building artístico y experiencias de fidelización. El arte al servicio del negocio.</TextSmall>
+          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-18" style={{ zIndex: 1 }}>
+          {[
+            {
+              number: "01",
+              title: "Audiovisual y Contenido Digital",
+              description:
+                "Videoclips, spots publicitarios y contenido para redes sociales. Dirección artística integral para pantallas que capturan.",
+            },
+            {
+              number: "02",
+              title: "Espectáculos y Producción Escénica",
+              description:
+                "Dinner shows, cabaret, teatro y pasacalles. Experiencias en vivo que rompen la cuarta pared.",
+            },
+            {
+              number: "03",
+              title: "Eventos Corporativos",
+              description:
+                "Activaciones de marca, team building artístico y experiencias de fidelización. El arte al servicio del negocio.",
+            },
+            {
+              number: "04",
+              title: "Entertainment y Gran Formato",
+              description:
+                "Festivales y vida nocturna. Diseño de experiencias inmersivas para audiencias masivas.",
+            },
+          ].map((service) => (
+            <div key={service.number}>
+              <TextSmall className="pb-4">{service.number}</TextSmall>
+              <HeadingSmall content={service.title} alternateLetters="q" />
+              <TextSmall className="pt-4 text-(--color-text-secondary)">
+                {service.description}
+              </TextSmall>
+              <div className="flex justify-end mt-4 mr-12">
+                <ArrowRightUp className="h-8 w-8 fill-white" />
+              </div>
+            </div>
+          ))}
           </div>
         </div>
-        {/* TODO Implement Brands Grid */}
-        <div className="py-24">
+        {/* TODO: Implement Brands Grid */}
+        {/* <div className="py-24">
           <TextSmall className="text-center">Sony Music • Warner Music • Universal Music • Loewe • Diesel • Starlite Marbella • Grupo Kapital • Teatro Eslava</TextSmall>
-        </div>
+        </div> */}
       </section>
       {/* DIVIDER IMAGE */}
       <div className="w-full aspect-20/39 relative overflow-hidden">
@@ -205,7 +238,9 @@ export default function Home() {
         //> Section - Portfolio
       }
       <section id="portfolio" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
-      <AnimatedSectionHeader title="Portfolio" topHeight="200px" bottomHeight="350px" className="mb-32" />
+      <div className="w-screen -mt-[12vw] lg:-mt-[30vw]">
+        <AnimatedSectionHeader title="Portfolio" topHeight="200px" bottomHeight="350px" className="mb-32" />
+      </div>
         {[
           'proyectos',
           'que hablan',
@@ -394,6 +429,12 @@ export default function Home() {
           />
         </div>
       </section>
+      {
+        //> Section - Contact
+      }
+      <div className="w-full mt-32 md:mt-64 aspect-160/137 relative overflow-hidden">
+        <Image src="/assets/images/feature-d.jpg" alt="Contact banner" fill className="w-full object-cover" />
+      </div>
       <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center container-site overflow-hidden">
         <div>
           <div className="w-full flex items-center justify-center">
