@@ -1,13 +1,15 @@
-import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, CircleIndicator, TestimonialCard } from "@/components";
+import { BannerLarge, BannerMedium, HeadingSmall, TextSmall, CircleIndicator } from "@/components";
 import { NayaCarousel } from "@/components/carousel/NayaCarousel";
 import ContactForm from "@/components/ContactForm";
 import AnimatedSectionHeader from "@/components/elements/AnimatedSectionHeader";
 import Button from "@/components/elements/Button";
+import TestimonialSwiper from "@/components/elements/TestimonialSwiper";
 import PosterHero from "@/components/heroes/PosterHero";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import ArrowRightUp from "@/components/icons/ArrowRightUp";
+import LogoSlider from "@/components/elements/LogoSlider";
 
 const carouselItems = [
   {
@@ -37,6 +39,32 @@ const carouselItems = [
     title: 'Entertainment y Gran Formato',
     year: '2024',
     href: '/portfolio/entertainment-y-gran-formato',
+  },
+];
+
+const testimonials = [
+  {
+    name: "Omar",
+    role: "Hospitality Brand Manager",
+    quote: "Everything was delivered on time and with zero stress.",
+    testimonial: "We needed a clean, elegant setup for a private dinner. The team handled everything quietly and efficiently. The space looked sharp, exactly how we imagined it — no distractions, no noise, just quality.",
+    index: 1,
+    avatarSrc: "/assets/images/dev-placeholder-portrait.jpg",
+  },
+  {
+    name: "Layla",
+    role: "Event Producer",
+    quote: "They listen — and that shows in the result.",
+    testimonial: "We had a layered concept and limited time. They didn't overcomplicate anything. Just understood the direction, kept it clean, and delivered something that made sense visually and emotionally.",
+    index: 2,
+    avatarSrc: "/assets/images/dev-placeholder-landscape.jpg",
+  },
+  {
+    name: "Zain",
+    role: "Founder, Boutique Fashion Label",
+    quote: "They respected the tone of our brand completely.",
+    testimonial: "It's rare to work with a team that doesn't try to 'make it theirs.' The mood, the materials, the flow — it all felt aligned with what we stand for. Subtle, minimal, but with intention.",
+    index: 3,
   },
 ];
 
@@ -225,10 +253,48 @@ export default function Home() {
           ))}
           </div>
         </div>
-        {/* TODO: Implement Brands Grid */}
-        {/* <div className="py-24">
-          <TextSmall className="text-center">Sony Music • Warner Music • Universal Music • Loewe • Diesel • Starlite Marbella • Grupo Kapital • Teatro Eslava</TextSmall>
-        </div> */}
+        <div className="py-24">
+          {/* Desktop Logo Slider */}
+          <div className="hidden lg:block">
+            <LogoSlider
+            logoHeight={300}
+            speed={150}
+            rows={[{
+              logos: Array.from({ length: 10 }, (_, index) => ({
+                element: <Image src={`/assets/logos/logo-${String(index + 1).padStart(2, "0")}.png`} alt={`Logo ${String(index + 1).padStart(2, "0")}`} width={300} height={300} />,
+                width: 300,
+                height: 300,
+              })),
+              direction: "left",
+              speed: 150,
+            }]} />
+          </div>
+          {/* Mobile Logo Slider */}
+          <div className="block lg:hidden">
+            <LogoSlider
+            gap={1}
+            logoHeight={200}
+            speed={80}
+            rows={[{
+              logos: Array.from({ length: 5 }, (_, index) => ({
+                element: <Image src={`/assets/logos/logo-${String(index + 1).padStart(2, "0")}.png`} alt={`Logo ${String(index + 1).padStart(2, "0")}`} width={200} height={200} />,
+                width: 200,
+                height: 200,
+              })),
+              direction: "left",
+              speed: 80,
+            },
+            {
+              logos: Array.from({ length: 5 }, (_, index) => ({
+                element: <Image src={`/assets/logos/logo-${String(index + 5).padStart(2, "0")}.png`} alt={`Logo ${String(index + 1).padStart(2, "0")}`} width={200} height={200} />,
+                width: 200,
+                height: 200,
+              })),
+              direction: "right",
+              speed: 80,
+            }]} />
+          </div>
+        </div>
       </section>
       {/* DIVIDER IMAGE */}
       <div className="w-full aspect-20/39 relative overflow-hidden">
@@ -402,30 +468,13 @@ export default function Home() {
             </div>
           ))}
         </div>
-        {/* Testimonials Cards */}
-        <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-6 my-16">
-          <TestimonialCard
-            name="Omar"
-            role="Hospitality Brand Manager"
-            quote="Everything was delivered on time and with zero stress."
-            testimonial="We needed a clean, elegant setup for a private dinner. The team handled everything quietly and efficiently. The space looked sharp, exactly how we imagined it — no distractions, no noise, just quality."
-            index={1}
-            avatarSrc="/assets/images/dev-placeholder-portrait.jpg"
-          />
-          <TestimonialCard
-            name="Layla"
-            role="Event Producer"
-            quote="They listen — and that shows in the result."
-            testimonial="We had a layered concept and limited time. They didn't overcomplicate anything. Just understood the direction, kept it clean, and delivered something that made sense visually and emotionally."
-            index={2}
-            avatarSrc="/assets/images/dev-placeholder-landscape.jpg"
-          />
-          <TestimonialCard
-            name="Zain"
-            role="Founder, Boutique Fashion Label"
-            quote="They respected the tone of our brand completely."
-            testimonial="It's rare to work with a team that doesn't try to 'make it theirs.' The mood, the materials, the flow — it all felt aligned with what we stand for. Subtle, minimal, but with intention."
-            index={3}
+        {/* Testimonials Swiper */}
+        <div className="w-full my-16">
+          <TestimonialSwiper
+            testimonials={testimonials}
+            showNavigation={true}
+            showPagination={true}
+            autoplay={false}
           />
         </div>
       </section>

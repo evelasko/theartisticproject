@@ -45,6 +45,8 @@ export { Navbar } from "./navbar";
 
 // Element Components
 export { default as CircleIndicator } from "./elements/CircleIndicator";
+export { default as TestimonialSwiper } from "./elements/TestimonialSwiper";
+export type { TestimonialSwiperProps } from "./elements/TestimonialSwiper";
 
 // Card Components
 export { default as TestimonialCard } from "./cards/TestimonialCard";
